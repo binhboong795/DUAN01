@@ -1,9 +1,4 @@
 <?php
-
-
-
-$act=$_GET['act']??'/';
-match ($act) {
-
-};
+    require_once 'models/ConnectDatabase.php';
+    $conn = new ConnectDatabase();
 ?>
