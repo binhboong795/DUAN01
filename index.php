@@ -1,10 +1,6 @@
 <?php
-require_once 'commons/function.php';
 
+    require_once 'models/ConnectDatabase.php';
+    $conn = new ConnectDatabase();
 
-
-$act=$_GET['act']??'/';
-match ($act) {
-
-};
 ?>
