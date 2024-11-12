@@ -49,9 +49,8 @@
                         <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
                     </div>
                     <div class="top-link pe-2">
-                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                        <a href="?act=registerUser" class="text-white"><small class="text-white mx-2">Đăng Ký</small>/</a>
+                        <a href="#" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                     </div>
                 </div>
             </div>
@@ -64,8 +63,8 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="index.php" class="nav-item nav-link active">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="?act=shop" class="nav-item nav-link">Shop</a>
+                            <a href="?act=detail" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
