@@ -5,3 +5,6 @@
     <button type="submit" name="dangky">Đăng ký</button>
     <a href="?act=login">Đăng nhập</a>
 </form>
+<?php
+
+?>

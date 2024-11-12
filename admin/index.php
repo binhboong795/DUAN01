@@ -1,8 +1,12 @@
 <?php
     session_start();
-
-    $act = $_GET[''] ?? '/';
-    match ($act) {
+    require_once '../commons/function.php';
     
+
+    $act = $_GET['act'] ?? '/';
+    match ($act) {
+        '/'    => (new accController())-> login(),
+        
+         
     };
 ?>
