@@ -26,14 +26,13 @@
                             </form>
                         </div>
                         <div class="col-lg-5">
-                            <div class="d-flex p-4 rounded mb-4 bg-white">
-                                <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Address</h4>
-                                    <p class="mb-2">123 Street New York.USA</p>
+                            <!-- <div class="d-flex p-4 rounded mb-4 bg-white"> -->
+                                <!-- <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i> -->
+                                <div class="tao">
+                                   <img src="./assets/img/anhtao.jpg" alt="">
                                 </div>
-                            </div>
-                            <div class="d-flex p-4 rounded mb-4 bg-white">
+                            <!-- </div> -->
+                            <!-- <div class="d-flex p-4 rounded mb-4 bg-white">
                                 <i class="fas fa-envelope fa-2x text-primary me-4"></i>
                                 <div>
                                     <h4>Mail Us</h4>
@@ -46,7 +45,7 @@
                                     <h4>Telephone</h4>
                                     <p class="mb-2">(+012) 3456 7890</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
