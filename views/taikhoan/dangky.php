@@ -90,7 +90,7 @@ require_once 'views/header/headerContact.php';
                                     <p class="mb-2">0954835784</p>
                                 </div>
                             </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

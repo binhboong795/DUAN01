@@ -1,6 +1,6 @@
 <!-- Navbar start -->
 <?php
-session_start();
+// session_start();
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];  // Lấy thông tin người dùng từ session
 }
