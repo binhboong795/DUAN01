@@ -15,6 +15,10 @@ match ($act) {
     'testimonial' => (new homeController())->testimonial(),
     '404' => (new homeController())->error(),
     'chackout' => (new homeController())->chackout(),
+    'dangky' => (new homeController())->registerUser(),
+    'dangnhap' => (new homeController())->login(),
+    'dangxuat' => (new homeController())->logout(),
+    'test' => (new homeController())->test(),
 };
 
  

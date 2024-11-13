@@ -48,11 +48,13 @@
             } else {
                 $mUser = new homeModel();
                 $registerUser = $mUser->insertUser(null, $user, $pass, $email);
-                echo "Bạn đã đăng ký thành công!";
-                header('location:?act=dangnhap');
+                echo "<script>
+                alert('Đăng ký thành công!!!');
+                window.location.href='?act=dangnhap';
+                </script>";
             }
         }
-        include_once 'views/dangky.php';
+        require_once 'views/dangky.php';
     }
     
     function login() {
