@@ -22,10 +22,10 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="?act=/" class="nav-item nav-link ">Home</a>
-                            <a href="?act=shop" class="nav-item nav-link active">Shop</a>
+                            <a href="?act=shop" class="nav-item nav-link ">Shop</a>
                             <a href="" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     <a href="?act=cart" class="dropdown-item">Cart</a>
                                     <a href="?act=chackout" class="dropdown-item">Chackout</a>
