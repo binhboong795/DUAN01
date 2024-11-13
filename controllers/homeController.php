@@ -60,7 +60,6 @@
     
     function login() {
         // Include view
-        require_once 'views/dangnhap.php';
     
         if (isset($_POST['dangnhap'])) {
             $user = $_POST['user'];
@@ -75,6 +74,7 @@
                 echo "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không đúng";
             }
         }
+        require_once 'views/taikhoan/dangnhap.php';
     }
     
     function logout(){
