@@ -21,7 +21,7 @@
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                             <a href="?act=/" class="nav-item nav-link active">Home</a>
+                             <a href="?act=/" class="nav-item nav-link ">Home</a>
                             <a href="?act=shop" class="nav-item nav-link">Shop</a>
                             <a href="" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
