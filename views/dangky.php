@@ -4,7 +4,7 @@
     <input type="password" name="pass" placeholder="Mật khẩu">
     <input type="email" name="email" placeholder="Email">
     <button type="submit" name="dangky">Đăng ký</button>
-    <a href="?act=login">Đăng nhập</a>
+    <!-- <a href="?act=login">Đăng nhập</a> -->
 </form>
 <?php
 
