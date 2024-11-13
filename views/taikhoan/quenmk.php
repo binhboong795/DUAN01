@@ -1,5 +1,5 @@
 <?php require_once 'views/components/style.php';
-require_once 'views/header/headerContact.php';
+// require_once 'views/header/headerContact.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,37 +9,7 @@ require_once 'views/header/headerContact.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <style>
-        @keyframes bounceSlow {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            /* Vị trí ban đầu và không xoay */
-            filter: drop-shadow(1px 1px 10px #00FF00);
-            /* Bóng đổ lúc đầu */
-        }     
-
-        30% {
-            transform: translateY(-100px);
-            /* Xoay thêm khi quả táo rơi xuống */
-            filter: drop-shadow(1px 1px 10px #00FF66);
-        }
-        
-
-        100% {
-            transform: translateY(0) rotate(360deg);
-            /* Trở về vị trí ban đầu và xoay một vòng hoàn chỉnh */
-            filter: drop-shadow(1px 1px 10px #66FF99);
-            /* Bóng đổ lúc kết thúc */
-        }
-    }
-
-    .bouncing-slow-apple {
-        animation: bounceSlow 3s ease-in-out infinite;
-        /* Thời gian và hiệu ứng */
-        transition: box-shadow 0.3s ease;
-        /* Chuyển đổi mượt mà cho bóng đổ */
-    }
-    </style> -->
+    
 </head>
 
 <body>
@@ -49,7 +19,7 @@ require_once 'views/header/headerContact.php';
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="text-center mx-auto" style="max-width: 700px;">
-                            <h1 class="text-primary">Đăng Ký</h1>
+                            <h1 class="text-primary">Quên Mật Khẩu</h1>
                         </div>
                     </div>
                     <!-- <div class="col-lg-12">
@@ -61,11 +31,10 @@ require_once 'views/header/headerContact.php';
                         </div> -->
                     <div class="col-lg-7">
                         <form action="" method="post">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user" placeholder="Tên tài khoản">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass" placeholder="Mật khẩu">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email" placeholder="Email">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email" placeholder="Nhập email của bạn">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass" placeholder="Nhập mật khẩu mới của bạn">
                             <p style="color: red;"><?=$error?></p>
-                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit" name="dangky">Đăng ký</button>
+                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit" name="doimatkhau">Đổi Mật khẩu</button>
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
                     </div>
