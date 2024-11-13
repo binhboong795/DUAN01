@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once 'models/homeModel.php';
     class homeController{
     public $homeModel;
@@ -54,12 +55,11 @@
                 </script>";
             }
         }
-        require_once 'views/dangky.php';
+        require_once 'views/taikhoan/dangky.php';
     }
     
     function login() {
         // Include view
-        
     
         if (isset($_POST['dangnhap'])) {
             $user = $_POST['user'];
@@ -71,10 +71,10 @@
                 header('Location:index.php'); // Chuyển hướng về trang chủ
                 exit;
             } else {
-                echo "<p style='color: red;'>Đăng nhập thất bại! Tài khoản hoặc mật khẩu không đúng.</p>";
+                echo "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không đúng";
             }
         }
-        require_once 'views/dangnhap.php';
+        require_once 'views/taikhoan/dangnhap.php';
     }
     
     function logout(){

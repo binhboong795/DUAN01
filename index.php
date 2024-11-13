@@ -18,7 +18,6 @@ match ($act) {
     'dangky' => (new homeController())->registerUser(),
     'dangnhap' => (new homeController())->login(),
     'dangxuat' => (new homeController())->logout(),
-    'test' => (new homeController())->test(),
 };
 
  
