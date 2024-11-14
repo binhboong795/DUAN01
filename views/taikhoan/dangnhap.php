@@ -1,5 +1,5 @@
 <?php require_once 'views/components/style.php';
-require_once 'views/header/headerContact.php';
+require_once 'assets/header/headerLogin.php';
 ?>
 
 <div class="container-fluid contact py-5">
@@ -20,9 +20,16 @@ require_once 'views/header/headerContact.php';
                         </div> -->
                 <div class="col-lg-7">
                     <form action="" method="post">
-                        <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user" placeholder="Tên tài khoản">
-                        <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass" placeholder="Mật khẩu">
-                        <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit" name="dangnhap">Đăng Nhập</button>
+
+                        <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
+                            placeholder="Tên tài khoản">
+                        <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
+                            placeholder="Mật khẩu">
+                        <a href="index.php?act=quenmk">Quên mật khẩu</a>
+                        <p style="color: red;"><?= $error ?></p>
+                        <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+                            type="submit" name="dangnhap">Đăng Nhập</button>
+
                         <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                     </form>
                 </div>
@@ -54,5 +61,5 @@ require_once 'views/header/headerContact.php';
     </div>
 </div>
 <?php
-require_once 'views/footer.php';
+require_once 'assets/footer/footer.php';
 ?>

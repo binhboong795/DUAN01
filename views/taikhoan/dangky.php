@@ -1,5 +1,5 @@
 <?php require_once 'views/components/style.php';
-require_once 'views/header/headerContact.php';
+require_once 'assets/header/headerLogin.php';
 ?>
 
 <!DOCTYPE html>
@@ -61,35 +61,42 @@ require_once 'views/header/headerContact.php';
                         </div> -->
                     <div class="col-lg-7">
                         <form action="" method="post">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user" placeholder="Tên tài khoản">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass" placeholder="Mật khẩu">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email" placeholder="Email">
-                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit" name="dangky">Đăng ký</button>
+
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
+                                placeholder="Tên tài khoản">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
+                                placeholder="Mật khẩu">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
+                                placeholder="Email">
+                            <p style="color: red;"><?=$error?></p>
+                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+                                type="submit" name="dangky">Đăng ký</button>
+
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
                     </div>
                     <div class="col-lg-5">
-                            <div class="d-flex p-4 rounded mb-4 bg-white">
-                                <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Address</h4>
-                                    <p class="mb-2">Trường Cao Đẳng FPT Polytechnic</p>
-                                </div>
+                        <div class="d-flex p-4 rounded mb-4 bg-white">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
+                            <div>
+                                <h4>Address</h4>
+                                <p class="mb-2">Trường Cao Đẳng FPT Polytechnic</p>
                             </div>
-                            <div class="d-flex p-4 rounded mb-4 bg-white">
-                                <i class="fas fa-envelope fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Mail Us</h4>
-                                    <p class="mb-2">caodangfpt@fpt.edu.vn</p>
-                                </div>
+                        </div>
+                        <div class="d-flex p-4 rounded mb-4 bg-white">
+                            <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                            <div>
+                                <h4>Mail Us</h4>
+                                <p class="mb-2">caodangfpt@fpt.edu.vn</p>
                             </div>
-                            <div class="d-flex p-4 rounded bg-white">
-                                <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
-                                <div>
-                                    <h4>Telephone</h4>
-                                    <p class="mb-2">0954835784</p>
-                                </div>
+                        </div>
+                        <div class="d-flex p-4 rounded bg-white">
+                            <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                            <div>
+                                <h4>Telephone</h4>
+                                <p class="mb-2">0954835784</p>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,5 +106,5 @@ require_once 'views/header/headerContact.php';
 
 </html>
 <?php
-require_once 'views/footer.php';
+require_once 'assets/footer/footer.php';
 ?>
