@@ -35,5 +35,22 @@
             $sql="select * from taikhoan where user='$user' and pass='$pass'";
             return $this->conn->query($sql)->rowCount();
         }
+
+        function checkEmailExists($email)
+        {
+            $sql = "SELECT COUNT(*) FROM taikhoan WHERE email = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$email]);
+            $count = $stmt->fetchColumn();
+            return $count > 0; // Trả về true nếu tồn tại, false nếu không
+        }
+        
+        function updatePassword($email, $pass)
+            {
+                $sql = "UPDATE taikhoan SET pass = ? WHERE email = ?";
+                $stmt = $this->conn->prepare($sql);
+                return $stmt->execute([$pass, $email]);
+            }
+
     }
 ?>

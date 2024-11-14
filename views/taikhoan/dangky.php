@@ -61,14 +61,17 @@ require_once 'assets/header/headerLogin.php';
                         </div> -->
                     <div class="col-lg-7">
                         <form action="" method="post">
+
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
                                 placeholder="Tên tài khoản">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
                                 placeholder="Mật khẩu">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
                                 placeholder="Email">
+                            <p style="color: red;"><?=$error?></p>
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                                 type="submit" name="dangky">Đăng ký</button>
+
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
                     </div>

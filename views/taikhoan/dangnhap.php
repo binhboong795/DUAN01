@@ -20,18 +20,16 @@ require_once 'assets/header/headerLogin.php';
                         </div> -->
                 <div class="col-lg-7">
                     <form action="" method="post">
+
                         <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
                             placeholder="Tên tài khoản">
                         <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
                             placeholder="Mật khẩu">
+                        <a href="index.php?act=quenmk">Quên mật khẩu</a>
+                        <p style="color: red;"><?= $error ?></p>
                         <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                             type="submit" name="dangnhap">Đăng Nhập</button>
-                        <!-- Hiển thị lỗi dưới form đăng nhập nếu có -->
-                        <br />
-                        <br />
-                        <?php if (!empty($error)) : ?>
-                        <p style="color: red;"><?= $error ?></p>
-                        <?php endif; ?>
+
                         <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                     </form>
                 </div>
