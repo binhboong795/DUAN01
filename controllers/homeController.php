@@ -71,7 +71,8 @@
                 header('Location:index.php'); // Chuyển hướng về trang chủ
                 exit;
             } else {
-                echo "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không đúng";
+                $error = "Đăng nhập thất bại! <br />
+                Tài khoản hoặc mật khẩu không đúng, vui lòng nhập lại.";
             }
         }
         require_once 'views/taikhoan/dangnhap.php';
