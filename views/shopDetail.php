@@ -206,22 +206,27 @@
                                 </div>
                             </div>
                             <!-- php-->
-                            <form action="#">
+                            <?php
+                             $idpro=$_GET['id'];
+                             
+                             ?>
+                            <form action="?act=addComment&idpro=<?php echo $idpro ?>" method="post">
                                 <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                                 <div class="row g-4">
+                                <?php if(isset($_SESSION['user'])){   ?>
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
+                                            <span type="text" class="form-control border-0 me-4" placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                            <span type="email" class="form-control border-0" placeholder="Your Email *"><?php echo $_SESSION['user']['email'] ?></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -236,9 +241,10 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
+                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</button>
                                         </div>
                                     </div>
+                                    <?php } ?>
                                 </div>
                             </form>
                         </div>

@@ -2,7 +2,7 @@
 <?php
 // session_start();
 if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];  // Lấy thông tin người dùng từ session
+    $user = $_SESSION['user']['username'];  // Lấy thông tin người dùng từ session
 }
 ?>
 
