@@ -21,7 +21,7 @@
     <!-- Spinner End -->
 
 
-    <?php require_once 'views/header/headerHome.php'?>
+    <?php require_once 'assets/header/headerHome.php'?>
 
 
     <!-- Modal Search Start -->
@@ -1039,7 +1039,7 @@
     <!-- Tastimonial End -->
 
 
-    <?php require_once 'views/footer.php' ?>
+    <?php require_once 'assets/footer/footer.php' ?>
 
 
 
