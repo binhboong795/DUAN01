@@ -31,9 +31,16 @@
         }
 
         function checkAcc($user, $pass){
-            $pass=$pass;
+           
             $sql="select * from taikhoan where user='$user' and pass='$pass'";
-            return $this->conn->query($sql)->rowCount();
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetch();
+        }
+        function insertComment($id,$noidung,$iduser,$idpro,$ngaybinhluan) {
+            $sql = "INSERT INTO `binhluan`(id, noidung, iduser, idpro, ngaybinhluan) VALUES (?, ?, ?, ?,?)";
+            $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+            return $stmt->execute([$id,$noidung,$iduser,$idpro,$ngaybinhluan]);
         }
 
         function checkEmailExists($email)

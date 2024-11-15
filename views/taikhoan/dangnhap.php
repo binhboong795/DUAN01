@@ -26,7 +26,9 @@ require_once 'assets/header/headerLogin.php';
                         <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
                             placeholder="Mật khẩu">
                         <a href="index.php?act=quenmk">Quên mật khẩu</a>
+                        <?php if (!empty($error)) : ?>
                         <p style="color: red;"><?= $error ?></p>
+                        <?php endif; ?>
                         <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                             type="submit" name="dangnhap">Đăng Nhập</button>
 

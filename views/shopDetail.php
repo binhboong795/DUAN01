@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <?php include 'views/components/style.php'?>
+    <?php require_once 'views/components/style.php'?>
 
 </head>
 
@@ -96,8 +96,14 @@
                                     </button>
                                 </div>
                             </div>
+
                             <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+
+                            <!-- php-->
+
+
+
                         </div>
                         <div class="col-lg-12">
                             <nav>
@@ -226,25 +232,38 @@
                             </div>
                         </div>
                         <!-- php-->
-                        <form action="#">
+                        <?php
+                             $idpro=$_GET['id'];
+                             
+                             ?>
+                        <form action="?act=addComment&idpro=<?php echo $idpro ?>" method="post">
                             <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                             <div class="row g-4">
+                                <?php if(isset($_SESSION['user'])){   ?>
                                 <div class="col-lg-6">
                                     <div class="border-bottom rounded">
-                                        <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
+                                        <span type="text" class="form-control border-0 me-4"
+                                            placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="border-bottom rounded">
-                                        <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                        <span type="text" class="form-control border-0 me-4"
+                                            placeholder="Yur Name *"><?php echo $_SESSION['user']['email'] ?></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="border-bottom rounded my-4">
-                                        <textarea name="" id="" class="form-control border-0" cols="30" rows="8"
+                                        <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
                                             placeholder="Your Review *" spellcheck="false"></textarea>
                                     </div>
                                 </div>
+                                <div>
+                                    <?php if (!empty($errorCmt)) : ?>
+                                    <p style="color: red;"><?= $errorCmt ?></p>
+                                    <?php endif; ?>
+                                </div>
+
                                 <div class="col-lg-12">
                                     <div class="d-flex justify-content-between py-3 mb-5">
                                         <div class="d-flex align-items-center">
@@ -257,11 +276,12 @@
                                                 <i class="fa fa-star"></i>
                                             </div>
                                         </div>
-                                        <a href="#"
-                                            class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-                                            Post Comment</a>
+                                        <button type="submit"
+                                            class="btn border border-secondary text-primary rounded-pill px-4 py-3">Post
+                                            Comment</button>
                                     </div>
                                 </div>
+                                <?php } ?>
                             </div>
                         </form>
                     </div>
