@@ -120,7 +120,7 @@ if (isset($_SESSION['user'])) {
                 ?>
                 <!-- Hiển thị khi đã đăng nhập -->
                 <a class="text-white mx-2">
-                    Xin chào, <?php echo $user ?>
+                    Xin chào, <?php echo $_SESSION['user']['username'] ?>
                 </a>
                 <a class="text-white mx-2">|</a>
                 <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
