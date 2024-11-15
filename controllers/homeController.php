@@ -100,37 +100,36 @@ class homeController
         header('Location:index.php');
     }
 
-    function quenmk()
-{
-    $error = "";
-
-    if (isset($_POST["doimatkhau"])) {
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
-
-        // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
-        $mUser = new homeModel();
-        $userExists = $mUser->checkEmailExists($email); // Kiểm tra email
-
-        if ($email == "" || $pass == "") {
-            $error = "Vui lòng nhập đầy đủ thông tin!";
-        } elseif (!$userExists) {
-            $error = "Email không tồn tại!";
-        } else {
-            // Cập nhật mật khẩu mới
-            $updatePassword = $mUser->updatePassword($email, $pass);
-            if ($updatePassword) {
-                echo "<script>
-                        alert('Bạn đã thay đổi mật khẩu thành công!');
-                        window.location.href='?act=dangnhap';
-                    </script>";
-            } else {
-                $error = "Lỗi khi cập nhật mật khẩu!";
+    function quenmk() {
+        $error = "";
+    
+        if (isset($_POST['doimatkhau'])) {
+            $email = $_POST['email'];
+            $pass = $_POST['pass'];
+    
+            // Kiểm tra email có tồn tại trong cơ sở dữ liệu không
+            $mUser = new homeModel();
+            $checkemail = $mUser->checkEmail($email);
+    
+            if ($email == "" || $pass == "") {
+                $error = "Vui lòng nhập đầy đủ thông tin!";
+            }elseif (!$checkemail){
+                $error = "Email không tồn tại!";
+            }else {
+                // Cập nhật mật khẩu mới
+                $pass = $mUser->newpass($pass, $email);
+                if ($pass) {
+                    echo "<script>
+                            alert('Bạn đã thay đổi mật khẩu thành công!');
+                            window.location.href='?act=dangnhap';
+                        </script>";
+                } else {
+                    $error = "Lỗi khi cập nhật mật khẩu!";
+                }
             }
         }
+    
+        require_once 'views/taikhoan/quenmk.php';
     }
-
-    require_once 'views/taikhoan/quenmk.php'; // Giao diện để người dùng nhập thông tin
-}
-
+    
 }
