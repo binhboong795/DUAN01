@@ -37,10 +37,10 @@
             $stmt->execute();
             return $stmt->fetch();
         }
-        function insertComment($id,$noidung,$iduser,$idpro,$ngaybinhluan) {
-            $sql = "INSERT INTO `binhluan`(id, noidung, iduser, idpro, ngaybinhluan) VALUES (?, ?, ?, ?,?)";
+        function insertComment($id,$noidung,$iduser,$idpro,$ngaybinhluan,$rating) {
+            $sql = "INSERT INTO `binhluan`(id, noidung, iduser, idpro, ngaybinhluan,rating) VALUES (?, ?, ?, ?,?,?)";
             $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-            return $stmt->execute([$id,$noidung,$iduser,$idpro,$ngaybinhluan]);
+            return $stmt->execute([$id,$noidung,$iduser,$idpro,$ngaybinhluan,$rating]);
         }
 
         function checkEmailExists($email)
@@ -58,6 +58,19 @@
                 $stmt = $this->conn->prepare($sql);
                 return $stmt->execute([$pass, $email]);
             }
-
+            function getCommentById($id)
+            {
+             
+                $sql = "select taikhoan.user, binhluan.rating,binhluan.noidung ,binhluan.ngaybinhluan from `binhluan`
+                     join taikhoan on binhluan.iduser=taikhoan.id
+                     where binhluan.idpro= '$id'
+                     order by binhluan.ngaybinhluan desc";
+                   
+                $stmt = $this->conn->prepare($sql);
+              
+                $stmt->execute();
+                
+                return $stmt->fetchAll();
+            }
     }
 ?>

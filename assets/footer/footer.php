@@ -77,3 +77,34 @@
     </div>
 </div>
 <!-- Footer End -->
+<script>
+            document.querySelectorAll('.fa-star').forEach(star => {
+    star.addEventListener('mouseover', function() {
+        let rating = this.getAttribute('data-rating');
+        highlightStars(rating);
+    });
+
+    star.addEventListener('mouseout', function() {
+        let currentRating = document.querySelector('input[name="rating"]:checked')?.value;
+        highlightStars(currentRating || 0);
+    });
+
+    star.addEventListener('click', function() {
+        let rating = this.getAttribute('data-rating');
+        document.querySelector('input[name="rating"][value="'+rating+'"]').checked = true;
+        highlightStars(rating);
+    });
+});
+
+function highlightStars(rating) {
+    document.querySelectorAll('.fa-star').forEach(star => {
+        let starRating = star.getAttribute('data-rating');
+        if (starRating <= rating) {
+            star.style.color = 'gold'; // Màu sao đã chọn
+        } else {
+            star.style.color = 'gray'; // Màu sao chưa chọn
+        }
+    });
+}
+
+         </script>
