@@ -5,7 +5,7 @@ require_once 'controllers/homeController.php';
 require_once 'models/homeModel.php';
 
 
-$act=$_GET['act']??'/';
+$act = $_GET['act'] ?? '/';
 match ($act) {
     '/' => (new homeController())->home(),
     'shop' => (new homeController())->shop(),
@@ -19,9 +19,5 @@ match ($act) {
     'dangnhap' => (new homeController())->login(),
     'dangxuat' => (new homeController())->logout(),
     'quenmk' => (new homeController())->quenmk(),
-    'addComment'=>(new homeController())->addComment(),
-
+    'addComment' => (new homeController())->addComment(),
 };
-
- 
-?>

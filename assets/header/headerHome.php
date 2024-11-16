@@ -7,103 +7,101 @@ if (isset($_SESSION['user'])) {
 ?>
 <link rel="stylesheet" href="">
 <style>
-/* Định dạng cho nút tìm kiếm */
-.btn-search {
-    background-color: #ffffff;
-    /* Màu nền trắng */
-    border: 1px solid #6c757d;
-    /* Màu viền xám nhạt */
-    color: #0d6efd;
-    /* Màu của biểu tượng tìm kiếm (text-primary) */
-    width: 40px;
-    /* Kích thước nút */
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    /* Tạo hình tròn */
-    transition: all 0.3s ease;
-    /* Tạo hiệu ứng chuyển mượt */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Đổ bóng nhẹ */
-}
+    /* Định dạng cho nút tìm kiếm */
+    .btn-search {
+        background-color: #ffffff;
+        /* Màu nền trắng */
+        border: 1px solid #6c757d;
+        /* Màu viền xám nhạt */
+        color: #0d6efd;
+        /* Màu của biểu tượng tìm kiếm (text-primary) */
+        width: 40px;
+        /* Kích thước nút */
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        /* Tạo hình tròn */
+        transition: all 0.3s ease;
+        /* Tạo hiệu ứng chuyển mượt */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /* Đổ bóng nhẹ */
+    }
 
-/* Hiệu ứng khi di chuột vào nút */
-.btn-search:hover {
-    background-color: #0d6efd;
-    /* Thay đổi màu nền khi hover */
-    color: #ffffff;
-    /* Màu biểu tượng chuyển thành trắng */
-    border-color: #0d6efd;
-    /* Thay đổi màu viền */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Tăng đổ bóng khi hover */
-    transform: scale(1.1);
-    /* Tăng kích thước nhẹ */
-}
+    /* Hiệu ứng khi di chuột vào nút */
+    .btn-search:hover {
+        background-color: #0d6efd;
+        /* Thay đổi màu nền khi hover */
+        color: #ffffff;
+        /* Màu biểu tượng chuyển thành trắng */
+        border-color: #0d6efd;
+        /* Thay đổi màu viền */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Tăng đổ bóng khi hover */
+        transform: scale(1.1);
+        /* Tăng kích thước nhẹ */
+    }
 
-/* Định dạng cho biểu tượng tìm kiếm bên trong nút */
-.btn-search i {
-    font-size: 16px;
-    /* Kích thước biểu tượng */
-}
+    /* Định dạng cho biểu tượng tìm kiếm bên trong nút */
+    .btn-search i {
+        font-size: 16px;
+        /* Kích thước biểu tượng */
+    }
 
-/* Định dạng chung cho container tìm kiếm */
-/* Định dạng chung cho container tìm kiếm */
-/* Định dạng chung cho container tìm kiếm */
-.search-container {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    overflow: hidden;
-}
+    /* Định dạng chung cho container tìm kiếm */
+    /* Định dạng chung cho container tìm kiếm */
+    /* Định dạng chung cho container tìm kiếm */
+    .search-container {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        overflow: hidden;
+    }
 
-.search-container {
-    height: 50px;
-}
+    .search-container {
+        height: 50px;
+    }
 
-/* Định dạng cho nút tìm kiếm */
-.btn-search {
-    background-color: #ffffff;
-    border: 1px solid #6c757d;
-    color: #0d6efd;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
-}
+    /* Định dạng cho nút tìm kiếm */
 
-/* Định dạng cho input tìm kiếm - ẩn ban đầu */
-.search-input {
-    margin-right: 5px;
-    width: 0;
-    padding: 0;
-    border: 1px solid #6c757d;
-    border-radius: 20px;
-    transition: width 0.4s ease, padding 0.4s ease, transform 0.4s ease;
-    opacity: 0;
-    margin-left: 10px;
-    font-size: 14px;
-    color: #495057;
-    transform-origin: right;
-    transform: scaleX(0);
-    /* Bắt đầu từ kích thước 0 */
-}
 
-/* Khi container có focus */
-.search-container:focus-within .search-input {
-    width: 170px;
-    height: 40px;
-    /* Chiều rộng khi mở rộng */
-    padding: 10px 20px;
-    opacity: 1;
-    transform: scaleX(1);
-    /* Mở rộng từ phải sang trái */
-}
+    /* Định dạng cho input tìm kiếm - ẩn ban đầu */
+
+
+    /* Khi container có focus */
+    /*  */
+    .search-input {
+        margin-right: 4px;
+        width: 200px;
+        max-width: 300px;
+        /* Giới hạn chiều rộng */
+        height: 40px;
+        font-size: 16px;
+        color: #333;
+        background-color: #f9f9f9;
+        border: 2px solid #ddd;
+        border-radius: 15px;
+        /* Bo góc */
+        transition: all 0.3s ease-in-out;
+        /* Hiệu ứng mượt mà */
+
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Hiệu ứng đổ bóng */
+    }
+
+    .search-input:hover {
+        border-color: greenyellow;
+        /* Màu xanh nhạt khi hover */
+    }
+
+    .search-input:focus {
+        border-color: #007bff;
+        /* Màu xanh đậm khi nhấp */
+        box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+        /* Hiệu ứng bóng */
+        background-color: #fff;
+    }
 </style>
 <div class="container-fluid fixed-top">
     <div class="container topbar bg-primary d-none d-lg-block">
@@ -118,17 +116,17 @@ if (isset($_SESSION['user'])) {
                 <?php
                 if (isset($_SESSION['user'])) {
                 ?>
-                <!-- Hiển thị khi đã đăng nhập -->
-                <a class="text-white mx-2">
-                    Xin chào, <?php echo $_SESSION['user']['username'] ?>
-                </a>
-                <a class="text-white mx-2">|</a>
-                <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
+                    <!-- Hiển thị khi đã đăng nhập -->
+                    <a class="text-white mx-2">
+                        Xin chào, <?php echo $_SESSION['user']['username'] ?>
+                    </a>
+                    <a class="text-white mx-2">|</a>
+                    <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
                 <?php
                 } else {
                 ?>
-                <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
-                <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
+                    <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
+                    <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                 <?php } ?>
             </div>
         </div>
@@ -159,14 +157,11 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <div class="search-container">
-                        <input type="text" class="search-input" placeholder="Tìm kiếm...">
-                        <button
-                            class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4">
-                            <i class="fas fa-search text-primary"></i>
-                        </button>
 
-                    </div>
+
+
+
+
                     <a href="#" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span

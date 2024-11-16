@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <?php include 'views/components/style.php'?>
+    <?php include 'views/components/style.php' ?>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
     <!-- Spinner End -->
 
 
-    <?php require_once 'assets/header/headerChackout.php'?>
+    <?php require_once 'assets/header/headerChackout.php' ?>
 
 
     <!-- Modal Search Start -->
@@ -261,9 +261,12 @@
                             </div>
                         </div>
                         <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                            <button type="button"
-                                class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place
-                                Order</button>
+
+                            <a href="?act=testimonial">
+                                <button type="button"
+                                    class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place Order
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
