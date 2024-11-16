@@ -22,6 +22,7 @@ class homeController
     function shopDetail($id)
     {
         $productOne = $this->homeModel->findProductById($id);
+        $comments = $this->homeModel->getCommentById($id);
         require_once 'views/shopDetail.php';
     }
 
@@ -133,14 +134,15 @@ class homeController
 
     function addComment()
     {
-        if (isset($_POST['comment']) && isset($_SESSION['user']) && isset($_GET['idpro'])) {
+        if (isset($_POST['comment']) && isset($_SESSION['user']) && isset($_GET['id'])) {
             $noidung = $_POST['comment'];
             $iduser = $_SESSION['user']['id']; // Lấy ID người dùng từ session
-            $idpro = $_GET['idpro']; // ID sản phẩm
+            $idpro = $_GET['id']; // ID sản phẩm
             $ngaybinhluan = date('Y:m:d');
+            $rating = isset($_POST['rating']) ? (int)$_POST['rating'] : 5;
             if ($noidung !== "") {
                 // Gọi phương thức saveComment để lưu vào cơ sở dữ liệu
-                $this->homeModel->insertComment(null, $noidung, $iduser, $idpro, $ngaybinhluan);
+                $this->homeModel->insertComment(null, $noidung, $iduser, $idpro, $ngaybinhluan, $rating);
                 // echo "<script>alert('Bình luận của bạn đã được lưu!');</script>";
                 header("Location: index.php?act=shopdetail&id={$idpro}"); // Chuyển hướng về chi tiết sản phẩm
                 exit;
