@@ -81,13 +81,10 @@
             document.querySelectorAll('.fa-star').forEach(star => {
     star.addEventListener('mouseover', function() {
         let rating = this.getAttribute('data-rating');
-        highlightStars(rating);
+        
     });
 
-    star.addEventListener('mouseout', function() {
-        let currentRating = document.querySelector('input[name="rating"]:checked')?.value;
-        highlightStars(currentRating || 0);
-    });
+    
 
     star.addEventListener('click', function() {
         let rating = this.getAttribute('data-rating');
