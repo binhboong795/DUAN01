@@ -178,7 +178,7 @@
                                                                 <?= $list_products['price'] ?><span>
                                                                     $/
                                                                     kg</span></p>
-                                                            <a href="#"
+                                                            <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
                                                                 class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to
                                                                 cart</a>
@@ -840,7 +840,7 @@
                                 <i class="fas fa-star"></i>
                             </div>
                             <h4 class="mb-3">3.12 $</h4>
-                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                            <a href="?act=cart" class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                         </div>
                     </div>

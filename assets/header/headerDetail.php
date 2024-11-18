@@ -19,17 +19,17 @@ if (isset($_SESSION['user'])) {
                 <?php
                 if (isset($_SESSION['user'])) {
                 ?>
-                    <!-- Hiển thị khi đã đăng nhập -->
-                    <a class="text-white mx-2">
-                        Xin chào, <?php echo $user ?>
-                    </a>
-                    <a class="text-white mx-2">|</a>
-                    <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
+                <!-- Hiển thị khi đã đăng nhập -->
+                <a class="text-white mx-2">
+                    Xin chào, <?php echo $user ?>
+                </a>
+                <a class="text-white mx-2">|</a>
+                <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
                 <?php
                 } else {
                 ?>
-                    <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
-                    <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
+                <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
+                <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                 <?php } ?>
             </div>
         </div>
@@ -60,11 +60,13 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <a href="#" class="position-relative me-4 my-auto">
+                    <a href="?act=cart" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                            <? echo (new homeController())->getCartQuantity(); ?>
+                        </span>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>

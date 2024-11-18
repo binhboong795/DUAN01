@@ -30,10 +30,7 @@ class homeController
     {
         require_once 'views/contact.php';
     }
-    function cart()
-    {
-        require_once 'views/cart.php';
-    }
+
     function testimonial()
     {
         require_once 'views/testimonial.php';
@@ -155,5 +152,65 @@ class homeController
         } else {
             echo "<script>alert('Vui lòng đăng nhập để bình luận.');</script>";
         }
+    }
+    // Thêm sản phẩm vào giỏ hàng
+    function addToCart($id)
+    {
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        // Tăng số lượng nếu sản phẩm đã có trong giỏ
+        if (isset($_SESSION['cart'][$id])) {
+            $_SESSION['cart'][$id]++;
+        } else {
+            // Thêm sản phẩm mới vào giỏ
+            $_SESSION['cart'][$id] = 1;
+        }
+
+        // Chuyển hướng tới trang giỏ hàng
+        header("Location: index.php?act=cart");
+    }
+
+    // Hiển thị giỏ hàng
+    function cart()
+    {
+        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+        $cartItems = $this->homeModel->getCartItems($cart);
+        $total = $this->homeModel->calculateCartTotal($cart);
+        require_once 'views/cart.php';
+    }
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    function removeFromCart($id)
+    {
+        if (isset($_SESSION['cart'][$id])) {
+            unset($_SESSION['cart'][$id]);
+        }
+        header("Location: index.php?act=cart");
+    }
+    // Lấy tổng số lượng sản phẩm trong giỏ hàng
+    function getCartQuantity()
+    {
+        if (isset($_SESSION['cart'])) {
+            // Tính tổng số lượng sản phẩm và trừ đi 2
+            return max(0, array_sum($_SESSION['cart']) - 2); // max(0, ...) để tránh kết quả âm
+        }
+        return 0; // Nếu không có sản phẩm trong giỏ hàng
+    }
+
+    // Cập nhật số lượng sản phẩm trong giỏ hàng
+    function updateQuantity($id, $action)
+    {
+        if (isset($_SESSION['cart'][$id])) {
+            if ($action == 'increase') {
+                $_SESSION['cart'][$id]++;
+            } elseif ($action == 'decrease' && $_SESSION['cart'][$id] > 1) {
+                $_SESSION['cart'][$id]--;
+            }
+        }
+
+        // Chuyển hướng lại trang giỏ hàng
+        header("Location: index.php?act=cart");
     }
 }

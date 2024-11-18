@@ -81,4 +81,38 @@ class homeModel
 
         return $stmt->fetchAll();
     }
+
+    // Lấy danh sách sản phẩm trong giỏ hàng từ session
+    function getCartItems($cart)
+    {
+        $result = [];
+        foreach ($cart as $id => $quantity) {
+            $sql = "SELECT * FROM sanpham WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($product) {
+                $product['quantity'] = $quantity;
+                $product['total_price'] = $product['price'] * $quantity;
+                $result[] = $product;
+            }
+        }
+        return $result;
+    }
+
+    // Tính tổng giá trị giỏ hàng
+    function calculateCartTotal($cart)
+    {
+        $total = 0;
+        foreach ($cart as $id => $quantity) {
+            $sql = "SELECT price FROM sanpham WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($product) {
+                $total += $product['price'] * $quantity;
+            }
+        }
+        return $total;
+    }
 }
