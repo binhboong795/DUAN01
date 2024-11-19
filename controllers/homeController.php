@@ -52,6 +52,7 @@ class homeController
         } else {
             $products = $this->homeModel->allProductShop();
         }
+        $danhmuc=$this->homeModel->allDanhmuc();
         require_once 'views/shop.php';
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];

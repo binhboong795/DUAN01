@@ -12,6 +12,11 @@ class homeModel
         $sql = "select * from sanpham order by id desc";
         return $this->conn->query($sql);
     }
+    function allDanhmuc()
+    {
+        $sql = "select * from danhmuc order by id desc";
+        return $this->conn->query($sql);
+    }
     // function top3Product() {
     // $sql="select * from product order by pro_id desc limit 3";
     // return $this->conn->query($sql);
