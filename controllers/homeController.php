@@ -165,6 +165,7 @@ class homeController
         header('Location:index.php');
     }
 
+
     function quenmk()
     {
         $error = "";
@@ -194,6 +195,7 @@ class homeController
                 }
             }
         }
+
 
         require_once 'views/taikhoan/quenmk.php'; // Giao diện để người dùng nhập thông tin
     }
