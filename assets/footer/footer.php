@@ -76,6 +76,7 @@
         </div>
     </div>
 </div>
+
 <!-- Footer End -->
 <script>
             document.querySelectorAll('.fa-star').forEach(star => {
@@ -105,3 +106,4 @@ function highlightStars(rating) {
 }
 
          </script>
+

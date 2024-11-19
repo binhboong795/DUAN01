@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <?php require_once 'views/components/style.php'?>
+    <?php require_once 'views/components/style.php' ?>
 
 </head>
 
@@ -22,7 +22,7 @@
     <!-- Spinner End -->
 
 
-    <?php require_once 'assets/header/headerDetail.php'?>
+    <?php require_once 'assets/header/headerDetail.php' ?>
 
 
     <!-- Modal Search Start -->
@@ -64,7 +64,7 @@
 
                             <div class="border rounded">
                                 <a href="#">
-                                    <img src="assets/img/<?=$productOne['img']?>" class="img-fluid w-100 rounded-top"
+                                    <img src="assets/img/<?= $productOne['img'] ?>" class="img-fluid w-100 rounded-top"
                                         alt="">
                                 </a>
                             </div>
@@ -72,11 +72,17 @@
                         <div class="col-lg-6">
 
                             <h4>
-                                <?=$productOne['name']?></h4>
+                                <?= $productOne['name'] ?></h4>
                             <p class="mb-3">Category: Vegetables</p>
                             <h5 class="fw-bold mb-3">3,35 $</h5>
-                            
-                            <p><?=$productOne['mota']?></p>
+                            <div class="d-flex mb-4">
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <p><?= $productOne['mota'] ?></p>
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-minus rounded-circle bg-light border">
@@ -91,8 +97,10 @@
                                 </div>
                             </div>
 
-                            <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            <a href="index.php?act=addToCart&id=<?= $productOne['id'] ?>"
+                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                cart</a>
 
                             <!-- php-->
 
@@ -174,37 +182,46 @@
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
-                                    <?php
-                                    // echo $comments;
-                                    // echo $id;
-
-
-
-                                    foreach ($comments as $comment) { ?>
-
-                                        <div class="d-flex">
-                                            <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
-                                            <div class="">
-                                                <p class="mb-2" style="font-size: 14px;"><?php echo $comment['ngaybinhluan'] ?></p>
-                                                <div class="d-flex justify-content-between">
-                                                    <h5><?php echo $comment['user'] ?></h5>
-                                                    <div class="d-flex mb-3">
-                                                        <?php
-                                                        for ($i = 1; $i <= 5; $i++) {
-                                                            if ($i <= $comment['rating']) {
-                                                                echo '<i class="fa fa-star text-warning"></i>';
-                                                            } else {
-                                                                echo '<i class="fa fa-star "></i>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </div>
+                                    <div class="d-flex">
+                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
+                                            style="width: 100px; height: 100px;" alt="">
+                                        <div class="">
+                                            <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                                            <div class="d-flex justify-content-between">
+                                                <h5>Jason Smith</h5>
+                                                <div class="d-flex mb-3">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
                                                 </div>
-                                                <p><?php echo $comment['noidung'] ?></p>
                                             </div>
+                                            <p>The generated Lorem Ipsum is therefore always free from repetition
+                                                injected humour, or non-characteristic
+                                                words etc. Susp endisse ultricies nisi vel quam suscipit </p>
                                         </div>
-                                    <?php } ?>
-                                    
+                                    </div>
+                                    <div class="d-flex">
+                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
+                                            style="width: 100px; height: 100px;" alt="">
+                                        <div class="">
+                                            <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                                            <div class="d-flex justify-content-between">
+                                                <h5>Sam Peters</h5>
+                                                <div class="d-flex mb-3">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <p class="text-dark">The generated Lorem Ipsum is therefore always free from
+                                                repetition injected humour, or non-characteristic
+                                                words etc. Susp endisse ultricies nisi vel quam suscipit </p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane" id="nav-vision" role="tabpanel">
                                     <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
@@ -218,61 +235,52 @@
                         </div>
                         <!-- php-->
                         <?php
-                             $id=$_GET['id'];
-                             
-                             ?>
-                             <div class="d-flex align-items-center" style="font-size: 12px;">
-                            <?php
-                            $rating = 5; // Giả sử đây là số sao người dùng đã đánh giá
-                            for ($i = 1; $i <= 5; $i++) {
-                                if ($i <= $rating) {
-                                    echo '<i class="fa fa-star text-warning"></i>'; // Sao đã được đánh giá
-                                } else {
-                                    echo '<i class="fa fa-star text-secondary"></i>'; // Sao chưa được đánh giá
-                                }
-                            }
-                            ?>
-                        </div>
-                        <form action="?act=addComment&id=<?php echo $id ?>" method="post">
+                        $idpro = $_GET['id'];
+
+                        ?>
+                        <form action="?act=addComment&idpro=<?php echo $idpro ?>" method="post">
                             <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                             <div class="row g-4">
-                                <?php if(isset($_SESSION['user'])){   ?>
-                                <div class="col-lg-6">
-                                    <div class="border-bottom rounded">
-                                        <span type="text" class="form-control border-0 me-4"
-                                            placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
+                                <?php if (isset($_SESSION['user'])) {   ?>
+                                    <div class="col-lg-6">
+                                        <div class="border-bottom rounded">
+                                            <span type="text" class="form-control border-0 me-4"
+                                                placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="border-bottom rounded">
-                                        <span type="text" class="form-control border-0 me-4"
-                                            placeholder="Yur Name *"><?php echo $_SESSION['user']['email'] ?></span>
+                                    <div class="col-lg-6">
+                                        <div class="border-bottom rounded">
+                                            <span type="text" class="form-control border-0 me-4"
+                                                placeholder="Yur Name *"><?php echo $_SESSION['user']['email'] ?></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="border-bottom rounded my-4">
-                                        <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
-                                            placeholder="Your Review *" spellcheck="false"></textarea>
+                                    <div class="col-lg-12">
+                                        <div class="border-bottom rounded my-4">
+                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
+                                                placeholder="Your Review *" spellcheck="false"></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <?php if (!empty($errorCmt)) : ?>
-                                    <p style="color: red;"><?= $errorCmt ?></p>
-                                    <?php endif; ?>
-                                </div>
+                                    <div>
+                                        <?php if (!empty($errorCmt)) : ?>
+                                            <p style="color: red;"><?= $errorCmt ?></p>
+                                        <?php endif; ?>
+                                    </div>
 
-                                <div class="col-lg-12">
+                                    <div class="col-lg-12">
                                         <div class="d-flex justify-content-between py-3 mb-5">
                                             <div class="d-flex align-items-center">
                                                 <p class="mb-0 me-3">Please rate:</p>
                                                 <div class="d-flex align-items-center" style="font-size: 12px;">
-                                                    <?php for ($i = 1; $i <= 5; $i++) {  ?>
-                                                        <input type="radio" class="fa fa-star" name="rating" value="<?= $i ?>" style="display:none;" />
-                                                        <i class="fa fa-star " style="color:<?= $i <= $rating ? 'gold' : 'grey'; ?>" data-rating="<?= $i ?>"></i>
-                                                    <?php } ?>
+                                                    <i class="fa fa-star text-muted"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</button>
+                                            <button type="submit"
+                                                class="btn border border-secondary text-primary rounded-pill px-4 py-3">Post
+                                                Comment</button>
                                         </div>
                                     </div>
                                 <?php } ?>

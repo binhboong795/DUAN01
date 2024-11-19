@@ -13,31 +13,44 @@ class homeController
         $product = $this->homeModel->allProduct();
         require_once 'views/home.php';
     }
-    // function detailPro($id) {
-    // $productOne=$this->homeModel->findProductById($id);
-    // require_once 'views/detailProduct.php';
-    // }
+
     function shop()
     {
-        $product = $this->homeModel->allProductShop();
+
+        $products = [];
+        if (isset($_GET['priceRange'])) {
+            $priceRange = $_GET['priceRange'];
+            switch ($priceRange) {
+                case '<3':
+                    $products = $this->homeModel->getPrice(0, 3);
+                    break;
+                case '3-6':
+                    $products = $this->homeModel->getPrice(3, 6);
+                    break;
+                case '>6':
+                    $products = $this->homeModel->getPrice(6);
+                    break;
+                default:
+                    $products = $this->homeModel->allProductShop();
+                    break;
+            }
+        } else {
+            $products = $this->homeModel->allProductShop();
+        }
         require_once 'views/shop.php';
     }
     function shopDetail($id)
     {
         $productOne = $this->homeModel->findProductById($id);
-        $comments=$this->homeModel->getCommentById($id);
+        $comments = $this->homeModel->getCommentById($id);
         require_once 'views/shopDetail.php';
     }
 
     function contact()
     {
         require_once 'views/contact.php';
+    }
 
-    }
-    function cart()
-    {
-        require_once 'views/cart.php';
-    }
     function testimonial()
     {
         require_once 'views/testimonial.php';
@@ -72,9 +85,10 @@ class homeController
         }
         require_once 'views/taikhoan/dangky.php';
     }
-    function login() {
+    function login()
+    {
         // Include view
-    
+
         if (isset($_POST['dangnhap'])) {
             $user = $_POST['user'];
             $pass = $_POST['pass'];
@@ -103,37 +117,37 @@ class homeController
     }
 
     function quenmk()
-{
-    $error = "";
+    {
+        $error = "";
 
-    if (isset($_POST["doimatkhau"])) {
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
+        if (isset($_POST["doimatkhau"])) {
+            $email = $_POST['email'];
+            $pass = $_POST['pass'];
 
-        // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
-        $mUser = new homeModel();
-        $userExists = $mUser->checkEmailExists($email); // Kiểm tra email
+            // Kiểm tra xem email có tồn tại trong cơ sở dữ liệu không
+            $mUser = new homeModel();
+            $userExists = $mUser->checkEmailExists($email); // Kiểm tra email
 
-        if ($email == "" || $pass == "") {
-            $error = "Vui lòng nhập đầy đủ thông tin!";
-        } elseif (!$userExists) {
-            $error = "Email không tồn tại!";
-        } else {
-            // Cập nhật mật khẩu mới
-            $updatePassword = $mUser->updatePassword($email, $pass);
-            if ($updatePassword) {
-                echo "<script>
+            if ($email == "" || $pass == "") {
+                $error = "Vui lòng nhập đầy đủ thông tin!";
+            } elseif (!$userExists) {
+                $error = "Email không tồn tại!";
+            } else {
+                // Cập nhật mật khẩu mới
+                $updatePassword = $mUser->updatePassword($email, $pass);
+                if ($updatePassword) {
+                    echo "<script>
                         alert('Bạn đã thay đổi mật khẩu thành công!');
                         window.location.href='?act=dangnhap';
                     </script>";
-            } else {
-                $error = "Lỗi khi cập nhật mật khẩu!";
+                } else {
+                    $error = "Lỗi khi cập nhật mật khẩu!";
+                }
             }
         }
-    }
 
-    require_once 'views/taikhoan/quenmk.php'; // Giao diện để người dùng nhập thông tin
-}
+        require_once 'views/taikhoan/quenmk.php'; // Giao diện để người dùng nhập thông tin
+    }
 
     function addComment()
     {
@@ -142,10 +156,10 @@ class homeController
             $iduser = $_SESSION['user']['id']; // Lấy ID người dùng từ session
             $idpro = $_GET['id']; // ID sản phẩm
             $ngaybinhluan = date('Y:m:d');
-            $rating=isset($_POST['rating'])? (int)$_POST['rating']:5;
+            $rating = isset($_POST['rating']) ? (int)$_POST['rating'] : 5;
             if ($noidung !== "") {
                 // Gọi phương thức saveComment để lưu vào cơ sở dữ liệu
-                $this->homeModel->insertComment(null, $noidung, $iduser, $idpro, $ngaybinhluan,$rating);
+                $this->homeModel->insertComment(null, $noidung, $iduser, $idpro, $ngaybinhluan, $rating);
                 // echo "<script>alert('Bình luận của bạn đã được lưu!');</script>";
                 header("Location: index.php?act=shopdetail&id={$idpro}"); // Chuyển hướng về chi tiết sản phẩm
                 exit;
@@ -154,12 +168,69 @@ class homeController
                         alert('Vui lòng nhập bình luận!');
                         window.location.href='?act=shopdetail&id={$idpro}';
                     </script>";
-                
             }
         } else {
             echo "<script>alert('Vui lòng đăng nhập để bình luận.');</script>";
         }
     }
-    
-   
+    // Thêm sản phẩm vào giỏ hàng
+    function addToCart($id)
+    {
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        // Tăng số lượng nếu sản phẩm đã có trong giỏ
+        if (isset($_SESSION['cart'][$id])) {
+            $_SESSION['cart'][$id]++;
+        } else {
+            // Thêm sản phẩm mới vào giỏ
+            $_SESSION['cart'][$id] = 1;
+        }
+
+        // Chuyển hướng tới trang giỏ hàng
+        header("Location: index.php?act=cart");
+    }
+
+    // Hiển thị giỏ hàng
+    function cart()
+    {
+        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+        $cartItems = $this->homeModel->getCartItems($cart);
+        $total = $this->homeModel->calculateCartTotal($cart);
+        require_once 'views/cart.php';
+    }
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    function removeFromCart($id)
+    {
+        if (isset($_SESSION['cart'][$id])) {
+            unset($_SESSION['cart'][$id]);
+        }
+        header("Location: index.php?act=cart");
+    }
+    // Lấy tổng số lượng sản phẩm trong giỏ hàng
+    function getCartQuantity()
+    {
+        if (isset($_SESSION['cart'])) {
+            // Tính tổng số lượng sản phẩm và trừ đi 2
+            return max(0, array_sum($_SESSION['cart']) - 2); // max(0, ...) để tránh kết quả âm
+        }
+        return 0; // Nếu không có sản phẩm trong giỏ hàng
+    }
+
+    // Cập nhật số lượng sản phẩm trong giỏ hàng
+    function updateQuantity($id, $action)
+    {
+        if (isset($_SESSION['cart'][$id])) {
+            if ($action == 'increase') {
+                $_SESSION['cart'][$id]++;
+            } elseif ($action == 'decrease' && $_SESSION['cart'][$id] > 1) {
+                $_SESSION['cart'][$id]--;
+            }
+        }
+
+        // Chuyển hướng lại trang giỏ hàng
+        header("Location: index.php?act=cart");
+    }
 }
