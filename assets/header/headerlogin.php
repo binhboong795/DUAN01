@@ -19,17 +19,17 @@ if (isset($_SESSION['user'])) {
                 <?php
                 if (isset($_SESSION['user'])) {
                 ?>
-                <!-- Hiển thị khi đã đăng nhập -->
-                <a class="text-white mx-2">
-                    Xin chào, <?php echo $user ?>
-                </a>
-                <a class="text-white mx-2">|</a>
-                <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
+                    <!-- Hiển thị khi đã đăng nhập -->
+                    <a class="text-white mx-2">
+                        Xin chào, <?php echo $user ?>
+                    </a>
+                    <a class="text-white mx-2">|</a>
+                    <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
                 <?php
                 } else {
                 ?>
-                <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
-                <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
+                    <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
+                    <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                 <?php } ?>
             </div>
         </div>

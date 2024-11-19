@@ -25,7 +25,8 @@ class homeController
         require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
         require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
         require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
-
+        require_once 'assets/header/headerContact.php';
+        require_once 'assets/header/headerTestimonial.php';
     }
 
 

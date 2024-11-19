@@ -19,17 +19,17 @@ if (isset($_SESSION['user'])) {
                 <?php
                 if (isset($_SESSION['user'])) {
                 ?>
-                <!-- Hiển thị khi đã đăng nhập -->
-                <a class="text-white mx-2">
-                    Xin chào, <?php echo $user ?>
-                </a>
-                <a class="text-white mx-2">|</a>
-                <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
+                    <!-- Hiển thị khi đã đăng nhập -->
+                    <a class="text-white mx-2">
+                        Xin chào, <?php echo $user ?>
+                    </a>
+                    <a class="text-white mx-2">|</a>
+                    <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
                 <?php
                 } else {
                 ?>
-                <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
-                <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
+                    <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
+                    <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                 <?php } ?>
             </div>
         </div>
@@ -49,7 +49,7 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=shop" class="nav-item nav-link">Shop</a>
                     <a href="" class="nav-item nav-link">Shop Detail</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
                             <a href="?act=cart" class="dropdown-item">Cart</a>
                             <a href="?act=chackout" class="dropdown-item">Chackout</a>
@@ -62,11 +62,19 @@ if (isset($_SESSION['user'])) {
                 <div class="d-flex m-3 me-0">
                     <a href="?act=cart" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span
-                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                            <? echo $totalQuantity; ?>
-                        </span>
+                        <?php if (isset($totalQuantity)): ?>
+                            <span
+                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                                <? echo $totalQuantity; ?>
+                            </span>
+
+                        <? else: ?> <span
+                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                                0
+                            </span>
+                        <?php endif; ?>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>

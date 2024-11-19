@@ -49,7 +49,7 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=shop" class="nav-item nav-link ">Shop</a>
                     <a href="" class="nav-item nav-link">Shop Detail</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
                             <a href="?act=cart" class="dropdown-item">Cart</a>
                             <a href="?act=chackout" class="dropdown-item">Chackout</a>
@@ -62,11 +62,19 @@ if (isset($_SESSION['user'])) {
                 <div class="d-flex m-3 me-0">
                     <a href="?act=cart" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
+                        <?php if (isset($totalQuantity)): ?>
                         <span
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                             style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                            <? echo (new homeController())->getCartQuantity(); ?>
+                            <? echo $totalQuantity; ?>
                         </span>
+
+                        <? else: ?> <span
+                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                            0
+                        </span>
+                        <?php endif; ?>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
