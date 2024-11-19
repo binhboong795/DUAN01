@@ -74,31 +74,41 @@ class homeModel
                      join taikhoan on binhluan.iduser=taikhoan.id
                      where binhluan.idpro= '$id'
                      order by binhluan.ngaybinhluan desc";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    // Lấy danh sách sản phẩm trong giỏ hàng từ session
+    function getCartItems($iduser, $idpro = null)
+    {
+        $result = [];
+        $sql = "SELECT g.*, s.img, s.name, s.price 
+            FROM giohang g 
+            INNER JOIN sanpham s ON g.idpro = s.id 
+            WHERE g.iduser = :iduser";
+
+        if ($idpro !== null) {
+            $sql .= " AND g.idpro = :idpro";
+        }
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
-    // Lấy danh sách sản phẩm trong giỏ hàng từ session
-    function getCartItems($cart)
-    {
-        $result = [];
-        foreach ($cart as $id => $quantity) {
-            $sql = "SELECT * FROM sanpham WHERE id = :id";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute(['id' => $id]);
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($product) {
-                $product['quantity'] = $quantity;
-                $product['total_price'] = $product['price'] * $quantity;
-                $result[] = $product;
-            }
+        $params = ['iduser' => $iduser];
+        if ($idpro !== null) {
+            $params['idpro'] = $idpro;
         }
+
+        $stmt->execute($params);
+        $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($items as $item) {
+            $item['total_price'] = $item['price'] * $item['soluong'];
+            $result[] = $item;
+        }
+
         return $result;
     }
+
 
     // Tính tổng giá trị giỏ hàng
     function calculateCartTotal($cart)
@@ -114,5 +124,61 @@ class homeModel
             }
         }
         return $total;
+    }
+
+    // Lấy sản phẩm trong giỏ hàng của user theo id sản phẩm
+    // function getCartItemByUserAndProduct($iduser, $idpro)
+    // {
+    //     $sql = "SELECT * FROM giohang WHERE iduser = :iduser AND idpro = :idpro";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute(['iduser' => $iduser, 'idpro' => $idpro]);
+    //     return $stmt->fetch(PDO::FETCH_ASSOC);
+    // }
+
+    // Thêm sản phẩm mới vào giỏ hàng
+    function insertCartItem($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien, $idbill)
+    {
+        $sql = "INSERT INTO giohang (iduser, idpro, img, name, price, soluong, thanhtien, idbill) 
+            VALUES (:iduser, :idpro, :img, :name, :price, :soluong, :thanhtien, :idbill)";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            'iduser' => $iduser,
+            'idpro' => $idpro,
+            'img' => $img,
+            'name' => $name,
+            'price' => $price,
+            'soluong' => $soluong,
+            'thanhtien' => $thanhtien,
+            'idbill' => $idbill,
+        ]);
+    }
+
+    // Cập nhật số lượng và tổng tiền sản phẩm trong giỏ hàng
+    function updateCartItem($id, $soluong, $thanhtien)
+    {
+        $sql = "UPDATE giohang SET soluong = :soluong, thanhtien = :thanhtien WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            'soluong' => $soluong,
+            'thanhtien' => $thanhtien,
+            'id' => $id,
+        ]);
+    }
+    function deleteCartItem($iduser, $idpro)
+    {
+        $sql = "DELETE FROM giohang WHERE iduser = :iduser AND idpro = :idpro";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+            'iduser' => $iduser,
+            'idpro' => $idpro,
+        ]);
+    }
+    function getTotalQuantity($iduser)
+    {
+        $sql = "SELECT SUM(soluong) as total_quantity FROM giohang WHERE iduser = :iduser";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['iduser' => $iduser]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
     }
 }

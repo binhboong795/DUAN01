@@ -155,38 +155,44 @@
                                     <?php
                                     foreach ($product as $list_products) {
                                     ?>
-                                        <?php if (
+                                    <?php if (
                                             (empty($search)) || (is_string($list_products['name']) && strpos(strtolower($list_products["name"]), strtolower($search)) !== false)
                                         ) : ?>
-                                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                                <div class="rounded position-relative fruite-item">
-                                                    <div class="fruite-img">
-                                                        <img src="assets/img/<?= $list_products['img'] ?>"
-                                                            class="img-fluid w-100 rounded-top" alt="">
-                                                    </div>
-                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                        style="top: 10px; left: 10px;">Fruits</div>
-                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-
-                                                        <h4><a class="linkpro"
-                                                                href="?act=shopdetail&id=<?= $list_products['id'] ?>">
-                                                                <?= $list_products['name'] ?></a></h4>
-
-                                                        <p><?= $list_products['mota'] ?></p>
-                                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                                            <p class="text-dark fs-5 fw-bold mb-0">
-                                                                <?= $list_products['price'] ?><span>
-                                                                    $/
-                                                                    kg</span></p>
-                                                            <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
-                                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                                cart</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="assets/img/<?= $list_products['img'] ?>"
+                                                    class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                        <?php endif; ?>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">Fruits</div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+
+                                                <h4><a class="linkpro"
+                                                        href="?act=shopdetail&id=<?= $list_products['id'] ?>">
+                                                        <?= $list_products['name'] ?></a></h4>
+
+                                                <p><?= $list_products['mota'] ?></p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <!-- Giá sản phẩm -->
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        <?= number_format($list_products['price'], 2) ?>
+                                                        <span class="text-muted">$/kg</span>
+                                                    </p>
+
+                                                    <!-- Nút thêm vào giỏ hàng -->
+                                                    <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                        class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center shadow-sm"
+                                                        style="text-decoration: none;">
+                                                        <i class="fa fa-shopping-cart me-2"></i>
+                                                        <span>Thêm vào giỏ hàng</span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
                                     <?php } ?>
                                 </div>
                             </div>

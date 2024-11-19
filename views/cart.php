@@ -70,39 +70,53 @@
                         <?php if (!empty($cartItems)): ?>
                             <?php foreach ($cartItems as $item): ?>
                                 <tr>
-                                    <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>" width="50"></td>
-                                    <td><?= $item['name'] ?></td>
+                                    <!-- Hình ảnh sản phẩm -->
+                                    <td>
+                                        <img src="assets/img/<?= htmlspecialchars($item['img']) ?>"
+                                            alt="<?= htmlspecialchars($item['name']) ?>" width="50">
+                                    </td>
+                                    <!-- Tên sản phẩm -->
+                                    <td><?= htmlspecialchars($item['name']) ?></td>
+                                    <!-- Giá sản phẩm -->
                                     <td><?= number_format($item['price'], 2) ?> VND</td>
+                                    <!-- Số lượng và nút tăng/giảm -->
                                     <td>
                                         <div class="input-group quantity mt-4" style="width: 100px;">
+                                            <!-- Nút giảm số lượng -->
                                             <div class="input-group-btn">
-                                                <a href="index.php?act=updateQuantity&id=<?= $item['id'] ?>&action=decrease"
+                                                <a href="index.php?act=updateQuantity&id=<?= $item['idpro'] ?>&action=decrease"
                                                     class="btn btn-sm btn-minus rounded-circle bg-light border">
                                                     <i class="fa fa-minus"></i>
                                                 </a>
                                             </div>
+                                            <!-- Hiển thị số lượng -->
                                             <input type="text" class="form-control form-control-sm text-center border-0"
-                                                value="<?= $item['quantity'] ?>" disabled>
+                                                value="<?= $item['soluong'] ?>" disabled>
+                                            <!-- Nút tăng số lượng -->
                                             <div class="input-group-btn">
-                                                <a href="index.php?act=updateQuantity&id=<?= $item['id'] ?>&action=increase"
+                                                <a href="index.php?act=updateQuantity&id=<?= $item['idpro'] ?>&action=increase"
                                                     class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                     <i class="fa fa-plus"></i>
                                                 </a>
                                             </div>
                                         </div>
                                     </td>
+                                    <!-- Tổng giá sản phẩm -->
                                     <td><?= number_format($item['total_price'], 2) ?> VND</td>
+                                    <!-- Nút xóa sản phẩm -->
                                     <td>
-                                        <a href="index.php?act=removeFromCart&id=<?= $item['id'] ?>">Xóa</a>
+                                        <a href="index.php?act=removeFromCart&id=<?= $item['idpro'] ?>">Xóa</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6">Giỏ hàng trống</td>
+                                <td colspan="6" class="text-center">Giỏ hàng trống</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
+
+
 
                 </table>
             </div>

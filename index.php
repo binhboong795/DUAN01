@@ -25,7 +25,7 @@ match ($act) {
     'dangxuat' => (new homeController())->logout(), // Đăng xuất
     'quenmk' => (new homeController())->quenmk(), // Quên mật khẩu
     'addComment' => (new homeController())->addComment(), // Thêm bình luận
-    'addToCart' => (new homeController())->addToCart($id), // Thêm vào giỏ hàng
+    'addToCart' => (new homeController())->addToCartDb($id), // Thêm vào giỏ hàng
     'removeFromCart' => (new homeController())->removeFromCart($id), // Xóa khỏi giỏ hàng
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     default => (new homeController())->error(), // Hành động không xác định

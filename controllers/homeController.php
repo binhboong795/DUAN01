@@ -12,23 +12,72 @@ class homeController
     {
         $product = $this->homeModel->allProduct();
         require_once 'views/home.php';
+
+        // Giả sử đây là trang bạn muốn hiển thị tổng số lượng sản phẩm trong giỏ hàng
+        if (isset($_SESSION['user'])) {
+            $iduser = $_SESSION['user']['id'];
+            // Lấy tổng số lượng sản phẩm trong giỏ hàng
+            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+            // Các biến khác mà bạn cần
+        }
+
+        // Chuyển tới View
+        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
+        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
+        require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
+
     }
+
 
     function shop()
     {
         $product = $this->homeModel->allProductShop();
         require_once 'views/shop.php';
+        if (isset($_SESSION['user'])) {
+            $iduser = $_SESSION['user']['id'];
+            // Lấy tổng số lượng sản phẩm trong giỏ hàng
+            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        }
+
+        require_once 'assets/header/headerShop.php';
+        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
+        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
+        // Truyền vào headerShop
     }
     function shopDetail($id)
     {
+
         $productOne = $this->homeModel->findProductById($id);
         $comments = $this->homeModel->getCommentById($id);
+
+        if (isset($_SESSION['user'])) {
+            $iduser = $_SESSION['user']['id'];
+            // Lấy tổng số lượng sản phẩm trong giỏ hàng
+            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+            // Lấy thông tin chi tiết sản phẩm
+            $product = $this->homeModel->findProductById($id);
+        }
+
         require_once 'views/shopDetail.php';
+        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
+        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
+        require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
+        require_once 'assets/header/headerDetail.php'; // Truyền vào headerDetail
     }
 
     function contact()
     {
+        if (isset($_SESSION['user'])) {
+            $iduser = $_SESSION['user']['id'];
+            // Lấy tổng số lượng sản phẩm trong giỏ hàng
+            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        }
+
         require_once 'views/contact.php';
+        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
+        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
+        require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
+        require_once 'assets/header/headerContract.php'; // Truyền vào headerContract
     }
 
     function testimonial()
@@ -153,64 +202,168 @@ class homeController
             echo "<script>alert('Vui lòng đăng nhập để bình luận.');</script>";
         }
     }
+
+
+
+
     // Thêm sản phẩm vào giỏ hàng
-    function addToCart($id)
-    {
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
+    // function addToCart($id)
+    // {
+    //     if (!isset($_SESSION['cart'])) {
+    //         $_SESSION['cart'] = [];
+    //     }
 
-        // Tăng số lượng nếu sản phẩm đã có trong giỏ
-        if (isset($_SESSION['cart'][$id])) {
-            $_SESSION['cart'][$id]++;
-        } else {
-            // Thêm sản phẩm mới vào giỏ
-            $_SESSION['cart'][$id] = 1;
-        }
+    //     // Tăng số lượng nếu sản phẩm đã có trong giỏ
+    //     if (isset($_SESSION['cart'][$id])) {
+    //         $_SESSION['cart'][$id]++;
+    //     } else {
+    //         // Thêm sản phẩm mới vào giỏ
+    //         $_SESSION['cart'][$id] = 1;
+    //     }
 
-        // Chuyển hướng tới trang giỏ hàng
-        header("Location: index.php?act=cart");
-    }
+    //     // Chuyển hướng tới trang giỏ hàng
+    //     header("Location: index.php?act=cart");
+    // }
+    // homeController.php
+
+    // Ví dụ cho trang chi tiết sản phẩm (headerDetail.php)
+    function detail($id) {}
+
+    // Ví dụ cho trang hợp đồng (headerContract.php)
+
+
+    // Ví dụ cho trang shop (headerShop.php)
+    function shopCart() {}
 
     // Hiển thị giỏ hàng
     function cart()
     {
-        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
-        $cartItems = $this->homeModel->getCartItems($cart);
-        $total = $this->homeModel->calculateCartTotal($cart);
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
+
+        $iduser = $_SESSION['user']['id'];
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Lấy tổng số lượng sản phẩm
+        $cartItems = $this->homeModel->getCartItems($iduser); // Lấy toàn bộ sản phẩm trong giỏ hàng của người dùng
         require_once 'views/cart.php';
+        require_once 'assets/header/headerHome.php';
+        require_once 'assets/header/headerCart.php';
+        require_once 'assets/header/headerShop.php';
+        // Chắc chắn header có thể truy cập được biến này
+
     }
 
+
+
     // Xóa sản phẩm khỏi giỏ hàng
-    function removeFromCart($id)
-    {
-        if (isset($_SESSION['cart'][$id])) {
-            unset($_SESSION['cart'][$id]);
-        }
-        header("Location: index.php?act=cart");
-    }
-    // Lấy tổng số lượng sản phẩm trong giỏ hàng
+    // function removeFromCart($id)
+    // {
+    //     if (isset($_SESSION['cart'][$id])) {
+    //         unset($_SESSION['cart'][$id]);
+    //     }
+    //     header("Location: index.php?act=cart");
+    // }
+    // // Lấy tổng số lượng sản phẩm trong giỏ hàng
     function getCartQuantity()
     {
         if (isset($_SESSION['cart'])) {
-            // Tính tổng số lượng sản phẩm và trừ đi 2
-            return max(0, array_sum($_SESSION['cart']) - 2); // max(0, ...) để tránh kết quả âm
+            // Tính tổng số lượng sản phẩm 
+            return max(0, array_sum($_SESSION['cart'])); // max(0, ...) để tránh kết quả âm
         }
         return 0; // Nếu không có sản phẩm trong giỏ hàng
     }
 
-    // Cập nhật số lượng sản phẩm trong giỏ hàng
-    function updateQuantity($id, $action)
+    // /// Cập nhật số lượng sản phẩm trong giỏ hàng
+    // function updateQuantityCart($id, $action)
+    // {
+    //     if (isset($_SESSION['cart'][$id])) {
+    //         if ($action == 'increase') {
+    //             $_SESSION['cart'][$id]++;
+    //         } elseif ($action == 'decrease' && $_SESSION['cart'][$id] > 1) {
+    //             $_SESSION['cart'][$id]--;
+    //         }
+    //     }
+
+    //     // Chuyển hướng lại trang giỏ hàng
+    //     header("Location: index.php?act=cart");
+    // }
+    //----------------------------------------------------------------
+    // Thêm sản phẩm vào giỏ hàng
+
+    function addToCartDb($id)
     {
-        if (isset($_SESSION['cart'][$id])) {
-            if ($action == 'increase') {
-                $_SESSION['cart'][$id]++;
-            } elseif ($action == 'decrease' && $_SESSION['cart'][$id] > 1) {
-                $_SESSION['cart'][$id]--;
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
+
+        $iduser = $_SESSION['user']['id'];
+        $product = $this->homeModel->findProductById($id);
+
+        if ($product) {
+            // Tạo idbill ngẫu nhiên (ví dụ: số ngẫu nhiên từ 1000 đến 9999)
+            $idbill = rand(1000, 9999);
+
+            // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+            $cartItem = $this->homeModel->getCartItems($iduser, $id);
+
+            if ($cartItem) {
+                // Nếu đã có, tăng số lượng và cập nhật thành tiền
+                $newQuantity = $cartItem['soluong'] + 1;
+                $newTotalPrice = $newQuantity * $product['price'];
+                $this->homeModel->updateCartItem($cartItem['id'], $newQuantity, $newTotalPrice);
+            } else {
+                // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng với idbill ngẫu nhiên
+                $this->homeModel->insertCartItem(
+                    $iduser,
+                    $id,
+                    $product['img'],
+                    $product['name'],
+                    $product['price'],
+                    1,
+                    $product['price'],
+                    $idbill
+                );
             }
         }
 
-        // Chuyển hướng lại trang giỏ hàng
+        header("Location: index.php?act=cart");
+    }
+
+
+    function updateQuantity($id, $action)
+    {
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
+
+        $iduser = $_SESSION['user']['id'];
+        $cartItem = $this->homeModel->getCartItems($iduser, $id);
+
+        if (!empty($cartItem)) {
+            $cartItem = $cartItem[0]; // Vì kết quả trả về là một mảng sản phẩm
+            $newQuantity = $cartItem['soluong'];
+
+            if ($action === 'increase') {
+                $newQuantity++;
+            } elseif ($action === 'decrease' && $cartItem['soluong'] > 1) {
+                $newQuantity--;
+            }
+
+            $newTotalPrice = $newQuantity * $cartItem['price'];
+            $this->homeModel->updateCartItem($cartItem['id'], $newQuantity, $newTotalPrice);
+        }
+
+        header("Location: index.php?act=cart");
+    }
+    function removeFromCart($idpro)
+    {
+        $iduser = $_SESSION['user']['id']; // Lấy ID người dùng từ session
+        $this->homeModel->deleteCartItem($iduser, $idpro); // Gọi Model để xóa sản phẩm theo ID người dùng và sản phẩm
+
+        // Chuyển hướng lại giỏ hàng
         header("Location: index.php?act=cart");
     }
 }
