@@ -66,9 +66,10 @@
                         </div>
                         <div class="col-6"></div>
                         <div class="col-xl-3">
-                        <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                            <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
                                 <label for="fruits">Danh mục:</label>
-                                <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+                                <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3"
+                                    form="fruitform">
                                     <option value="volvo">All</option>
                                     <?php foreach ($danhmuc as $dm) { ?>
                                         <option value="volvo"><?php echo $dm['name'] ?></option>
@@ -144,7 +145,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <!-- <div class="col-lg-12">
                                     <h4 class="mb-3">Featured products</h4>
                                     <div class="d-flex align-items-center justify-content-start">
                                         <div class="rounded me-4" style="width: 100px; height: 100px;">
@@ -204,7 +205,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
@@ -271,9 +272,9 @@
             <!-- Fruits Shop End-->
 
 
-            <?php require_once 'assets/footer/footer.php' ?>
 
-
+        </div>
+        <?php require_once 'assets/footer/footer.php' ?>
 
 </body>
 

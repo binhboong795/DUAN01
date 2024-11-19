@@ -26,7 +26,7 @@
 
 
     <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content rounded-0">
                 <div class="modal-header">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal Search End -->
 
 
@@ -75,9 +75,9 @@
                                 <?= $productOne['name'] ?></h4>
                             <p class="mb-3">Category: Vegetables</p>
                             <h5 class="fw-bold mb-3">3,35 $</h5>
-                            
+
                             <p><?= $productOne['mota'] ?></p>
-                            <div class="input-group quantity mb-5" style="width: 100px;">
+                            <!-- <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-minus rounded-circle bg-light border">
                                         <i class="fa fa-minus"></i>
@@ -89,12 +89,14 @@
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
+                            <br>
+                            <br>
+                            <br>
 
-                            <a href="index.php?act=addToCart&id=<?= $productOne['id'] ?>"
+                            <a href="index.php?act=/"
                                 class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                cart</a>
+                                    class="fa fa-shopping-bag me-2 text-primary"></i>VỀ TRANG CHỦ</a>
 
                             <!-- php-->
 
@@ -116,12 +118,12 @@
                                 <div class="tab-pane active" id="nav-about" role="tabpanel"
                                     aria-labelledby="nav-about-tab">
                                     <p><?= $productOne['motachitiet'] ?></p>
-                                    
-                                    
+
+
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
-                                   <?php
+                                    <?php
                                     // echo $comments;
                                     // echo $id;
 
@@ -130,9 +132,11 @@
                                     foreach ($comments as $comment) { ?>
 
                                         <div class="d-flex">
-                                            <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                            <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
+                                                style="width: 100px; height: 100px;" alt="">
                                             <div class="">
-                                                <p class="mb-2" style="font-size: 14px;"><?php echo $comment['ngaybinhluan'] ?></p>
+                                                <p class="mb-2" style="font-size: 14px;">
+                                                    <?php echo $comment['ngaybinhluan'] ?></p>
                                                 <div class="d-flex justify-content-between">
                                                     <h5><?php echo $comment['user'] ?></h5>
                                                     <div class="d-flex mb-3">
@@ -151,7 +155,7 @@
                                             </div>
                                         </div>
                                     <?php } ?>
-                                    
+
                                 </div>
                                 <div class="tab-pane" id="nav-vision" role="tabpanel">
                                     <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
@@ -168,7 +172,7 @@
                         $id = $_GET['id'];
 
                         ?>
-                       
+
                         <form action="?act=addComment&id=<?php echo $id ?>" method="post">
                             <h4 class="mb-5 fw-bold">Leave a Reply</h4>
 
@@ -176,18 +180,21 @@
                                 <?php if (isset($_SESSION['user'])) {   ?>
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <span type="text" class="form-control border-0 me-4" placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
+                                            <span type="text" class="form-control border-0 me-4"
+                                                placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
                                         </div>
                                     </div>
                                     <input type="hidden" name="idpro" value="<?php $_GET['id'] ?>">
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <span type="email" class="form-control border-0" placeholder="Your Email *"><?php echo $_SESSION['user']['email'] ?></span>
+                                            <span type="email" class="form-control border-0"
+                                                placeholder="Your Email *"><?php echo $_SESSION['user']['email'] ?></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
+                                                placeholder="Your Review *" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -196,12 +203,17 @@
                                                 <p class="mb-0 me-3">Please rate:</p>
                                                 <div class="d-flex align-items-center" style="font-size: 12px;">
                                                     <?php for ($i = 1; $i <= 5; $i++) {  ?>
-                                                        <input type="radio" class="fa fa-star" name="rating" value="<?= $i ?>" style="display:none;" />
-                                                        <i class="fa fa-star " style="color:<?= $i <= $rating ? 'gold' : 'grey'; ?>" data-rating="<?= $i ?>"></i>
+                                                        <input type="radio" class="fa fa-star" name="rating" value="<?= $i ?>"
+                                                            style="display:none;" />
+                                                        <i class="fa fa-star "
+                                                            style="color:<?= $i <= $rating ? 'gold' : 'grey'; ?>"
+                                                            data-rating="<?= $i ?>"></i>
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</button>
+                                            <button type="submit"
+                                                class="btn border border-secondary text-primary rounded-pill px-4 py-3">
+                                                Post Comment</button>
                                         </div>
                                     </div>
                                 <?php } ?>
@@ -212,12 +224,12 @@
                 <div class="col-lg-4 col-xl-3">
                     <div class="row g-4 fruite">
                         <div class="col-lg-12">
-                            <div class="input-group w-100 mx-auto d-flex mb-4">
+                            <!-- <div class="input-group w-100 mx-auto d-flex mb-4">
                                 <input type="search" class="form-control p-3" placeholder="keywords"
                                     aria-describedby="search-icon-1">
                                 <span id="search-icon-1" class="input-group-text p-3"><i
                                         class="fa fa-search"></i></span>
-                            </div>
+                            </div> -->
                             <div class="mb-4">
                                 <h4>Categories</h4>
                                 <ul class="list-unstyled fruite-categorie">
@@ -254,7 +266,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <!-- <div class="col-lg-12">
                             <h4 class="mb-4">Featured products</h4>
                             <div class="d-flex align-items-center justify-content-start">
                                 <div class="rounded" style="width: 100px; height: 100px;">
@@ -384,7 +396,7 @@
                                     <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

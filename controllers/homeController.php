@@ -52,7 +52,7 @@ class homeController
         } else {
             $products = $this->homeModel->allProductShop();
         }
-        $danhmuc=$this->homeModel->allDanhmuc();
+        $danhmuc = $this->homeModel->allDanhmuc();
         require_once 'views/shop.php';
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
@@ -263,26 +263,26 @@ class homeController
     // Hiển thị giỏ hàng
     function cart()
     {
-        // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!isset($_SESSION['user'])) {
             header("Location: index.php?act=dangnhap");
             exit;
         }
 
-        // Lấy ID người dùng từ session
         $iduser = $_SESSION['user']['id'];
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        $cartItems = $this->homeModel->getCartItems($iduser);
 
-        // Lấy thông tin giỏ hàng từ model
-        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Lấy tổng số lượng sản phẩm
-        $cartItems = $this->homeModel->getCartItems($iduser); // Lấy tất cả sản phẩm trong giỏ hàng
-        $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tính tổng giá trị giỏ hàng
+        // Tính tổng giá trị tất cả các sản phẩm trong giỏ hàng
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item['total_price']; // Giả sử 'total_price' là giá trị của mỗi sản phẩm
+        }
 
-        // Truyền dữ liệu sang view (giỏ hàng)
-        require_once 'assets/header/headerHome.php';  // Header chung cho trang chủ
-        require_once 'assets/header/headerCart.php';  // Header cho giỏ hàng
-        require_once 'views/cart.php';  // View giỏ hàng (chứa thông tin sản phẩm và tổng giá trị)
-        require_once 'assets/header/headerShop.php'; // Có thể là header cho shop hoặc cần hợp nhất header
+        require_once 'assets/header/headerHome.php';
+        require_once 'assets/header/headerCart.php';
+        require_once 'views/cart.php';
     }
+
 
 
 
