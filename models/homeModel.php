@@ -126,6 +126,7 @@ class homeModel
         return $total;
     }
 
+
     // Lấy sản phẩm trong giỏ hàng của user theo id sản phẩm
     // function getCartItemByUserAndProduct($iduser, $idpro)
     // {
@@ -180,5 +181,19 @@ class homeModel
         $stmt->execute(['iduser' => $iduser]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
+    }
+
+    function getPrice($minPrice, $maxPrice = null)
+    {
+        if ($maxPrice === null) {
+            $sql = "SELECT * FROM sanpham WHERE price >= ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$minPrice]);
+        } else {
+            $sql = "SELECT * FROM sanpham WHERE price >= ? AND price <= ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$minPrice, $maxPrice]);
+        }
+        return $stmt->fetchAll();
     }
 }

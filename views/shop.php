@@ -120,11 +120,27 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3">
+
                                         <h4 class="mb-2">Price</h4>
-                                        <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput"
-                                            min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                        <output id="amount" name="amount" min-velue="0" max-value="500"
-                                            for="rangeInput">0</output>
+                                        <div class="col-lg-3">
+                                            <form method="get" action="">
+                                                <input type="hidden" name="act" value="shop">
+                                                <select name="priceRange" class="form-select"
+                                                    onchange="this.form.submit()">
+                                                    <option value="">All</option>
+                                                    <option value="<3"
+                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '<3') ? 'selected' : '' ?>>
+                                                        < 3$</option>
+                                                    <option value="3-6"
+                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '3-6') ? 'selected' : '' ?>>
+                                                        3$ - 6$</option>
+                                                    <option value=">6"
+                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '>6') ? 'selected' : '' ?>>
+                                                        >
+                                                        6$</option>
+                                                </select>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -193,11 +209,15 @@
                             </div>
                         </div>
                         <div class="col-lg-9">
-                            <div class="row g-4 justify-content-center">
-                                <?php
-                                foreach ($product as $list_products) {
-                                ?>
 
+                            <div class="row g-4 justify-content-center">
+                                <?php if (empty($products)) : ?>
+                                <p class="text-center">Khong có sản phẩm phù hợp.</p>
+                                <?php else : ?>
+
+                                <?php
+                                    foreach ($products as $list_products) :
+                                    ?>
                                 <div class="col-md-6 col-lg-6 col-xl-4">
                                     <div class="rounded position-relative fruite-item">
 
@@ -214,9 +234,8 @@
                                             <p><?= $list_products['mota'] ?></p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">
-                                                    <?= $list_products['price'] ?><span> $/
-                                                        kg</span></p>
-                                                <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                    <?= $list_products['price'] ?><span> $/ kg</span></p>
+                                                <a href="#"
                                                     class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                         class="fa fa-shopping-bag me-2 text-primary"></i> Add to
                                                     cart</a>
@@ -224,11 +243,11 @@
                                         </div>
 
                                     </div>
+
                                 </div>
+                                <?php endforeach ?>
 
-                                <?php } ?>
-
-
+                                <?php endif ?>
 
                                 <div class="col-12">
                                     <div class="pagination d-flex justify-content-center mt-5">
@@ -242,17 +261,17 @@
                                         <a href="#" class="rounded">&raquo;</a>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Fruits Shop End-->
+            <!-- Fruits Shop End-->
 
 
-    <?php require_once 'assets/footer/footer.php' ?>
+            <?php require_once 'assets/footer/footer.php' ?>
 
 
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'models/homeModel.php';
+
 class homeController
 {
     public $homeModel;
@@ -31,7 +31,27 @@ class homeController
 
     function shop()
     {
-        $product = $this->homeModel->allProductShop();
+
+        $products = [];
+        if (isset($_GET['priceRange'])) {
+            $priceRange = $_GET['priceRange'];
+            switch ($priceRange) {
+                case '<3':
+                    $products = $this->homeModel->getPrice(0, 3);
+                    break;
+                case '3-6':
+                    $products = $this->homeModel->getPrice(3, 6);
+                    break;
+                case '>6':
+                    $products = $this->homeModel->getPrice(6);
+                    break;
+                default:
+                    $products = $this->homeModel->allProductShop();
+                    break;
+            }
+        } else {
+            $products = $this->homeModel->allProductShop();
+        }
         require_once 'views/shop.php';
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
