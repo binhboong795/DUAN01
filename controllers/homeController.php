@@ -228,6 +228,8 @@ class homeController
 
 
 
+
+
     // Thêm sản phẩm vào giỏ hàng
     // function addToCart($id)
     // {

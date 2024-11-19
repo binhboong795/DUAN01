@@ -30,6 +30,19 @@ class homeModel
         $sql = "select * from sanpham where id=$id";
         return $this->conn->query($sql)->fetch();
     }
+    // public function findProductById($id)
+    // {
+    //     if (!$id || !is_numeric($id)) {
+    //         return null; // Trả về null nếu ID không hợp lệ
+    //     }
+
+    //     $sql = "SELECT * FROM sanpham WHERE id = $id";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute(['id' => $id]);
+
+    //     return $stmt->fetch(PDO::FETCH_ASSOC);
+    // }
+
     function insertUser($id, $user, $pass, $email)
     {
         $sql = "INSERT INTO taikhoan (id, user, pass, email) VALUES (?, ?, ?, ?)";
