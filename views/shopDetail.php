@@ -75,13 +75,7 @@
                                 <?= $productOne['name'] ?></h4>
                             <p class="mb-3">Category: Vegetables</p>
                             <h5 class="fw-bold mb-3">3,35 $</h5>
-                            <div class="d-flex mb-4">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
+                            
                             <p><?= $productOne['mota'] ?></p>
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
@@ -121,107 +115,43 @@
                             <div class="tab-content mb-5">
                                 <div class="tab-pane active" id="nav-about" role="tabpanel"
                                     aria-labelledby="nav-about-tab">
-                                    <p>The generated Lorem Ipsum is therefore always free from repetition injected
-                                        humour, or non-characteristic words etc.
-                                        Susp endisse ultricies nisi vel quam suscipit </p>
-                                    <p>Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish
-                                        filefish Antarctic
-                                        icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric
-                                        ray sweeper.</p>
-                                    <div class="px-2">
-                                        <div class="row g-4">
-                                            <div class="col-6">
-                                                <div
-                                                    class="row bg-light align-items-center text-center justify-content-center py-2">
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Weight</p>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <p class="mb-0">1 kg</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="row text-center align-items-center justify-content-center py-2">
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Country of Origin</p>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Agro Farm</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Quality</p>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Organic</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="row text-center align-items-center justify-content-center py-2">
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Сheck</p>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Healthy</p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="row bg-light text-center align-items-center justify-content-center py-2">
-                                                    <div class="col-6">
-                                                        <p class="mb-0">Min Weight</p>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <p class="mb-0">250 Kg</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <p><?= $productOne['motachitiet'] ?></p>
+                                    
+                                    
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
-                                    <div class="d-flex">
-                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                            style="width: 100px; height: 100px;" alt="">
-                                        <div class="">
-                                            <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                            <div class="d-flex justify-content-between">
-                                                <h5>Jason Smith</h5>
-                                                <div class="d-flex mb-3">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
+                                   <?php
+                                    // echo $comments;
+                                    // echo $id;
+
+
+
+                                    foreach ($comments as $comment) { ?>
+
+                                        <div class="d-flex">
+                                            <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3" style="width: 100px; height: 100px;" alt="">
+                                            <div class="">
+                                                <p class="mb-2" style="font-size: 14px;"><?php echo $comment['ngaybinhluan'] ?></p>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5><?php echo $comment['user'] ?></h5>
+                                                    <div class="d-flex mb-3">
+                                                        <?php
+                                                        for ($i = 1; $i <= 5; $i++) {
+                                                            if ($i <= $comment['rating']) {
+                                                                echo '<i class="fa fa-star text-warning"></i>';
+                                                            } else {
+                                                                echo '<i class="fa fa-star "></i>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
                                                 </div>
+                                                <p><?php echo $comment['noidung'] ?></p>
                                             </div>
-                                            <p>The generated Lorem Ipsum is therefore always free from repetition
-                                                injected humour, or non-characteristic
-                                                words etc. Susp endisse ultricies nisi vel quam suscipit </p>
                                         </div>
-                                    </div>
-                                    <div class="d-flex">
-                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                            style="width: 100px; height: 100px;" alt="">
-                                        <div class="">
-                                            <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                            <div class="d-flex justify-content-between">
-                                                <h5>Sam Peters</h5>
-                                                <div class="d-flex mb-3">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-dark">The generated Lorem Ipsum is therefore always free from
-                                                repetition injected humour, or non-characteristic
-                                                words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                                        </div>
-                                    </div>
+                                    <?php } ?>
+                                    
                                 </div>
                                 <div class="tab-pane" id="nav-vision" role="tabpanel">
                                     <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
@@ -235,52 +165,43 @@
                         </div>
                         <!-- php-->
                         <?php
-                        $idpro = $_GET['id'];
+                        $id = $_GET['id'];
 
                         ?>
-                        <form action="?act=addComment&idpro=<?php echo $idpro ?>" method="post">
+                       
+                        <form action="?act=addComment&id=<?php echo $id ?>" method="post">
                             <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+
                             <div class="row g-4">
                                 <?php if (isset($_SESSION['user'])) {   ?>
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <span type="text" class="form-control border-0 me-4"
-                                                placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
+                                            <span type="text" class="form-control border-0 me-4" placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="idpro" value="<?php $_GET['id'] ?>">
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <span type="text" class="form-control border-0 me-4"
-                                                placeholder="Yur Name *"><?php echo $_SESSION['user']['email'] ?></span>
+                                            <span type="email" class="form-control border-0" placeholder="Your Email *"><?php echo $_SESSION['user']['email'] ?></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
-                                                placeholder="Your Review *" spellcheck="false"></textarea>
+                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
                                         </div>
                                     </div>
-                                    <div>
-                                        <?php if (!empty($errorCmt)) : ?>
-                                            <p style="color: red;"><?= $errorCmt ?></p>
-                                        <?php endif; ?>
-                                    </div>
-
                                     <div class="col-lg-12">
                                         <div class="d-flex justify-content-between py-3 mb-5">
                                             <div class="d-flex align-items-center">
                                                 <p class="mb-0 me-3">Please rate:</p>
                                                 <div class="d-flex align-items-center" style="font-size: 12px;">
-                                                    <i class="fa fa-star text-muted"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                                    <?php for ($i = 1; $i <= 5; $i++) {  ?>
+                                                        <input type="radio" class="fa fa-star" name="rating" value="<?= $i ?>" style="display:none;" />
+                                                        <i class="fa fa-star " style="color:<?= $i <= $rating ? 'gold' : 'grey'; ?>" data-rating="<?= $i ?>"></i>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
-                                            <button type="submit"
-                                                class="btn border border-secondary text-primary rounded-pill px-4 py-3">Post
-                                                Comment</button>
+                                            <button type="submit" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</button>
                                         </div>
                                     </div>
                                 <?php } ?>
