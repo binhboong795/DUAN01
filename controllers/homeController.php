@@ -262,21 +262,27 @@ class homeController
     // Hiển thị giỏ hàng
     function cart()
     {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!isset($_SESSION['user'])) {
             header("Location: index.php?act=dangnhap");
             exit;
         }
 
+        // Lấy ID người dùng từ session
         $iduser = $_SESSION['user']['id'];
-        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Lấy tổng số lượng sản phẩm
-        $cartItems = $this->homeModel->getCartItems($iduser); // Lấy toàn bộ sản phẩm trong giỏ hàng của người dùng
-        require_once 'views/cart.php';
-        require_once 'assets/header/headerHome.php';
-        require_once 'assets/header/headerCart.php';
-        require_once 'assets/header/headerShop.php';
-        // Chắc chắn header có thể truy cập được biến này
 
+        // Lấy thông tin giỏ hàng từ model
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Lấy tổng số lượng sản phẩm
+        $cartItems = $this->homeModel->getCartItems($iduser); // Lấy tất cả sản phẩm trong giỏ hàng
+        $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tính tổng giá trị giỏ hàng
+
+        // Truyền dữ liệu sang view (giỏ hàng)
+        require_once 'assets/header/headerHome.php';  // Header chung cho trang chủ
+        require_once 'assets/header/headerCart.php';  // Header cho giỏ hàng
+        require_once 'views/cart.php';  // View giỏ hàng (chứa thông tin sản phẩm và tổng giá trị)
+        require_once 'assets/header/headerShop.php'; // Có thể là header cho shop hoặc cần hợp nhất header
     }
+
 
 
 
@@ -327,7 +333,7 @@ class homeController
 
         if ($product) {
             // Tạo idbill ngẫu nhiên (ví dụ: số ngẫu nhiên từ 1000 đến 9999)
-            $idbill = rand(1000, 9999);
+            $idbill = rand(1, 100);
 
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
             $cartItem = $this->homeModel->getCartItems($iduser, $id);

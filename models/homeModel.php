@@ -213,4 +213,12 @@ class homeModel
         }
         return $stmt->fetchAll();
     }
+    function calculateTotalPrice($iduser)
+    {
+        $sql = "SELECT SUM(thanhtien) as total_price_all FROM giohang WHERE iduser = :iduser";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['iduser' => $iduser]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
+    }
 }

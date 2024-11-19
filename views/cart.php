@@ -78,7 +78,7 @@
                                     <!-- Tên sản phẩm -->
                                     <td><?= htmlspecialchars($item['name']) ?></td>
                                     <!-- Giá sản phẩm -->
-                                    <td><?= number_format($item['price'], 2) ?> VND</td>
+                                    <td><?= number_format($item['price'], 2) ?> $</td>
                                     <!-- Số lượng và nút tăng/giảm -->
                                     <td>
                                         <div class="input-group quantity mt-4" style="width: 100px;">
@@ -102,7 +102,7 @@
                                         </div>
                                     </td>
                                     <!-- Tổng giá sản phẩm -->
-                                    <td><?= number_format($item['total_price'], 2) ?> VND</td>
+                                    <td><?= number_format($item['total_price'], 2) ?> $</td>
                                     <!-- Nút xóa sản phẩm -->
                                     <td>
                                         <a href="index.php?act=removeFromCart&id=<?= $item['idpro'] ?>">Xóa</a>
@@ -145,7 +145,21 @@
                         </div>
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
-                            <p class="mb-0 pe-4">$99.00</p>
+                            <?php if (!empty($cartItems)): ?>
+                                <?php foreach ($cartItems as $item): ?>
+                                    <tr>
+
+                                        </td>
+
+                                        <td><?= number_format($item['total_price-all'], 2) ?> VND</td>
+
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6">Giỏ hàng trống</td>
+                                </tr>
+                            <?php endif; ?>
                         </div>
                         <a href="?act=chackout">
                             <button
