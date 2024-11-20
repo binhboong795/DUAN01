@@ -7,9 +7,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <?php require_once 'views/components/style.php'?>
+    <?php require_once 'views/components/style.php' ?>
 
-    <?php require_once 'assets/header/headerTestimonial.php'?>
+    <?php require_once 'assets/header/headerTestimonial.php' ?>
 
 </head>
 
@@ -149,6 +149,7 @@
             </div>
         </div>
     </div>
+    <a class="btn border-secondary rounded-pill py-3 px-5" href="index.php">Go Back To Home</a>
     <!-- Tastimonial End -->
 
 

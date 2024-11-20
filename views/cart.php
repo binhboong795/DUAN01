@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <?php require_once 'views/components/style.php'?>
+    <?php require_once 'views/components/style.php' ?>
 
 </head>
 
@@ -22,7 +22,7 @@
     <!-- Spinner End -->
 
 
-    <?php require_once 'assets/header/headerCart.php'?>
+    <?php require_once 'assets/header/headerCart.php' ?>
 
 
     <!-- Modal Search Start -->
@@ -67,122 +67,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">
-                                <div class="d-flex align-items-center">
-                                    <img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle"
-                                        style="width: 80px; height: 80px;" alt="">
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 mt-4">Big Banana</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="d-flex align-items-center">
-                                    <img src="img/vegetable-item-5.jpg" class="img-fluid me-5 rounded-circle"
-                                        style="width: 80px; height: 80px;" alt="" alt="">
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 mt-4">Potatoes</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <div class="d-flex align-items-center">
-                                    <img src="img/vegetable-item-2.jpg" class="img-fluid me-5 rounded-circle"
-                                        style="width: 80px; height: 80px;" alt="" alt="">
-                                </div>
-                            </th>
-                            <td>
-                                <p class="mb-0 mt-4">Awesome Brocoli</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 mt-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php if (!empty($cartItems)): ?>
+                            <?php foreach ($cartItems as $item): ?>
+                                <tr>
+                                    <!-- Hình ảnh sản phẩm -->
+                                    <td>
+                                        <img src="assets/img/<?= htmlspecialchars($item['img']) ?>"
+                                            alt="<?= htmlspecialchars($item['name']) ?>" width="50">
+                                    </td>
+                                    <!-- Tên sản phẩm -->
+                                    <td><?= htmlspecialchars($item['name']) ?></td>
+                                    <!-- Giá sản phẩm -->
+                                    <td><?= number_format($item['price'], 2) ?> $</td>
+                                    <!-- Số lượng và nút tăng/giảm -->
+                                    <td>
+                                        <div class="input-group quantity mt-4" style="width: 100px;">
+                                            <!-- Nút giảm số lượng -->
+                                            <div class="input-group-btn">
+                                                <a href="index.php?act=updateQuantity&id=<?= $item['idpro'] ?>&action=decrease"
+                                                    class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                            </div>
+                                            <!-- Hiển thị số lượng -->
+                                            <input type="text" class="form-control form-control-sm text-center border-0"
+                                                value="<?= $item['soluong'] ?>" disabled>
+                                            <!-- Nút tăng số lượng -->
+                                            <div class="input-group-btn">
+                                                <a href="index.php?act=updateQuantity&id=<?= $item['idpro'] ?>&action=increase"
+                                                    class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- Tổng giá sản phẩm -->
+                                    <td><?= number_format($item['total_price'], 2) ?> $</td>
+                                    <!-- Nút xóa sản phẩm -->
+                                    <td>
+                                        <a href="index.php?act=removeFromCart&id=<?= $item['idpro'] ?>">Xóa</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="text-center">Giỏ hàng trống</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
+
+
+
                 </table>
             </div>
             <div class="mt-5">
@@ -198,7 +133,17 @@
                             <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                             <div class="d-flex justify-content-between mb-4">
                                 <h5 class="mb-0 me-4">Subtotal:</h5>
-                                <p class="mb-0">$96.00</p>
+                                <?php if (!empty($cartItems)): ?>
+                                    <!-- Hiển thị tổng giá trị nếu có sản phẩm trong giỏ hàng -->
+                                    <div>
+                                        <span><?= number_format($totalPrice, 2) ?> VND</span>
+                                    </div>
+                                <?php else: ?>
+                                    <!-- Nếu giỏ hàng trống -->
+                                    <div>
+                                        <span>Giỏ hàng trống</span>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0 me-4">Shipping</h5>
@@ -210,11 +155,16 @@
                         </div>
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
-                            <p class="mb-0 pe-4">$99.00</p>
+
                         </div>
-                        <button
-                            class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                            type="button">Proceed Checkout</button>
+
+                        <a href="?act=chackout">
+                            <button
+                                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                                type="button">
+                                Proceed Checkout
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -64,45 +64,43 @@ if (isset($_SESSION['user'])) {
 }
 
 /* Định dạng cho nút tìm kiếm */
-.btn-search {
-    background-color: #ffffff;
-    border: 1px solid #6c757d;
-    color: #0d6efd;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
-}
+
 
 /* Định dạng cho input tìm kiếm - ẩn ban đầu */
-.search-input {
-    margin-right: 5px;
-    width: 0;
-    padding: 0;
-    border: 1px solid #6c757d;
-    border-radius: 20px;
-    transition: width 0.4s ease, padding 0.4s ease, transform 0.4s ease;
-    opacity: 0;
-    margin-left: 10px;
-    font-size: 14px;
-    color: #495057;
-    transform-origin: right;
-    transform: scaleX(0);
-    /* Bắt đầu từ kích thước 0 */
-}
+
 
 /* Khi container có focus */
-.search-container:focus-within .search-input {
-    width: 170px;
+/*  */
+.search-input {
+    margin-right: 4px;
+    width: 200px;
+    max-width: 300px;
+    /* Giới hạn chiều rộng */
     height: 40px;
-    /* Chiều rộng khi mở rộng */
-    padding: 10px 20px;
-    opacity: 1;
-    transform: scaleX(1);
-    /* Mở rộng từ phải sang trái */
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    /* Bo góc */
+    transition: all 0.3s ease-in-out;
+    /* Hiệu ứng mượt mà */
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng đổ bóng */
+}
+
+.search-input:hover {
+    border-color: greenyellow;
+    /* Màu xanh nhạt khi hover */
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    /* Màu xanh đậm khi nhấp */
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    /* Hiệu ứng bóng */
+    background-color: #fff;
 }
 </style>
 <div class="container-fluid fixed-top">
@@ -135,7 +133,7 @@ if (isset($_SESSION['user'])) {
     </div>
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand">
+            <a href="?act=/" class="navbar-brand">
                 <h1 class="text-primary display-6">Fruitables</h1>
             </a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -144,7 +142,7 @@ if (isset($_SESSION['user'])) {
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="?act=/" class="nav-item nav-link active">Home</a>
+                    <a href="?act=/" class="nav-item nav-link">Home</a>
                     <a href="?act=shop" class="nav-item nav-link ">Shop</a>
                     <a href="" class="nav-item nav-link">Shop Detail</a>
                     <div class="nav-item dropdown">
@@ -159,19 +157,21 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <div class="search-container">
-                        <input type="text" class="search-input" placeholder="Tìm kiếm...">
-                        <button
-                            class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4">
-                            <i class="fas fa-search text-primary"></i>
-                        </button>
-
-                    </div>
-                    <a href="#" class="position-relative me-4 my-auto">
+                    <a href="?act=cart" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
+                        <?php if (isset($totalQuantity)): ?>
                         <span
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                            <? echo $totalQuantity; ?>
+                        </span>
+
+                        <? else: ?> <span
+                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                            0
+                        </span>
+                        <?php endif; ?>
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
