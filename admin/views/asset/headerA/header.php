@@ -16,9 +16,9 @@
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
-    <link rel="stylesheet" href="/DUAN01/admin/views/assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="/DUAN01/admin/views/assets/css/style.css">
-    <link rel="stylesheet" href="/DUAN01/admin/views/assets/css/style.css.map">
+    <link rel="stylesheet" href="/DUAN1/admin/views/asset/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="/DUAN1/admin/views/asset/css/style.css">
+    <link rel="stylesheet" href="/DUAN1/admin/views/asset/css/style.css.map">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -82,7 +82,9 @@
             width: 100%;
             text-align: center;
         }
-        td, th {
+
+        td,
+        th {
             padding: 10px;
         }
     </style>
@@ -121,7 +123,7 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="/DUAN01/admin/views/images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="/DUAN1/admin/views/images/logo.png" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -208,7 +210,7 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="/duan01/admin/views/images/admin.jpg"
+                            <img class="user-avatar rounded-circle" src="/duan1/admin/views/images/admin.jpg"
                                 alt="User Avatar">
                         </a>
 

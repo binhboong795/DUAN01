@@ -10,6 +10,11 @@
 
     <?php include 'views/components/style.php' ?>
 </head>
+<style>
+    .text-right {
+        text-align: right;
+    }
+</style>
 
 <body>
 
@@ -69,7 +74,8 @@
 
                         <div class="form-item">
                             <label class="form-label my-3">Address <sup>*</sup></label>
-                            <input type="text" class="form-control" name="bill_address" placeholder="House Number Street Name">
+                            <input type="text" class="form-control" name="bill_address"
+                                placeholder="House Number Street Name">
                         </div>
 
 
@@ -89,7 +95,7 @@
                     <div class="col-md-12 col-lg-6 col-xl-5">
                         <div class="table-responsive">
                             <table class="table">
-                                <thead> 
+                                <thead>
                                     <tr>
                                         <th scope="col">Products</th>
                                         <th scope="col">Name</th>
@@ -98,32 +104,37 @@
                                         <th scope="col">Total</th>
                                     </tr>
                                 </thead>
-                               <tbody>
-                               <tbody>
-                            <?php if (!empty($cartItems)):
-                                    var_dump($cartItems)
-                                ?>
-                                <?php foreach ($cartItems as $item): ?>
-                                    <tr>
-                                        <td><img src="<?= $item['img'] ?>" alt="<?= $item['name'] ?>" style="width: 50px;"></td>
-                                        <td><?= $item['name'] ?></td>
-                                        <td><?= number_format($item['price'], 0, ',', '.') ?> VND</td>
-                                        <td><?= $item['soluong'] ?></td>
-                                        <td><?= number_format($item['thanhtien'], 0, ',', '.') ?> VND</td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="5">Giỏ hàng trống</td>
-                                </tr>
-                            <?php endif; ?>
-                               </tbody>
+
+                                <tbody>
+                                    <?php if (!empty($cartItems)): ?>
+                                        <?php foreach ($cartItems as $item): ?>
+                                            <tr>
+                                                <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
+                                                        width="50"></td>
+                                                <td><?= $item['name'] ?></td>
+                                                <td><?= number_format($item['price'], 2) ?> $</td>
+                                                <td><?= $item['soluong'] ?></td>
+                                                <td><?= number_format($item['total_price'], 2) ?> $</td>
+                                            </tr>
+
+                                        <?php endforeach; ?>
+                                        <tr>
+                                            <td colspan="5" class="text-right"><?= $totalPrice ?> $</td>
+                                        </tr>
+
+
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center">Giỏ hàng trống</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
                             </table>
 
-                        
 
 
-                            
+
+
                         </div>
                         <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                             <div class="col-12">
@@ -167,7 +178,8 @@
                         <div class="row g-4 text-center align-items-center justify-content-center pt-4">
 
 
-                            <button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary" type="submit" name="order">Place Order</button>
+                            <button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
+                                type="submit" name="order">Place Order</button>
 
                         </div>
                     </div>

@@ -112,6 +112,22 @@ class homeController
     }
     function chackout()
     {
+
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
+
+        $iduser = $_SESSION['user']['id'];
+
+        // Lấy dữ liệu giỏ hàng
+        $cartItems = $this->homeModel->getCartItems($iduser);
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
+        $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
+
+        // View hiển thị trang thanh toán
+
+
         require_once 'views/chackout.php';
     }
     function registerUser()
@@ -138,36 +154,36 @@ class homeController
         require_once 'views/taikhoan/dangky.php';
     }
     function login()
-{
-    if (isset($_POST['dangnhap'])) {
-        $user = $_POST['user'];
-        $pass = $_POST['pass'];
+    {
+        if (isset($_POST['dangnhap'])) {
+            $user = $_POST['user'];
+            $pass = $_POST['pass'];
 
-        // Lấy thông tin người dùng từ cơ sở dữ liệu
-        $userInfo = $this->homeModel->checkAcc($user, $pass);
+            // Lấy thông tin người dùng từ cơ sở dữ liệu
+            $userInfo = $this->homeModel->checkAcc($user, $pass);
 
-        if ($userInfo) { // Nếu thông tin người dùng tồn tại
-            // Kiểm tra role từ cơ sở dữ liệu và chuyển hướng phù hợp
-            if ($userInfo['role'] == 1) {
-                header('Location: admin/index.php'); // Chuyển hướng về admin nếu là admin
+            if ($userInfo) { // Nếu thông tin người dùng tồn tại
+                // Kiểm tra role từ cơ sở dữ liệu và chuyển hướng phù hợp
+                if ($userInfo['role'] == 1) {
+                    header('Location: admin/index.php'); // Chuyển hướng về admin nếu là admin
+                    exit;
+                }
+
+                // Lưu thông tin vào session
+                $_SESSION['user'] = [
+                    'username' => $userInfo['user'],
+                    'email' => $userInfo['email'],
+                    'role' => $userInfo['role'],
+                    'id' => $userInfo['id']
+                ];
+                header('Location: index.php'); // Chuyển hướng về trang chủ
                 exit;
+            } else {
+                $error = "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không đúng";
             }
-
-            // Lưu thông tin vào session
-            $_SESSION['user'] = [
-                'username' => $userInfo['user'],
-                'email' => $userInfo['email'],
-                'role' => $userInfo['role'],
-                'id' => $userInfo['id']
-            ];
-            header('Location: index.php'); // Chuyển hướng về trang chủ
-            exit;
-        } else {
-            $error = "Đăng nhập thất bại! Tài khoản hoặc mật khẩu không đúng";
         }
+        require_once 'views/taikhoan/dangnhap.php';
     }
-    require_once 'views/taikhoan/dangnhap.php';
-}
 
 
     function logout()
@@ -423,12 +439,27 @@ class homeController
             // Kiểm tra xem các trường có rỗng hay không
             if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
+                if (!isset($_SESSION['user'])) {
+                    header("Location: index.php?act=dangnhap");
+                    exit;
+                }
+
+                $iduser = $_SESSION['user']['id'];
+
+                // Lấy dữ liệu giỏ hàng
+                $cartItems = $this->homeModel->getCartItems($iduser);
+                $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
+                $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
+
+                // View hiển thị trang thanh toán
             } else {
                 // Gọi model để chèn dữ liệu vào cơ sở dữ liệu
                 $mOrder = new homeModel();
                 $insertOrder = $mOrder->insertOrder(null, $bill_name, $bill_address, $bill_tell, $bill_email);
                 header('location: index.php?act=testimonial');
             }
+        } else {
+            header('location: index.php?act=chackout');
         }
         require_once 'views/chackout.php'; // Gọi lại view checkout (hoặc trang thanh toán của bạn)
     }
