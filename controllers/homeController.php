@@ -149,7 +149,7 @@ class homeController
         if ($userInfo) { // Nếu thông tin người dùng tồn tại
             // Kiểm tra role từ cơ sở dữ liệu và chuyển hướng phù hợp
             if ($userInfo['role'] == 1) {
-                header('Location: admin/views/home.php'); // Chuyển hướng về admin nếu là admin
+                header('Location: admin/index.php'); // Chuyển hướng về admin nếu là admin
                 exit;
             }
 

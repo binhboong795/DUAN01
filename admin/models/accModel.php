@@ -6,9 +6,13 @@ class accModel
     {
         $this->conn = connectDB();
     }
-    // function checkAcc($user, $pass){
-    //     $pass=sha1($pass);
-    //     $sql="select * from acc where user='$user' and pass='$pass'";
-    //     return $this->conn->query($sql)->rowCount();
-    // }
+    
+    function getAllUser()
+{
+    $sql = "SELECT * FROM taikhoan"; // Đảm bảo đúng tên bảng
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Trả về mảng kết quả
+}
+
 }
