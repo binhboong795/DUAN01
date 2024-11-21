@@ -9,16 +9,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>Admin</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
-    <link rel="stylesheet" href="/duan1/admin/views/assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="/duan1/admin/views/assets/css/style.css">
-    <link rel="stylesheet" href="/duan1/admin/views/assets/css/style.css.map">
+    <link rel="stylesheet" href="/DUAN1/admin/views/asset/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="/DUAN1/admin/views/asset/css/style.css">
+    <link rel="stylesheet" href="/DUAN1/admin/views/asset/css/style.css.map">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -77,6 +77,16 @@
         #cellPaiChart {
             height: 160px;
         }
+
+        table {
+            width: 100%;
+            text-align: center;
+        }
+
+        td,
+        th {
+            padding: 10px;
+        }
     </style>
 </head>
 
@@ -87,22 +97,22 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="index.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Sản phẩm </a>
+                        <a href="index.php?act=sanpham"><i class="menu-icon fa fa-laptop"></i>Sản phẩm </a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Danh mục </a>
+                        <a href="index.php?act=danhmuc"><i class="menu-icon fa fa-laptop"></i>Danh mục </a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Tài khoản </a>
+                        <a href="index.php?act=taikhoan"><i class="menu-icon fa fa-laptop"></i>Tài khoản </a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Bình luận</a>
+                        <a href="index.php?act=binhluan"><i class="menu-icon fa fa-laptop"></i>Bình luận</a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Banner</a>
+                        <a href="index.php?act=banner"><i class="menu-icon fa fa-laptop"></i>Banner</a>
                     </li>
 
     </aside>
@@ -113,7 +123,7 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="/duan1/admin/views/images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="/DUAN1/admin/views/images/logo.png" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>

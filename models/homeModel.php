@@ -56,12 +56,15 @@ class homeModel
     }
 
     function checkAcc($user, $pass)
-    {
-        $sql = "select * from taikhoan where user='$user' and pass='$pass'";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
+{
+    $sql = "SELECT * FROM taikhoan WHERE user = :user AND pass = :pass";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':user', $user);
+    $stmt->bindParam(':pass', $pass);
+    $stmt->execute();
+    return $stmt->fetch();  // Trả về dữ liệu người dùng nếu có
+}
+
 
 
 
@@ -225,5 +228,33 @@ class homeModel
         $stmt->execute(['iduser' => $iduser]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
+    }
+
+    function insertOrder($id, $user, $pass, $email)
+    {
+        $sql = "INSERT INTO taikhoan (id, user, pass, email) VALUES (?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+        return $stmt->execute([$id, $user, $pass, $email]);
+    }
+
+    function chackcart($iduser) {
+        // Kiểm tra $iduser có giá trị hợp lệ
+        if (!$iduser) {
+            return []; // Nếu không có iduser, trả về mảng rỗng
+        }
+    
+        $sql = "SELECT id, idpro, img, name, price, soluong, thanhtien, idbill 
+                FROM giohang
+                WHERE iduser = :iduser";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['iduser' => $iduser]);
+    
+        // Kiểm tra xem có kết quả không
+        $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($cartItems)) {
+            return []; // Nếu không có sản phẩm trong giỏ, trả về mảng rỗng
+        }
+    
+        return $cartItems;
     }
 }
