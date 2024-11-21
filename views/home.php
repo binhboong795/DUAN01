@@ -674,7 +674,7 @@
 
 
                     <?php foreach ($product as $list_products): ?>
-                    <? endforeach; ?>
+                    <?php endforeach; ?>
                     <div class="p-4 rounded bg-light">
 
                         <div class="row align-items-center">
