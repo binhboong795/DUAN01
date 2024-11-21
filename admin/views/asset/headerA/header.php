@@ -103,16 +103,16 @@
                         <a href="index.php?act=sanpham"><i class="menu-icon fa fa-laptop"></i>Sản phẩm </a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Danh mục </a>
+                        <a href="index.php?act=danhmuc"><i class="menu-icon fa fa-laptop"></i>Danh mục </a>
                     </li>
                     <li class="">
                         <a href="index.php?act=taikhoan"><i class="menu-icon fa fa-laptop"></i>Tài khoản </a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Bình luận</a>
+                        <a href="index.php?act=binhluan"><i class="menu-icon fa fa-laptop"></i>Bình luận</a>
                     </li>
                     <li class="">
-                        <a href=""><i class="menu-icon fa fa-laptop"></i>Banner</a>
+                        <a href="index.php?act=banner"><i class="menu-icon fa fa-laptop"></i>Banner</a>
                     </li>
 
     </aside>
