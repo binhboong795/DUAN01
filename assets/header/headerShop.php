@@ -75,7 +75,7 @@ if (isset($_SESSION['user'])) {
                             0
                         </span>
                         <?php endif; ?>
-
+                           
                     </a>
                     <a href="#" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>

@@ -31,10 +31,14 @@ class accController
 
         require_once 'views/banner.php';
     }
-function taikhoan()
-{
-    $listUser = $this->accModel->getAllUser();
-    require_once 'views/taikhoan.php';
-}
-
+    function taikhoan()
+    {
+        $listUser = $this->accModel->getAllUser();
+        require_once 'views/account/taikhoan.php';
+    }
+    function editUser()
+    {
+        $edituser = $this->accModel->updateUser();
+        require_once 'views/edit.php';
+    }
 }
