@@ -82,7 +82,7 @@
             width: 100%;
             text-align: center;
         }
-        td {
+        td, th {
             padding: 10px;
         }
     </style>
