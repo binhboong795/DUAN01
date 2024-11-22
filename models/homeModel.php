@@ -48,11 +48,11 @@ class homeModel
     //     return $stmt->fetch(PDO::FETCH_ASSOC);
     // }
 
-    function insertUser($id, $user, $pass, $email)
+    function insertUser($id, $user, $pass, $email, $address, $tell)
     {
-        $sql = "INSERT INTO taikhoan (id, user, pass, email) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO taikhoan (id, user, pass, email, address, tell) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $user, $pass, $email]);
+        return $stmt->execute([$id, $user, $pass, $email, $address, $tell]);
     }
 
     function checkAcc($user, $pass)

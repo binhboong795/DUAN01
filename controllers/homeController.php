@@ -139,13 +139,13 @@ class homeController
             $pass = $_POST['pass'];
             $email = $_POST['email'];
             $address = $_POST['address'];
-            $tel = $_POST['tel'];
+            $tell = $_POST['tell'];
 
-            if ($user == "" || $pass == "" || $email == "" || $address == "" || $tel == "") {
+            if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
             } else {
                 $mUser = new homeModel();
-                $registerUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tel);
+                $registerUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tell);
                 echo "<script>
                         alert('Bạn đã đăng ký thành công!');
                         window.location.href='?act=dangnhap';

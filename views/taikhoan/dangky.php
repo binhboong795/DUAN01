@@ -1,5 +1,6 @@
-<?php require_once 'views/components/style.php';
-require_once 'assets/header/headerLogin.php';
+<?php
+    require_once 'views/components/style.php';
+    require_once 'assets/header/headerLogin.php';
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +69,10 @@ require_once 'assets/header/headerLogin.php';
                                 placeholder="Mật khẩu">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
                                 placeholder="Email">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address"
+                                placeholder="Address">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell"
+                                placeholder="Tell">
                             <p style="color: red;"><?=$error?></p>
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                                 type="submit" name="dangky">Đăng ký</button>

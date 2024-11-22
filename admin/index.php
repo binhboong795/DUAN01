@@ -14,4 +14,6 @@ match ($act) {
     'danhmuc'=> (new accController())->danhmuc(),
     'binhluan'=> (new accController())->binhluan(),
     'banner'=> (new accController())->banner(),
+    'editUser'=> (new accController())->editUser(),
+    'deleteUser'=> (new accController())->deleteUser(),
 };

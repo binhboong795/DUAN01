@@ -1,6 +1,5 @@
-<?php
-    // require_once './views/components/style.php';
-    // require_once 'assets/header/headerLogin.php';
+<?php require_once 'views/components/style.php';
+require_once 'assets/header/headerLogin.php';
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +49,7 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="text-center mx-auto" style="max-width: 700px;">
-                            <h1 class="text-primary">Cập Nhật Tài Khoản</h1>
+                            <h1 class="text-primary">Đăng Ký</h1>
                         </div>
                     </div>
                     <!-- <div class="col-lg-12">
@@ -64,18 +63,19 @@
                         <form action="" method="post">
 
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
-                                placeholder="Tên tài khoản" value="<?php echo $idUser['user'] ?>">
+                                placeholder="Tên tài khoản">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
-                                placeholder="Mật khẩu" value="<?php echo $idUser['pass'] ?>">
+                                placeholder="Mật khẩu">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
-                                placeholder="Email" value="<?php echo $idUser['email'] ?>">
+                                placeholder="Email">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address"
-                                placeholder="Address" value="<?php echo $idUser['address'] ?>">
+                                placeholder="Address">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell"
-                                placeholder="Tell" value="<?php echo $idUser['tell'] ?>">
+                                placeholder="Tell">
+                            <p style="color: red;"><?=$error?></p>
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
-                                type="submit" name="capnhat">Cập Nhật</button>
-                            <p style="color: red;"><?php echo $error ?></p>
+                                type="submit" name="dangky">Đăng ký</button>
+
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
                     </div>
@@ -110,5 +110,5 @@
 
 </html>
 <?php
-// require_once 'assets/footer/footer.php';
+require_once 'assets/footer/footer.php';
 ?>
