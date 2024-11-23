@@ -244,9 +244,9 @@
             <!-- Fruits Shop End-->
 
 
-
         </div>
-        <?php require_once 'assets/footer/footer.php' ?>
+    </div>
+    <?php require_once 'assets/footer/footer.php' ?>
 
 </body>
 
