@@ -23,7 +23,8 @@
 
 
     <?php require_once 'assets/header/headerDetail.php' ?>
-
+    <a href="index.php?act=/" class="btn border border-secondary rounded-pill px-3 text-primary"><i
+            class="fa fa-shopping-bag me-2 text-primary"></i>VỀ TRANG CHỦ</a>
 
     <!-- Modal Search Start -->
     <!-- <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,10 +95,10 @@
                             <br>
                             <br>
 
-                            <a href="index.php?act=/"
-                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-primary"></i>VỀ TRANG CHỦ</a>
 
+                            <a href="index.php?act=addToCart&id=<?= $productOne['id'] ?>"
+                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                    class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
                             <!-- php-->
 
 
