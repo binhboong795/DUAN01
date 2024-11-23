@@ -35,6 +35,22 @@ class homeModel
         $sql = "select * from sanpham where id=$id";
         return $this->conn->query($sql)->fetch();
     }
+
+    function findProductByIddm($iddm)
+    {
+        // Câu truy vấn SQL với tham số động
+        $sql = "SELECT * FROM sanpham WHERE iddm = :iddm";
+
+        // Chuẩn bị truy vấn
+        $stmt = $this->conn->prepare($sql);
+
+        // Thực thi truy vấn với tham số
+        $stmt->execute([':iddm' => $iddm]);
+
+        // Lấy kết quả
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // public function findProductById($id)
     // {
     //     if (!$id || !is_numeric($id)) {
@@ -56,14 +72,14 @@ class homeModel
     }
 
     function checkAcc($user, $pass)
-{
-    $sql = "SELECT * FROM taikhoan WHERE user = :user AND pass = :pass";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':user', $user);
-    $stmt->bindParam(':pass', $pass);
-    $stmt->execute();
-    return $stmt->fetch();  // Trả về dữ liệu người dùng nếu có
-}
+    {
+        $sql = "SELECT * FROM taikhoan WHERE user = :user AND pass = :pass";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':user', $user);
+        $stmt->bindParam(':pass', $pass);
+        $stmt->execute();
+        return $stmt->fetch();  // Trả về dữ liệu người dùng nếu có
+    }
 
 
 
@@ -237,24 +253,25 @@ class homeModel
         return $stmt->execute([$id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt]);
     }
 
-    function chackcart($iduser) {
+    function chackcart($iduser)
+    {
         // Kiểm tra $iduser có giá trị hợp lệ
         if (!$iduser) {
             return []; // Nếu không có iduser, trả về mảng rỗng
         }
-    
+
         $sql = "SELECT id, idpro, img, name, price, soluong, thanhtien, idbill 
                 FROM giohang
                 WHERE iduser = :iduser";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['iduser' => $iduser]);
-    
+
         // Kiểm tra xem có kết quả không
         $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (empty($cartItems)) {
             return []; // Nếu không có sản phẩm trong giỏ, trả về mảng rỗng
         }
-    
+
         return $cartItems;
     }
 }

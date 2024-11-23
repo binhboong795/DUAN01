@@ -13,8 +13,14 @@ class homeController
     }
     function home()
     {
+        $products = [];
+        $nhapkhau = [];
+        $noidia = [];
+        $nhapkhau = $this->homeModel->findProductByIddm('116');
+        $noidia = $this->homeModel->findProductByIddm('115');
         $product = $this->homeModel->allProduct();
-        require_once 'views/home.php';
+        $product = $this->homeModel->allProduct();
+
 
         // Giả sử đây là trang bạn muốn hiển thị tổng số lượng sản phẩm trong giỏ hàng
         if (isset($_SESSION['user'])) {
@@ -25,11 +31,7 @@ class homeController
         }
 
         // Chuyển tới View
-        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
-        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
-        require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
-        require_once 'assets/header/headerContact.php';
-        require_once 'assets/header/headerTestimonial.php';
+        require_once 'views/home.php';
     }
 
 
@@ -57,17 +59,14 @@ class homeController
             $products = $this->homeModel->allProductShop();
         }
         $danhmuc = $this->homeModel->allDanhmuc();
-        require_once 'views/shop.php';
+
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
             // Lấy tổng số lượng sản phẩm trong giỏ hàng
             $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
         }
 
-        require_once 'assets/header/headerShop.php';
-        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
-        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
-        // Truyền vào headerShop
+        require_once 'views/shop.php';
     }
     function shopDetail($id)
     {
@@ -84,10 +83,6 @@ class homeController
         }
 
         require_once 'views/shopDetail.php';
-        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
-        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
-        require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
-        require_once 'assets/header/headerDetail.php'; // Truyền vào headerDetail
     }
 
     function contact()
@@ -99,32 +94,30 @@ class homeController
         }
 
         require_once 'views/contact.php';
-        require_once 'assets/header/headerHome.php'; // Truyền vào headerHome
-        require_once 'assets/header/headerCart.php'; // Truyền vào headerCart
-        require_once 'assets/header/headerShop.php'; // Truyền vào headerShop
+
         require_once 'assets/header/headerContract.php'; // Truyền vào headerContract
     }
 
     function testimonial()
     {
-        if (!isset($_SESSION['user'])) {
-            header("Location: index.php?act=dangnhap");
-            exit;
-        }
-        
-        $iduser = $_SESSION['user']['id'];
-        $cartItems = $this->homeModel->getCartItems($iduser);
-        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
-        $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
+
         require_once 'views/testimonial.php';
+
+        // Truyền vào headerContract
+
     }
     function error()
     {
+        if (isset($_SESSION['user'])) {
+            $iduser = $_SESSION['user']['id'];
+            // Lấy tổng số lượng sản phẩm trong giỏ hàng
+            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        }
         require_once 'views/404.php';
     }
     function chackout()
     {
-
+        // Kiểm tra người dùng đã đăng nhập chưa
         if (!isset($_SESSION['user'])) {
             header("Location: index.php?act=dangnhap");
             exit;
@@ -132,16 +125,18 @@ class homeController
 
         $iduser = $_SESSION['user']['id'];
 
-        // Lấy dữ liệu giỏ hàng
+        // Lấy dữ liệu từ Model
         $cartItems = $this->homeModel->getCartItems($iduser);
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
-        $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
+        $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng từ Model
 
-        // View hiển thị trang thanh toán
+        // Cộng thêm 3 vào tổng giá trị
+        $totalPriceAll += 3;
 
-
+        // Truyền dữ liệu cho view
         require_once 'views/chackout.php';
     }
+
     function registerUser()
     {
         $error = "";
@@ -316,8 +311,9 @@ class homeController
         foreach ($cartItems as $item) {
             $totalPrice += $item['total_price']; // Giả sử 'total_price' là giá trị của mỗi sản phẩm
         }
-
+        $totalPriceAll = $totalPrice + 3;
         require_once 'assets/header/headerHome.php';
+        require_once 'assets/header/headerShop.php';
         require_once 'assets/header/headerCart.php';
         require_once 'views/cart.php';
     }

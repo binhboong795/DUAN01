@@ -136,7 +136,7 @@
                                 <?php if (!empty($cartItems)): ?>
                                     <!-- Hiển thị tổng giá trị nếu có sản phẩm trong giỏ hàng -->
                                     <div>
-                                        <span><?= number_format($totalPrice, 2) ?> VND</span>
+                                        <span><?= number_format($totalPrice, 2) ?> $</span>
                                     </div>
                                 <?php else: ?>
                                     <!-- Nếu giỏ hàng trống -->
@@ -151,11 +151,13 @@
                                     <p class="mb-0">Flat rate: $3.00</p>
                                 </div>
                             </div>
-                            <p class="mb-0 text-end">Shipping to Ukraine.</p>
+                            <p class="mb-0 text-end">Ha noi</p>
                         </div>
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
-
+                            <div style="margin-right: 27px;">
+                                <span><?= number_format($totalPriceAll, 2) ?> $</span>
+                            </div>
                         </div>
 
                         <a href="?act=chackout">
