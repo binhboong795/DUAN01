@@ -118,10 +118,10 @@
                                             </tr>
 
                                         <?php endforeach; ?>
-                                        <tr>
-                                            <td colspan="5" class="text-right"><?= $totalPrice ?> $</td>
-                                        </tr>
-
+                                        <thead>
+                                            <th>Total</th>
+                                            <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> $</td>
+                                        </thead>
 
                                     <?php else: ?>
                                         <tr>
