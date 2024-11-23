@@ -8,6 +8,9 @@ class homeController
     {
         $this->homeModel = new homeModel();
     }
+    function dathang() {
+        require_once 'views/dathang.php';
+    }
     function home()
     {
         $product = $this->homeModel->allProduct();
@@ -104,6 +107,15 @@ class homeController
 
     function testimonial()
     {
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
+        
+        $iduser = $_SESSION['user']['id'];
+        $cartItems = $this->homeModel->getCartItems($iduser);
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
+        $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
         require_once 'views/testimonial.php';
     }
     function error()
@@ -429,7 +441,7 @@ class homeController
     function chackthongtin()
     {
         $error = "";
-
+        
         if (isset($_POST["order"])) {
             // Lấy dữ liệu từ form
             $bill_name = $_POST['bill_name'];
@@ -437,13 +449,22 @@ class homeController
             $bill_tell = $_POST['bill_tell'];
             $bill_email = $_POST['bill_email'];
 
+            // Kiểm tra sự tồn tại của bill_pttt
+            $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
+            
+            
             // Kiểm tra xem các trường có rỗng hay không
             if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
+                
+                
+
                 if (!isset($_SESSION['user'])) {
                     header("Location: index.php?act=dangnhap");
                     exit;
                 }
+
+                
 
                 $iduser = $_SESSION['user']['id'];
 
@@ -456,12 +477,31 @@ class homeController
             } else {
                 // Gọi model để chèn dữ liệu vào cơ sở dữ liệu
                 $mOrder = new homeModel();
-                $insertOrder = $mOrder->insertOrder(null, $bill_name, $bill_address, $bill_tell, $bill_email);
+                $insertOrder = $mOrder->insertOrder(null, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt);
+                
+                // Lưu thông tin vào session
+                $_SESSION['bill_name'] = $bill_name;
+                $_SESSION['bill_address'] = $bill_address;
+                $_SESSION['bill_tell'] = $bill_tell;
+                $_SESSION['bill_email'] = $bill_email;
+                $_SESSION['bill_pttt'] = $bill_pttt;
                 header('location: index.php?act=testimonial');
             }
+            
+            
         } else {
-            header('location: index.php?act=chackout');
+            header('location: index.php?act=dathang');       
         }
+        if (empty($cartItems)) {
+            // echo "Giỏ hàng trống";
+            echo "<script>
+                        alert('Bạn không có sản phẩm nào trong giỏ hàng!');
+                        window.location.href='index.php?act=shop';
+                    </script>";
+            exit; // Dừng chương trình nếu giỏ hàng trống
+        }
+
+        
         require_once 'views/chackout.php'; // Gọi lại view checkout (hoặc trang thanh toán của bạn)
     }
 
