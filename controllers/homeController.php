@@ -460,6 +460,7 @@ class homeController
                 $cartItems = $this->homeModel->getCartItems($iduser);
                 $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
                 $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
+                $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
 
                 // View hiển thị trang thanh toán
             } else {
