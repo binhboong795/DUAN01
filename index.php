@@ -30,5 +30,6 @@ match ($act) {
     'removeFromCart' => (new homeController())->removeFromCart($id), // Xóa khỏi giỏ hàng
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
+    'chuyenkhoan' => (new homeController())->chuyenkhoan(),
     default => (new homeController())->error(), // Hành động không xác định
 };
