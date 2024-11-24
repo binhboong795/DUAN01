@@ -12,6 +12,15 @@ class homeController
     {
         require_once 'views/dathang.php';
     }
+    function chitietdonhang()
+    {
+        $iduser = $_SESSION['user']['id'];
+        $cartItems = $this->homeModel->getCartItems($iduser);
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
+        $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
+        require_once 'views/chitietdonhang.php';
+    }
     function chuyenkhoan()
     {
         require_once 'views/chuyenkhoan.php';
@@ -294,7 +303,6 @@ class homeController
     //     // Chuyển hướng tới trang giỏ hàng
     //     header("Location: index.php?act=cart");
     // }
-    // homeController.php
 
     // Ví dụ cho trang chi tiết sản phẩm (headerDetail.php)
     function detail($id) {}
@@ -446,15 +454,14 @@ class homeController
     // chack thông tin
     function chackthongtin()
     {
-        if (!isset($_POST["order"])) {
-
-            if (isset($_SESSION['user'])) {
-                $iduser = $_SESSION['user']['id'];
-                $this->homeModel->deleteAllCart($iduser);   
-                if (isset($_SESSION['cart'])) {
-                    unset($_SESSION['cart']);
-                }
-            }
+        if (!isset($_POST["order"])) {  
+            // if (isset($_SESSION['user'])) {
+            //     $iduser = $_SESSION['user']['id'];
+            //     $this->homeModel->deleteAllCart($iduser);
+            //     if (isset($_SESSION['cart'])) {
+            //         unset($_SESSION['cart']);
+            //     }
+            // }
             header('location: index.php?act=dathang');
             exit;
         }
@@ -507,7 +514,6 @@ class homeController
         require_once 'views/chackout.php';
     }
 
-
     function showCheckout()
     {
         if (!isset($_SESSION['user'])) {
@@ -527,7 +533,5 @@ class homeController
         // Truyền dữ liệu giỏ hàng vào view checkout
         include 'views/chackout.php';
     }
-
-   
 
 }

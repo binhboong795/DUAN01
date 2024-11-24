@@ -31,5 +31,6 @@ match ($act) {
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
     'chuyenkhoan' => (new homeController())->chuyenkhoan(),
+    'chitietdonhang' => (new homeController())->chitietdonhang(),
     default => (new homeController())->error(), // Hành động không xác định
 };

@@ -157,8 +157,10 @@ if (isset($_SESSION['bill_name'])) {
                     </div>
 
                     <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                        <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary ms-auto"
-                            type="submit" name="">Order</button>
+                        <form action="" method="post">
+                            <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary ms-auto"
+                                type="submit" name="dathang">Order</button>
+                        </form>
                     </div>
                 </div>
         </div>
