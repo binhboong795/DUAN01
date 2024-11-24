@@ -64,11 +64,11 @@ class homeModel
     //     return $stmt->fetch(PDO::FETCH_ASSOC);
     // }
 
-    function insertUser($id, $user, $pass, $email)
+    function insertUser($id, $user, $pass, $email, $address, $tell)
     {
-        $sql = "INSERT INTO taikhoan (id, user, pass, email) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO taikhoan (id, user, pass, email, address, tell) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $user, $pass, $email]);
+        return $stmt->execute([$id, $user, $pass, $email, $address, $tell]);
     }
 
     function checkAcc($user, $pass)
@@ -215,6 +215,14 @@ class homeModel
             'idpro' => $idpro,
         ]);
     }
+    // function deleteCartUser($iduser)
+    // {
+    //     $sql = "DELETE * FROM giohang WHERE iduser = :iduser";
+    //     $stmt = $this->conn->prepare($sql);
+    //     return $stmt->execute([
+    //         'iduser' => $iduser,
+    //     ]);
+    // }
     function getTotalQuantity($iduser)
     {
         $sql = "SELECT SUM(soluong) as total_quantity FROM giohang WHERE iduser = :iduser";
@@ -246,11 +254,11 @@ class homeModel
         return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
     }
 
-    function insertOrder($id, $user, $pass, $email)
+    function insertOrder($id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt)
     {
-        $sql = "INSERT INTO taikhoan (id, user, pass, email) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO trangthai (id, bill_name, bill_address, bill_tell, bill_email, bill_pttt) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $user, $pass, $email]);
+        return $stmt->execute([$id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt]);
     }
 
     function chackcart($iduser)

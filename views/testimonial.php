@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (isset($_SESSION['bill_name'])) {
+    $bill_name = $_SESSION['bill_name'];
+    $bill_address = $_SESSION['bill_address'];
+    $bill_tell = $_SESSION['bill_tell'];
+    $bill_email = $_SESSION['bill_email'];
+    $bill_pttt = $_SESSION['bill_pttt'];
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +19,14 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <?php require_once 'views/components/style.php' ?>
 
-    <?php require_once 'assets/header/headerTestimonial.php' ?>
-
+    <?php include 'views/components/style.php' ?>
 </head>
+<style>
+    .text-right {
+        text-align: right;
+    }
+</style>
 
 <body>
 
@@ -23,9 +38,7 @@
     <!-- Spinner End -->
 
 
-    <!-- Navbar start -->
-
-    <!-- Navbar End -->
+    <?php require_once 'assets/header/headerChackout.php' ?>
 
 
     <!-- Modal Search Start -->
@@ -54,132 +67,114 @@
     <!-- Single Page Header End -->
 
 
-    <!-- Tastimonial Start -->
-    <div class="container-fluid testimonial py-5">
+    <!-- Checkout Page Start -->
+    <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="testimonial-header text-center">
-                <h4 class="text-primary">Our Testimonial</h4>
-                <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
+                <h1 class="display-5 mb-5 text-dark">Order Confirmation</h1>
             </div>
-            <div class="owl-carousel testimonial-carousel">
-                <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                    <div class="position-relative">
-                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
-                            style="bottom: 30px; right: 0;"></i>
-                        <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center flex-nowrap">
-                            <div class="bg-secondary rounded">
-                                <img src="img/testimonial-1.jpg" class="img-fluid rounded"
-                                    style="width: 100px; height: 100px;" alt="">
+            <form action="index.php?act=chackthongtin" method="post">
+                <div class="row g-5">
+                    <div class="col-md-12 col-lg-6 col-xl-7">
+                        <div class="row">
+
+                            <div class="form-item w-100">
+                                <label class="form-label my-3">Name<sup>*</sup></label>
+                                <input type="text" name="bill_name" class="form-control"
+                                    value=" <?php echo $bill_name ?>">
                             </div>
-                            <div class="ms-4 d-block">
-                                <h4 class="text-dark">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
+
+
                         </div>
+
+                        <div class="form-item">
+                            <label class="form-label my-3">Address <sup>*</sup></label>
+                            <input type="text" class="form-control" name="bill_address"
+                                value=" <?php echo $bill_address ?>">
+                        </div>
+
+
+
+                        <div class="form-item">
+                            <label class="form-label my-3">Mobile<sup>*</sup></label>
+                            <input type="tel" name="bill_tell" class="form-control" value=" <?php echo $bill_tell ?>">
+                        </div>
+                        <div class="form-item">
+                            <label class="form-label my-3">Email<sup>*</sup></label>
+                            <input type="email" name="bill_email" class="form-control"
+                                value=" <?php echo $bill_email ?>">
+                        </div>
+                        <?php if (!empty($error)) : ?>
+                            <p style="color: red;"><?= $error ?></p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-5">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Products</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php if (!empty($cartItems)): ?>
+                                        <?php foreach ($cartItems as $item): ?>
+                                            <tr>
+                                                <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
+                                                        width="50"></td>
+                                                <td><?= $item['name'] ?></td>
+                                                <td><?= number_format($item['price'], 2) ?> $</td>
+                                                <td><?= $item['soluong'] ?></td>
+                                                <td><?= number_format($item['total_price'], 2) ?> $</td>
+                                            </tr>
+
+                                        <?php endforeach; ?>
+                                        <tr>
+                                            <td colspan="5" class="text-right"><?= $totalPrice ?> $</td>
+                                        </tr>
+
+
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center">Giỏ hàng trống</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+
+
+
+
+
+                        </div>
+                        <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
+                            <h4>Phương Thức Thanh Toán</h4>
+                            <p><?php echo $bill_pttt ?></p>
+                        </div>
+
+                    </div>
+
+                    <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                        <a href="index.php?act=deletecart" style="text-align: right; margin-right: 140px;">
+                            <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary ms-auto"
+                                type="submit" name="">Order</button>
+                        </a>
+
                     </div>
                 </div>
-                <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                    <div class="position-relative">
-                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
-                            style="bottom: 30px; right: 0;"></i>
-                        <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center flex-nowrap">
-                            <div class="bg-secondary rounded">
-                                <img src="img/testimonial-1.jpg" class="img-fluid rounded"
-                                    style="width: 100px; height: 100px;" alt="">
-                            </div>
-                            <div class="ms-4 d-block">
-                                <h4 class="text-dark">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                    <div class="position-relative">
-                        <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
-                            style="bottom: 30px; right: 0;"></i>
-                        <div class="mb-4 pb-4 border-bottom border-secondary">
-                            <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the
-                                industry's standard dummy text ever since the 1500s,
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center flex-nowrap">
-                            <div class="bg-secondary rounded">
-                                <img src="img/testimonial-1.jpg" class="img-fluid rounded"
-                                    style="width: 100px; height: 100px;" alt="">
-                            </div>
-                            <div class="ms-4 d-block">
-                                <h4 class="text-dark">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+        </form>
     </div>
-    <a class="btn border-secondary rounded-pill py-3 px-5" href="index.php">Go Back To Home</a>
-    <!-- Tastimonial End -->
+    </div>
+    <!-- Checkout Page End -->
 
 
     <?php require_once 'assets/footer/footer.php' ?>
-
-    <!-- Copyright Start -->
-    <div class="container-fluid copyright bg-dark py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site
-                            Name</a>, All right reserved.</span>
-                </div>
-                <div class="col-md-6 my-auto text-center text-md-end text-white">
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                    Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
-                        class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Copyright End -->
-
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
-            class="fa fa-arrow-up"></i></a>
 
 
 

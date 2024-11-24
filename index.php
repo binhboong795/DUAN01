@@ -18,6 +18,7 @@ match ($act) {
     'contact' => (new homeController())->contact(), // Trang liên hệ
     'cart' => (new homeController())->cart(), // Hiển thị giỏ hàng
     'testimonial' => (new homeController())->testimonial(), // Trang đánh giá
+    'dathang' => (new homeController())->dathang(), // Trang đặt hàng
     '404' => (new homeController())->error(), // Trang lỗi
     'chackout' => (new homeController())->chackout(), // Trang thanh toán
     'dangky' => (new homeController())->registerUser(), // Đăng ký
@@ -29,5 +30,6 @@ match ($act) {
     'removeFromCart' => (new homeController())->removeFromCart($id), // Xóa khỏi giỏ hàng
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
+    'deletecart' => (new homeController())->deleteCart($iduser),
     default => (new homeController())->error(), // Hành động không xác định
 };

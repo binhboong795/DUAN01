@@ -27,6 +27,8 @@
                 <th>Tên Tài Khoản</th>
                 <th>Mật khẩu</th>
                 <th>Email</th>
+                <th>Địa Chỉ</th>
+                <th>Số Điện Thoại</th>
                 <th>Vai Trò</th>
                 <th>Hành Động</th>
             </tr>
@@ -38,14 +40,18 @@
                     <td><?php echo $value['user']; ?></td>
                     <td><?php echo $value['pass']; ?></td>
                     <td><?php echo $value['email']; ?></td>
+                    <td><?php echo $value['address']; ?></td>
+                    <td><?php echo $value['tell']; ?></td>
                     <td><?php echo $value['role'] == 1 ? "Admin" : "User" ?></td>
                     <td>
-
+                        <a href="index.php?act=editUser&id=<?php echo $value['id']; ?>"><button>Sửa</button></a>
+                        <button onclick="deleteUser('index.php?act=deleteUser&id=<?php echo $value['id']; ?>')">Xóa</button>
                     </td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
+
 </div>
 <!-- content -->
 
@@ -64,3 +70,11 @@
 </body>
 
 </html>
+
+<script>
+    function deleteUser(Url) {
+        if(confirm("Bạn có muốn xóa không")) {
+            document.location = Url;
+        }
+    }
+</script>
