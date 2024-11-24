@@ -455,14 +455,24 @@ class homeController
     function chackthongtin()
     {
         if (!isset($_POST["order"])) {  
-            // if (isset($_SESSION['user'])) {
-            //     $iduser = $_SESSION['user']['id'];
-            //     $this->homeModel->deleteAllCart($iduser);
-            //     if (isset($_SESSION['cart'])) {
-            //         unset($_SESSION['cart']);
-            //     }
-            // }
+            if (isset($_SESSION['user'])) {
+                $iduser = $_SESSION['user']['id'];
+                $this->homeModel->deleteAllCart($iduser);
+                if (isset($_SESSION['cart'])) {
+                    unset($_SESSION['cart']);
+                }
+            }
             header('location: index.php?act=dathang');
+            exit;
+        }
+        
+        $iduser = $_SESSION['user']['id'];
+        $cartItems = $this->homeModel->getCartItems($iduser);
+        if (empty($cartItems)) {
+            echo "<script>
+                alert('Giỏ hàng trống!');
+                window.location.href='index.php?act=shop';
+             </script>";
             exit;
         }
 
@@ -474,19 +484,19 @@ class homeController
         $bill_email = $_POST['bill_email'];
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
 
-        if (!isset($bill_pttt) || $bill_pttt == "") {
-            echo "<script>
-                alert('Vui lòng chọn phương thức thanh toán!');
-                window.location.href='index.php?act=chackout';
-             </script>";
-            exit;
-        }
-
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
             $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
 
             if (!isset($_SESSION['user'])) {
                 header("Location: index.php?act=dangnhap");
+                exit;
+            }
+
+            if (!isset($bill_pttt) || $bill_pttt == "") {
+                echo "<script>
+                    alert('Vui lòng chọn phương thức thanh toán!');
+                    window.location.href='index.php?act=chackout';
+                 </script>";
                 exit;
             }
 

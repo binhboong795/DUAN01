@@ -281,6 +281,4 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute(['iduser' => $iduser]);
     }
-
-
 }
