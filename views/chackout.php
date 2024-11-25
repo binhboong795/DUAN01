@@ -130,17 +130,13 @@
                                 </tbody>
                             </table>
 
-
-
-
-
                         </div>
                         <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                             <h4>Phương Thức Thanh Toán</h4>
                             <div class="col-12">
                                 <div class="form-check text-start my-3">
                                     <input type="radio" class="form-check-input bg-primary border-0" id="Transfer-1"
-                                        name="bill_pttt" value="Chuyển Khoản Ngân Hàng">
+                                        name="bill_pttt" value="Chuyển Khoản Ngân Hàng" onclick="window.location.href='index.php?act=chuyenkhoan'">
                                     <label class="form-check-label" for="Transfer-1">Chuyển Khoản Ngân Hàng</label>
                                 </div>
                                 <p class="text-start text-dark">Make your payment directly into our bank account. Please

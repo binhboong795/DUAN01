@@ -9,8 +9,10 @@ class homeModel
     }
     function allProduct()
     {
-        $sql = "select * from sanpham order by id desc";
-        return $this->conn->query($sql);
+        $sql = "SELECT * FROM sanpham order by id desc";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Đảm bảo dữ liệu là mảng
     }
     function allDanhmuc()
     {
@@ -25,11 +27,11 @@ class homeModel
     // $sql="select * from sanpham where id=$id";
     // return $this->conn->query($sql)->fetch();
     // }
-    function allProductShop()
-    {
-        $sql = "select * from sanpham order by id desc";
-        return $this->conn->query($sql);
-    }
+    // function allProductShop()
+    // {
+    //     $sql = "select * from sanpham order by id desc";
+    //     return $this->conn->query($sql);
+    // }
     function findProductById($id)
     {
         $sql = "select * from sanpham where id=$id";
@@ -108,17 +110,7 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$pass, $email]);
     }
-    function getCommentById($id)
-    {
 
-        $sql = "select taikhoan.user, binhluan.rating,binhluan.noidung ,binhluan.ngaybinhluan from `binhluan`
-                     join taikhoan on binhluan.iduser=taikhoan.id
-                     where binhluan.idpro= '$id'
-                     order by binhluan.ngaybinhluan desc";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
     // Lấy danh sách sản phẩm trong giỏ hàng từ session
     function getCartItems($iduser, $idpro = null)
     {
@@ -254,11 +246,11 @@ class homeModel
         return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
     }
 
-    function insertOrder($id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt)
+    function insertOrder($id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang)
     {
-        $sql = "INSERT INTO trangthai (id, bill_name, bill_address, bill_tell, bill_email, bill_pttt) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO trangthai (id, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt]);
+        return $stmt->execute([$id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang]);
     }
 
     function chackcart($iduser)
@@ -282,4 +274,36 @@ class homeModel
 
         return $cartItems;
     }
+
+    function deleteAllCart($iduser)
+    {
+        $sql = "DELETE FROM giohang WHERE iduser = :iduser";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute(['iduser' => $iduser]);
+    }
+    function getAllBanner()
+    {
+        $sql = "SELECT * FROM banner";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function getPopularProducts($threshold = 100)
+    {
+        $sql = "SELECT * FROM sanpham WHERE luotxem > :threshold ORDER BY luotxem DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['threshold' => $threshold]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    // function getProductById($id)
+    // {
+    //     // Lấy chi tiết sản phẩm theo ID
+    //     $sql = "SELECT * FROM sanpham WHERE id = :id";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute(['id' => $id]);
+    //     return $stmt->fetch(PDO::FETCH_ASSOC);
+    // }
+
 }
