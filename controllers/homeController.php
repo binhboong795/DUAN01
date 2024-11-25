@@ -124,7 +124,14 @@ class homeController
 
             if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
-            } else {
+            }elseif(strlen($pass) < 8) {
+                $error = "Mật khẩu phải có ít nhất 8 kí tự!";
+            }elseif(strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
+                $error = "Email quá ngắn và ký tự và phải đúng định dạng!";
+            }elseif(!preg_match('/^[0-9]{10}$/', $tell)) {
+                $error = "Số điện thoại không hợp lệ!";
+            }
+            else {
                 $mUser = new homeModel();
                 $registerUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tell);
                 echo "<script>
@@ -135,6 +142,7 @@ class homeController
         }
         require_once 'views/taikhoan/dangky.php';
     }
+
     function login()
     {
         if (isset($_POST['dangnhap'])) {
@@ -458,6 +466,8 @@ class homeController
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
+        $bill_status = 0;
+        
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
 
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
@@ -485,21 +495,25 @@ class homeController
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
-            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
-
+            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $bill_status);
             
+            
+
             $_SESSION['bill_name'] = $bill_name;
             $_SESSION['bill_address'] = $bill_address;
             $_SESSION['bill_tell'] = $bill_tell;
             $_SESSION['bill_email'] = $bill_email;
             $_SESSION['bill_pttt'] = $bill_pttt;
             $_SESSION['ngaydathang'] = $ngaydathang;
+            $_SESSION['bill_status'] = $bill_status;
             header('location: index.php?act=testimonial');
             exit;
         }
 
         require_once 'views/chackout.php';
     }
+    
+
 
     function showCheckout()
     {

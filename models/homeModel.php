@@ -246,11 +246,11 @@ class homeModel
         return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
     }
 
-    function insertOrder($id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang)
+    function insertOrder($id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $bill_status)
     {
-        $sql = "INSERT INTO trangthai (id, id_user, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO trangthai (id, id_user, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang, bill_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang]);
+        return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $bill_status]);
     }
 
     function chackcart($iduser)

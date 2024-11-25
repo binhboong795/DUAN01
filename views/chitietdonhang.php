@@ -7,6 +7,7 @@ if (isset($_SESSION['bill_name'])) {
     $bill_email = $_SESSION['bill_email'];
     $bill_pttt = $_SESSION['bill_pttt'];
     $ngaydathang = $_SESSION['ngaydathang'];
+    $bill_status = $_SESSION['bill_status'];
 }
 
 // ngày giao hàng
@@ -128,6 +129,11 @@ foreach ($getOrder as $item) {
                         <td><?php echo $bill_email ?></td>
                         <td><?php echo $bill_pttt ?></td>
                         <td><?php echo $ngaydathang ?></td>
+                        <td><?php 
+                            if($bill_status == 0) {
+                                echo "Chờ xác nhận!";
+                            }
+                        ?></td>
                     </tr>
             </table>
             <table>
@@ -169,7 +175,7 @@ foreach ($getOrder as $item) {
 
 
     <?php require_once 'assets/footer/footer.php' ?>
-    
+
 </body>
 
 </html>
