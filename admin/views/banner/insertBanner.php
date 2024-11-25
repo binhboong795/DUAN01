@@ -1,6 +1,6 @@
 <?php
-    require_once 'views/components/style.php';
-    require_once 'assets/header/headerLogin.php';
+// require_once 'views/components/style.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <?php require_once 'asset/headerA/header.php'; ?>
     <!-- <style>
         @keyframes bounceSlow {
         0% {
@@ -44,13 +45,14 @@
 </head>
 
 <body>
+
     <div class="container-fluid contact py-5">
         <div class="container py-5">
             <div class="p-5 bg-light rounded">
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="text-center mx-auto" style="max-width: 700px;">
-                            <h1 class="text-primary">Đăng Ký</h1>
+                            <h1 class="text-primary">THÊM BANNER MỚI</h1>
                         </div>
                     </div>
                     <!-- <div class="col-lg-12">
@@ -61,21 +63,16 @@
                             </div>
                         </div> -->
                     <div class="col-lg-7">
-                        <form action="" method="post">
+                        <form method="post" enctype="multipart/form-data">
 
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
-                                placeholder="Tên tài khoản">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
-                                placeholder="Mật khẩu">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
-                                placeholder="Email">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address"
-                                placeholder="Address">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell"
-                                placeholder="Tell">
-                            <p style="color: red;"><?=$error?></p>
-                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
-                                type="submit" name="dangky">Đăng ký</button>
+                            <input class="w-100 form-control border-0 py-4 mb-4" type="text" name="name"
+                                placeholder="Tên banner">
+                            <input class="w-100 h-10 form-control border-0 py-5 mb-4" type="file" name="img"
+                                placeholder="Ảnh banner">
+
+                            <!-- <p style="color: red;"><?= $error ?></p> -->
+                            <button class="w-100 btn form-control border-secondary py-4 bg-white text-primary "
+                                type="submit" name="btn_add">Thêm</button>
 
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
@@ -107,9 +104,7 @@
             </div>
         </div>
     </div>
+    <?php require_once 'asset/footerA/footer.php'; ?>
 </body>
 
 </html>
-<?php
-require_once 'assets/footer/footer.php';
-?>

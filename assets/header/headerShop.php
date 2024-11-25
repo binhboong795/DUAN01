@@ -45,18 +45,10 @@ if (isset($_SESSION['user'])) {
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="?act=/" class="nav-item nav-link ">Home</a>
+                    <a href="?act=/" class="nav-item nav-link">Home</a>
                     <a href="?act=shop" class="nav-item nav-link ">Shop</a>
-                    <a href="" class="nav-item nav-link">Shop Detail</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="?act=cart" class="dropdown-item">Cart</a>
-                            <a href="?act=chackout" class="dropdown-item">Chackout</a>
-                            <a href="?act=testimonial" class="dropdown-item">Testimonial</a>
-                            <a href="?act=404" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
+                    <!-- <a href="" class="nav-item nav-link">Shop Detail</a> -->
+                    <a href="?act=dathang" class="nav-item nav-link">Order Detail</a>
                     <a href="?act=contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
@@ -77,7 +69,6 @@ if (isset($_SESSION['user'])) {
                                 0
                             </span>
                         <?php endif; ?>
-
 
                     </a>
                     <a href="#" class="my-auto">
