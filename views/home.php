@@ -3,10 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Fruitables - Vegetable Website Template</title>
+    <title>Shop bán trái cây - Group 5</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <?php require_once 'views/components/style.php' ?>
 </head>
@@ -49,8 +54,8 @@
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-md-12 col-lg-7">
-                    <h4 class="mb-3 text-secondary">100% Organic Foods</h4>
-                    <h1 class="mb-5 display-3 text-primary">Organic Veggies & Fruits Foods</h1>
+                    <h4 class="mb-3 text-secondary">100% Thực phẩm hữu cơ</h4>
+                    <h1 class="mb-5 display-3 text-primary">Trái cây nhập khẩu & nội địa</h1>
                     <div class="position-relative mx-auto">
                         <form action="" method="GET" class="">
                             <input name="name"
@@ -65,30 +70,39 @@
                 </div>
                 <div class="col-md-12 col-lg-5">
                     <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+                        <!-- Đặt thời gian chuyển slide -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active rounded">
-                                <img src="assets/img/hero-img-1.png" class="img-fluid w-100 h-100 bg-secondary rounded"
-                                    alt="First slide">
-                                <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
-                            </div>
-                            <div class="carousel-item rounded">
-                                <img src="assets/img/hero-img-2.jpg" class="img-fluid w-100 h-100 rounded"
-                                    alt="Second slide">
-                                <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
-                            </div>
+                            <?php if (!empty($listBanner) && is_array($listBanner)): ?>
+                                <?php foreach ($listBanner as $index => $banner): ?>
+                                    <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>" data-bs-interval="3000">
+
+                                        <img src="assets/img/<?= htmlspecialchars($banner['img']) ?>"
+                                            class="img-fluid w-100 bg-secondary rounded"
+                                            style="height: 400px; object-fit: cover;"
+                                            alt="<?= htmlspecialchars($banner['name'] ?? 'Banner') ?>">
+
+                                        <!-- <a href="#" class="btn px-4 py-2 text-white rounded">Fruits</a> -->
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>Không có banner để hiển thị.</p>
+                            <?php endif; ?>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
-                            data-bs-slide="prev">
+                        <!-- Nút điều hướng -->
+                        <button class="carousel-control-prev bg-transparent border-0" type="button"
+                            data-bs-target="#carouselId" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselId"
-                            data-bs-slide="next">
+
+                        <button class="carousel-control-next bg-transparent border-0" type="button"
+                            data-bs-target="#carouselId" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -105,10 +119,10 @@
         <div class="container py-5">
             <div class="tab-class text-center">
                 <div class="row g-4">
-                    <div class="col-lg-4 text-start">
-                        <h1>Our Organic Products</h1>
+                    <div class="col-lg-6 text-start">
+                        <h1>NHỮNG SẢN PHẨM TƯƠI SẠCH</h1>
                     </div>
-                    <div class="col-lg-8 text-end">
+                    <div class="col-lg-6 text-end">
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
                             <li class="nav-item">
                                 <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill"
@@ -222,7 +236,7 @@
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             $<?= $product['price'] ?> / kg</p>
-                                                        <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
                                                     </div>
@@ -256,7 +270,7 @@
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             $<?= $product['price'] ?> / kg</p>
-                                                        <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
                                                     </div>
@@ -501,59 +515,62 @@
     <!-- Bestsaler Product Start -->
     <div class="container-fluid py-5">
         <div class="container py-5">
-            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                <h1 class="display-4">Bestseller Products</h1>
-                <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which
-                    looks reasonable.</p>
+            <div class="text-center mx-auto mb-5" style="max-width: 700px">
+                <h1 class="display-4">NHỮNG SẢN PHẨM ĐÁNG CHÚ Ý</h1>
+                <p>
+                    <br>
+                    Chọn ngay những trái cây tươi sạch, ngọt tự nhiên, đầy dinh dưỡng – mang thiên nhiên vào bữa ăn của
+                    bạn! <br> <br> <br>
+
+                </p>
             </div>
-
-
             <div class="row g-4">
+                <?php if (!empty($popularProducts)): ?>
+                    <h2 class="mt-4 mb-3">TRÁI CÂY TƯƠI NGON MỖI NGÀY 🍎🍊</h2>
+                    <p style="margin-top: 0;">👉 Đặt hàng ngay thôi nào!</p>
+                    <?php foreach ($popularProducts as $product): ?>
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="p-4 rounded bg-light">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <div class="d-flex justify-content-center">
+                                            <img src="assets/img/<?= htmlspecialchars($product['img']) ?>"
+                                                class="img-fluid rounded-circle"
+                                                style="width: 200px; height: 165px; object-fit: cover;" alt="">
+                                        </div>
 
-                <div class="col-lg-6 col-xl-4">
 
-
-
-                    <div class="p-4 rounded bg-light">
-
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <img src="assets/img/<?= $list_products['img'] ?>"
-                                    class="img-fluid rounded-circle w-100" alt="">
-
-                            </div>
-                            <div class="col-6">
-                                <!-- Tên -->
-                                <a class="linkpro h5" href="?act=shopdetail&id=<?= $list_products['id'] ?>">
-                                    <?= $list_products['name'] ?></a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="linkpro" href="?act=shopdetail&id=<?= $product['id'] ?>">
+                                            <?= htmlspecialchars($product['name']) ?>
+                                        </a>
+                                        <p>
+                                            <?= mb_strimwidth($list_products['mota'], 0, 40, "..."); ?>
+                                        </p>
+                                        <div class="d-flex my-3">
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h4 class="mb-3"><?= number_format($product['price'], 2) ?> $/kg</h4>
+                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
+                                            class="btn border border-secondary rounded-pill px-3 text-primary">
+                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
+                                        </a>
+                                    </div>
                                 </div>
-                                <p class="text-dark fs-5 fw-bold mb-0">
-                                    <?= number_format($list_products['price'], 2) ?>
-                                    <span class="text-muted">$/kg</span>
-                                </p>
-                                <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
-                                    class="btn btn-primary text-white rounded-pill px-4 py-2 d-flex align-items-center shadow-sm"
-                                    style="text-decoration: none;">
-                                    <i class="fa fa-shopping-cart me-2"></i>
-                                    <span>Thêm </span>
-                                </a>
                             </div>
                         </div>
+                    <?php endforeach; ?>
 
-                    </div>
-
-                </div>
-
+                <?php else: ?>
+                    <p>Không có sản phẩm nổi bật.</p>
+                <?php endif; ?>
 
             </div>
-
-
         </div>
     </div>
     <?php require_once 'assets/footer/footer.php' ?>

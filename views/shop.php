@@ -96,36 +96,55 @@
                                     <div class="mb-3">
                                         <h4>Categories</h4>
                                         <ul class="list-unstyled fruite-categorie">
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                    <span>(3)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                    <span>(5)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                    <span>(2)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                    <span>(8)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                    <span>(5)</span>
-                                                </div>
-                                            </li>
+                                            <?php foreach ($cam as $cate) { ?>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Cam</a>
+                                                        <span>(<?= $cate['soluong'] ?>)</span>
+                                                    </div>
+                                                </li>
+                                            <?php } ?>
+                                            <?php foreach ($nho as $cate) { ?>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Nho mỹ</a>
+                                                        <span>(<?= $cate['soluong'] ?>)</span>
+                                                    </div>
+                                                </li>
+                                            <?php } ?>
+                                            <?php foreach ($chuoi as $cate) { ?>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Chuối </a>
+                                                        <span>(<?= $cate['soluong'] ?>)</span>
+                                                    </div>
+                                                </li>
+                                            <?php } ?>
+                                            <?php foreach ($man as $cate) { ?>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Mận cam</a>
+                                                        <span>(<?= $cate['soluong'] ?>)</span>
+                                                    </div>
+                                                </li>
+                                            <?php } ?>
+                                            <?php foreach ($nhoxanh as $cate) { ?>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Nho xanh</a>
+                                                        <span>(<?= $cate['soluong'] ?>)</span>
+                                                    </div>
+                                                </li>
+                                            <?php } ?>
+                                            <?php foreach ($taomeo as $cate) { ?>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>
+                                                            Táo mèo</a>
+                                                        <span>(<?= $cate['soluong'] ?>)</span>
+                                                    </div>
+                                                </li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -201,16 +220,16 @@
                                                         <p>
                                                             <?= mb_strimwidth($list_products['mota'], 0, 90, "..."); ?>
                                                         </p>
-
+                                                        <p>Lượt xem: <?= $list_products['luotxem'] ?></p>
                                                         <div class="d-flex justify-content-between flex-lg-wrap">
                                                             <p class="text-dark fs-5 fw-bold mb-0">
                                                                 <!-- Giá -->
                                                                 <?= $list_products['price'] ?><span> $/ kg</span>
                                                             </p>
-                                                            <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
-                                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                                cart</a>
+                                                            <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
+                                                                class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
+                                                            </a>
                                                         </div>
                                                     </div>
 

@@ -11,30 +11,51 @@ class accController
 
         require_once 'views/home.php';
     }
-    function sanpham()
+
+
+
+
+    function taikhoan()
     {
-
-        require_once 'views/sanpham.php';
+        $listUser = $this->accModel->getAllUser();
+        require_once 'views/account/taikhoan.php';
     }
-    function danhmuc()
+    function editUser()
     {
+        if ($_GET['id']) {
+            $id = $_GET['id'];
+            $idUser = $this->accModel->getIdUser($id);
+        }
 
-        require_once 'views/danhmuc.php';
+        $error = "";
+
+        if (isset($_POST["capnhat"])) {
+            $user = $_POST['user'];
+            $pass = $_POST['pass'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $tell = $_POST['tell'];
+
+            if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
+                $error = "Vui lòng nhập đầy đủ thông tin!";
+            } else {
+                $mUser = new accModel();
+                $editUser = $mUser->editUser(null, $user, $pass, $email, $address, $tell);
+                echo "<script>
+                        alert('Bạn đã cập nhật thành công!');
+                        window.location.href='index.php?act=taikhoan';
+                    </script>";
+            }
+        }
+        require_once 'views/account/edit.php';
     }
-    function binhluan()
+
+    function deleteUser()
     {
-
-        require_once 'views/binhluan.php';
+        if ($_GET['id']) {
+            $id = $_GET['id'];
+            $idUser = $this->accModel->deleteUser($id);
+        }
+        header('location:index.php?act=taikhoan');
     }
-    function banner()
-    {
-
-        require_once 'views/banner.php';
-    }
-function taikhoan()
-{
-    $listUser = $this->accModel->getAllUser();
-    require_once 'views/taikhoan.php';
-}
-
 }

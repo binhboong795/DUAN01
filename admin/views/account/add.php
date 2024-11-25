@@ -1,6 +1,5 @@
-<?php
-    require_once 'views/components/style.php';
-    require_once 'assets/header/headerLogin.php';
+<?php require_once 'views/components/style.php';
+require_once 'assets/header/headerLogin.php';
 ?>
 
 <!DOCTYPE html>
