@@ -12,6 +12,16 @@ class homeController
     {
         require_once 'views/dathang.php';
     }
+    function chitietdonhang()
+    {
+        $iduser = $_SESSION['user']['id'];
+        $status = $this->homeModel->getBillStatus($iduser);
+        $getOrder = $this->homeModel->getOrder($iduser);
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
+        // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
+        require_once 'views/chitietdonhang.php';
+    }
     function chuyenkhoan()
     {
         require_once 'views/chuyenkhoan.php';
@@ -51,7 +61,7 @@ class homeController
         require_once 'assets/header/headerContract.php'; // Truyền vào headerContract
     }
 
-    function testimonial()
+    function order()
     {
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
@@ -68,7 +78,7 @@ class homeController
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
         $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng từ Model
         $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
-        require_once 'views/testimonial.php';
+        require_once 'views/order.php';
         // Truyền vào headerContract
     }
     function error()
@@ -248,7 +258,6 @@ class homeController
     //     // Chuyển hướng tới trang giỏ hàng
     //     header("Location: index.php?act=cart");
     // }
-    // homeController.php
 
     // Ví dụ cho trang chi tiết sản phẩm (headerDetail.php)
 
@@ -402,40 +411,71 @@ class homeController
     {
 
         if (!isset($_POST["order"])) {
-
-
             if (isset($_SESSION['user'])) {
                 $iduser = $_SESSION['user']['id'];
+
+                // Lấy các sản phẩm từ giỏ hàng của người dùng
+                $cartItems = $this->homeModel->getCartItems($iduser);
+
+                // Lưu từng sản phẩm trong giỏ hàng vào bảng `chitietdonhang`
+                foreach ($cartItems as $item) {
+                    $this->homeModel->insertdonhang(
+                        null,
+                        $iduser,
+                        $item['idpro'],
+                        $item['img'],
+                        $item['name'],
+                        $item['price'],
+                        $item['soluong'],
+                        $item['thanhtien'],
+                        $item['idbill'],
+                    );
+                }
+
                 $this->homeModel->deleteAllCart($iduser);
                 if (isset($_SESSION['cart'])) {
+
                     unset($_SESSION['cart']);
                 }
+
+                header('location: index.php?act=dathang');
+                exit;
             }
-            header('location: index.php?act=dathang');
+        }
+        $iduser = $_SESSION['user']['id'];
+        $cartItems = $this->homeModel->getCartItems($iduser);
+        if (empty($cartItems)) {
+            echo "<script>
+                alert('Giỏ hàng trống!');
+                window.location.href='index.php?act=shop';
+             </script>";
             exit;
         }
 
         $error = "";
 
+
+        $iduser = $_SESSION['user']['id'];
         $bill_name = $_POST['bill_name'];
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
 
-        if (!isset($bill_pttt) || $bill_pttt == "") {
-            echo "<script>
-                alert('Vui lòng chọn phương thức thanh toán!');
-                window.location.href='index.php?act=chackout';
-             </script>";
-            exit;
-        }
 
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
             $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
 
             if (!isset($_SESSION['user'])) {
                 header("Location: index.php?act=dangnhap");
+                exit;
+            }
+
+            if (!isset($bill_pttt) || $bill_pttt == "") {
+                echo "<script>
+                    alert('Vui lòng chọn phương thức thanh toán!');
+                    window.location.href='index.php?act=chackout';
+                 </script>";
                 exit;
             }
 
@@ -448,7 +488,8 @@ class homeController
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
-            $insertOrder = $mOrder->insertOrder(null, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
+            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
+
 
             $_SESSION['bill_name'] = $bill_name;
             $_SESSION['bill_address'] = $bill_address;
@@ -456,13 +497,12 @@ class homeController
             $_SESSION['bill_email'] = $bill_email;
             $_SESSION['bill_pttt'] = $bill_pttt;
             $_SESSION['ngaydathang'] = $ngaydathang;
-            header('location: index.php?act=testimonial');
+            header('location: index.php?act=order');
             exit;
         }
 
         require_once 'views/chackout.php';
     }
-
 
     function showCheckout()
     {
@@ -483,12 +523,4 @@ class homeController
         // Truyền dữ liệu giỏ hàng vào view checkout
         include 'views/chackout.php';
     }
-
-    // function deleteCart()
-    // {
-    //     $iduser = $_SESSION['user']['id'];
-    //     $this->homeModel->deleteCartUser($iduser);
-    //     header('location: index.php?act=cart');
-    // }
-
 }

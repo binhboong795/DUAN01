@@ -12,6 +12,8 @@ require_once 'controllers/cmtController.php';
 require_once 'models/cmtModel.php';
 require_once 'controllers/danhmucController.php';
 require_once 'models/danhmucModel.php';
+require_once 'controllers/statusController.php';
+require_once 'models/statusModel.php';
 
 
 
@@ -28,4 +30,8 @@ match ($act) {
     'editBanner' => (new bannerController())->editBanner($_GET['id']),
     'deletebanner' => (new bannerController())->deleteBanner($_GET['id']),
     'insertbanner' => (new bannerController())->addBanner(),
+    'status' => (new statusController())->status(),
+    // 'addstatus'=> (new statusController())->addStatus(),
+    'updatestatus' => (new statusController())->updateStatus($_GET['id']),
+    'deletestatus' => (new statusController())->deleteStatus($_GET['id']),
 };

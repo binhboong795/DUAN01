@@ -49,7 +49,7 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=shop" class="nav-item nav-link ">Shop</a>
                     <!-- <a href="" class="nav-item nav-link">Shop Detail</a> -->
                     <a href="?act=dathang" class="nav-item nav-link">Order Detail</a>
-                    <a href="?act=contact" class="nav-item nav-link">Contact</a>
+                    <a href="?act=contact" class="nav-item nav-link active">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
                     <a href="?act=cart" class="position-relative me-4 my-auto">

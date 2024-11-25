@@ -246,11 +246,11 @@ class homeModel
         return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
     }
 
-    function insertOrder($id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang)
+    function insertOrder($id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang)
     {
-        $sql = "INSERT INTO trangthai (id, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO trangthai (id, id_user, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang]);
+        return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang]);
     }
 
     function chackcart($iduser)
@@ -281,6 +281,7 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute(['iduser' => $iduser]);
     }
+
     function getAllBanner()
     {
         $sql = "SELECT * FROM banner";
@@ -306,4 +307,51 @@ class homeModel
     //     return $stmt->fetch(PDO::FETCH_ASSOC);
     // }
 
+
+
+    function insertdonhang($id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $id_bill)
+    {
+        $sql = "INSERT INTO orders (id, iduser, id_pro, img, name, price, soluong, thanhtien, idbill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+        return $stmt->execute([$id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $id_bill]);
+    }
+
+
+
+
+
+
+
+
+
+    function getOrder($iduser)
+    {
+        $sql = "SELECT * FROM `orders` where iduser = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$iduser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // function getTotalQuantityOrder($iduser)
+    // {
+    //     $sql = "SELECT SUM(soluong) as total_quantity FROM chitietdonhang WHERE iduser = :iduser";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute(['iduser' => $iduser]);
+    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
+    // }
+    // function calculateTotalPriceOrder($iduser)
+    // {
+    //     $sql = "SELECT SUM(thanhtien) as total_price_all FROM chitietdonhang WHERE iduser = :iduser";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute(['iduser' => $iduser]);
+    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
+    // }
+    function getBillStatus($iduser)
+    {
+        $sql = "SELECT bill_status FROM trangthai WHERE id_user = :iduser";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['iduser' => $iduser]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

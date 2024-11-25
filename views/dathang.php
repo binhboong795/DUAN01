@@ -1,8 +1,4 @@
-<?php
-    if(isset($_SESSION['ngaydathang'])) {
-        $ngaydathang = $_SESSION['ngaydathang'];
-    }
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,9 +74,8 @@
             <!-- Action Buttons -->
             <div class="d-flex justify-content-center mt-4">
                 <a href="index.php" class="btn btn-primary py-3 px-4 text-uppercase mx-3">Quay lại trang chủ</a>
-                <a href="index.php?act=orderDetails" class="btn btn-secondary py-3 px-4 text-uppercase mx-3">Xem chi tiết đơn hàng</a>
+                <a href="index.php?act=chitietdonhang" class="btn btn-secondary py-3 px-4 text-uppercase mx-3">Xem chi tiết đơn hàng</a>
             </div>
-            <p> Ngày đặt hàng: <?php echo $ngaydathang ?></p>
         </div>
     </div>
     <!-- Checkout Page End -->

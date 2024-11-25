@@ -34,56 +34,56 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
     <style>
-        #weatherWidget .currentDesc {
-            color: #ffffff !important;
-        }
+    #weatherWidget .currentDesc {
+        color: #ffffff !important;
+    }
 
-        .traffic-chart {
-            min-height: 335px;
-        }
+    .traffic-chart {
+        min-height: 335px;
+    }
 
-        #flotPie1 {
-            height: 150px;
-        }
+    #flotPie1 {
+        height: 150px;
+    }
 
-        #flotPie1 td {
-            padding: 3px;
-        }
+    #flotPie1 td {
+        padding: 3px;
+    }
 
-        #flotPie1 table {
-            top: 20px !important;
-            right: -10px !important;
-        }
+    #flotPie1 table {
+        top: 20px !important;
+        right: -10px !important;
+    }
 
-        .chart-container {
-            display: table;
-            min-width: 270px;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+    .chart-container {
+        display: table;
+        min-width: 270px;
+        text-align: left;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
-        #flotLine5 {
-            height: 105px;
-        }
+    #flotLine5 {
+        height: 105px;
+    }
 
-        #flotBarChart {
-            height: 150px;
-        }
+    #flotBarChart {
+        height: 150px;
+    }
 
-        #cellPaiChart {
-            height: 160px;
-        }
+    #cellPaiChart {
+        height: 160px;
+    }
 
-        table {
-            width: 100%;
-            text-align: center;
-        }
+    table {
+        width: 100%;
+        text-align: center;
+    }
 
-        td,
-        th {
-            padding: 10px;
-        }
+    td,
+    th {
+        padding: 10px;
+    }
     </style>
 </head>
 
@@ -110,6 +110,9 @@
                     </li>
                     <li class="">
                         <a href="index.php?act=banner"><i class="menu-icon fa fa-laptop"></i>Banner</a>
+                    </li>
+                    <li class="">
+                        <a href="index.php?act=status"><i class="menu-icon fa fa-laptop"></i>Trạng thái đơn</a>
                     </li>
 
     </aside>

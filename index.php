@@ -21,7 +21,7 @@ match ($act) {
     'shopdetail' => (new detailController())->shopDetail($id), // Chi tiết sản phẩm
     'contact' => (new homeController())->contact(), // Trang liên hệ
     'cart' => (new homeController())->cart(), // Hiển thị giỏ hàng
-    'testimonial' => (new homeController())->testimonial(), // Trang đánh giá
+    'order' => (new homeController())->order(), // Trang đánh giá
     'dathang' => (new homeController())->dathang(), // Trang đặt hàng
     '404' => (new homeController())->error(), // Trang lỗi
     'chackout' => (new homeController())->chackout(), // Trang thanh toán
@@ -38,6 +38,8 @@ match ($act) {
     // 'deletecart' => (new homeController())->deleteCart($iduser),
 
     'chuyenkhoan' => (new homeController())->chuyenkhoan(),
+
+    'chitietdonhang' => (new homeController())->chitietdonhang(),
 
     default => (new homeController())->error(), // Hành động không xác định
 };

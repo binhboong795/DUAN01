@@ -226,7 +226,7 @@
                                                                 <!-- Giá -->
                                                                 <?= $list_products['price'] ?><span> $/ kg</span>
                                                             </p>
-                                                            <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
+                                                            <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
                                                                 class="btn border border-secondary rounded-pill px-3 text-primary">
                                                                 <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
                                                             </a>
