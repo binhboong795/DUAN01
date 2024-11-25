@@ -80,7 +80,8 @@ if (isset($_SESSION['bill_name'])) {
 
                             <div class="form-item w-100">
                                 <label class="form-label my-3">Name<sup>*</sup></label>
-                                <input type="text" name="bill_name" class="form-control" value=" <?php echo $bill_name ?>">
+                                <input type="text" name="bill_name" class="form-control"
+                                    value=" <?php echo $bill_name ?>">
                             </div>
 
 
@@ -88,7 +89,8 @@ if (isset($_SESSION['bill_name'])) {
 
                         <div class="form-item">
                             <label class="form-label my-3">Address <sup>*</sup></label>
-                            <input type="text" class="form-control" name="bill_address" value=" <?php echo $bill_address ?>">
+                            <input type="text" class="form-control" name="bill_address"
+                                value=" <?php echo $bill_address ?>">
                         </div>
 
 
@@ -99,7 +101,8 @@ if (isset($_SESSION['bill_name'])) {
                         </div>
                         <div class="form-item">
                             <label class="form-label my-3">Email<sup>*</sup></label>
-                            <input type="email" name="bill_email" class="form-control" value=" <?php echo $bill_email ?>">
+                            <input type="email" name="bill_email" class="form-control"
+                                value=" <?php echo $bill_email ?>">
                         </div>
                         <?php if (!empty($error)) : ?>
                             <p style="color: red;"><?= $error ?></p>
@@ -157,10 +160,12 @@ if (isset($_SESSION['bill_name'])) {
                     </div>
 
                     <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+
                         <form action="" method="post">
                             <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary ms-auto"
                                 type="submit" name="dathang">Order</button>
                         </form>
+
                     </div>
                 </div>
         </div>

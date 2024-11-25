@@ -11,26 +11,10 @@ class accController
 
         require_once 'views/home.php';
     }
-    function sanpham()
-    {
 
-        require_once 'views/sanpham.php';
-    }
-    function danhmuc()
-    {
 
-        require_once 'views/danhmuc.php';
-    }
-    function binhluan()
-    {
 
-        require_once 'views/binhluan.php';
-    }
-    function banner()
-    {
 
-        require_once 'views/banner.php';
-    }
     function taikhoan()
     {
         $listUser = $this->accModel->getAllUser();
@@ -38,7 +22,7 @@ class accController
     }
     function editUser()
     {
-        if($_GET['id']) {
+        if ($_GET['id']) {
             $id = $_GET['id'];
             $idUser = $this->accModel->getIdUser($id);
         }
@@ -68,11 +52,10 @@ class accController
 
     function deleteUser()
     {
-        if($_GET['id']) {
+        if ($_GET['id']) {
             $id = $_GET['id'];
             $idUser = $this->accModel->deleteUser($id);
         }
         header('location:index.php?act=taikhoan');
     }
-    
 }

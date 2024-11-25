@@ -9,8 +9,10 @@ class homeModel
     }
     function allProduct()
     {
-        $sql = "select * from sanpham order by id desc";
-        return $this->conn->query($sql);
+        $sql = "SELECT * FROM sanpham order by id desc";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Đảm bảo dữ liệu là mảng
     }
     function allDanhmuc()
     {
@@ -25,11 +27,11 @@ class homeModel
     // $sql="select * from sanpham where id=$id";
     // return $this->conn->query($sql)->fetch();
     // }
-    function allProductShop()
-    {
-        $sql = "select * from sanpham order by id desc";
-        return $this->conn->query($sql);
-    }
+    // function allProductShop()
+    // {
+    //     $sql = "select * from sanpham order by id desc";
+    //     return $this->conn->query($sql);
+    // }
     function findProductById($id)
     {
         $sql = "select * from sanpham where id=$id";
@@ -108,17 +110,7 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$pass, $email]);
     }
-    function getCommentById($id)
-    {
 
-        $sql = "select taikhoan.user, binhluan.rating,binhluan.noidung ,binhluan.ngaybinhluan from `binhluan`
-                     join taikhoan on binhluan.iduser=taikhoan.id
-                     where binhluan.idpro= '$id'
-                     order by binhluan.ngaybinhluan desc";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
     // Lấy danh sách sản phẩm trong giỏ hàng từ session
     function getCartItems($iduser, $idpro = null)
     {
@@ -215,6 +207,14 @@ class homeModel
             'idpro' => $idpro,
         ]);
     }
+    // function deleteCartUser($iduser)
+    // {
+    //     $sql = "DELETE * FROM giohang WHERE iduser = :iduser";
+    //     $stmt = $this->conn->prepare($sql);
+    //     return $stmt->execute([
+    //         'iduser' => $iduser,
+    //     ]);
+    // }
     function getTotalQuantity($iduser)
     {
         $sql = "SELECT SUM(soluong) as total_quantity FROM giohang WHERE iduser = :iduser";
@@ -282,6 +282,7 @@ class homeModel
         return $stmt->execute(['iduser' => $iduser]);
     }
 
+
     function insertdonhang($id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $id_bill)
     {
         $sql = "INSERT INTO chitietdonhang (id, iduser, id_pro, img, name, price, soluong, thanhtien, id_bill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -303,20 +304,31 @@ class homeModel
         $stmt->execute([$iduser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    // function getTotalQuantityOrder($iduser)
+
+
+    function getAllBanner()
+    {
+        $sql = "SELECT * FROM banner";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function getPopularProducts($threshold = 100)
+    {
+        $sql = "SELECT * FROM sanpham WHERE luotxem > :threshold ORDER BY luotxem DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['threshold' => $threshold]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    // function getProductById($id)
     // {
-    //     $sql = "SELECT SUM(soluong) as total_quantity FROM chitietdonhang WHERE iduser = :iduser";
+    //     // Lấy chi tiết sản phẩm theo ID
+    //     $sql = "SELECT * FROM sanpham WHERE id = :id";
     //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->execute(['iduser' => $iduser]);
-    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    //     return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
+    //     $stmt->execute(['id' => $id]);
+    //     return $stmt->fetch(PDO::FETCH_ASSOC);
     // }
-    // function calculateTotalPriceOrder($iduser)
-    // {
-    //     $sql = "SELECT SUM(thanhtien) as total_price_all FROM chitietdonhang WHERE iduser = :iduser";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->execute(['iduser' => $iduser]);
-    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    //     return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
-    // }
+
 }

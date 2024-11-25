@@ -27,14 +27,14 @@ class homeController
     }
     function home()
     {
-        $products = [];
-        $nhapkhau = [];
-        $noidia = [];
+        $product = [];
+        $listBanner = $this->homeModel->getAllBanner();
+        // Lấy sản phẩm nổi bật với lượt xem > 200
+        $popularProducts = $this->homeModel->getPopularProducts(200);
+
         $nhapkhau = $this->homeModel->findProductByIddm('116');
         $noidia = $this->homeModel->findProductByIddm('115');
         $product = $this->homeModel->allProduct();
-        $product = $this->homeModel->allProduct();
-
 
         // Giả sử đây là trang bạn muốn hiển thị tổng số lượng sản phẩm trong giỏ hàng
         if (isset($_SESSION['user'])) {
@@ -47,58 +47,6 @@ class homeController
         // Chuyển tới View
         require_once 'views/home.php';
     }
-
-
-    function shop()
-    {
-
-        $products = [];
-        if (isset($_GET['priceRange'])) {
-            $priceRange = $_GET['priceRange'];
-            switch ($priceRange) {
-                case '<3':
-                    $products = $this->homeModel->getPrice(0, 3);
-                    break;
-                case '3-6':
-                    $products = $this->homeModel->getPrice(3, 6);
-                    break;
-                case '>6':
-                    $products = $this->homeModel->getPrice(6);
-                    break;
-                default:
-                    $products = $this->homeModel->allProductShop();
-                    break;
-            }
-        } else {
-            $products = $this->homeModel->allProductShop();
-        }
-        $danhmuc = $this->homeModel->allDanhmuc();
-
-        if (isset($_SESSION['user'])) {
-            $iduser = $_SESSION['user']['id'];
-            // Lấy tổng số lượng sản phẩm trong giỏ hàng
-            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-        }
-
-        require_once 'views/shop.php';
-    }
-    function shopDetail($id)
-    {
-
-        $productOne = $this->homeModel->findProductById($id);
-        $comments = $this->homeModel->getCommentById($id);
-
-        if (isset($_SESSION['user'])) {
-            $iduser = $_SESSION['user']['id'];
-            // Lấy tổng số lượng sản phẩm trong giỏ hàng
-            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-            // Lấy thông tin chi tiết sản phẩm
-            $product = $this->homeModel->findProductById($id);
-        }
-
-        require_once 'views/shopDetail.php';
-    }
-
     function contact()
     {
         if (isset($_SESSION['user'])) {
@@ -114,17 +62,23 @@ class homeController
 
     function testimonial()
     {
+        if (isset($_SESSION['user'])) {
+            $iduser = $_SESSION['user']['id'];
+            // Lấy tổng số lượng sản phẩm trong giỏ hàng
+            $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+        }
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
         $iduser = $_SESSION['user']['id'];
-
         // Lấy dữ liệu từ Model
         $cartItems = $this->homeModel->getCartItems($iduser);
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
         $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng từ Model
         $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
         require_once 'views/testimonial.php';
-
         // Truyền vào headerContract
-
     }
     function error()
     {
@@ -305,7 +259,7 @@ class homeController
     // }
 
     // Ví dụ cho trang chi tiết sản phẩm (headerDetail.php)
-    function detail($id) {}
+
 
     // Ví dụ cho trang hợp đồng (headerContract.php)
 
@@ -454,6 +408,7 @@ class homeController
     // chack thông tin
     function chackthongtin()
     {
+
         if (!isset($_POST["order"])) {  
             if (isset($_SESSION['user'])) {
                 $iduser = $_SESSION['user']['id'];
@@ -565,5 +520,13 @@ class homeController
         // Truyền dữ liệu giỏ hàng vào view checkout
         include 'views/chackout.php';
     }
+
+
+    // function deleteCart()
+    // {
+    //     $iduser = $_SESSION['user']['id'];
+    //     $this->homeModel->deleteCartUser($iduser);
+    //     header('location: index.php?act=cart');
+    // }
 
 }

@@ -37,7 +37,7 @@ if (isset($_SESSION['user'])) {
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
             <a href="?act=/" class="navbar-brand">
-                <h1 class="text-primary display-6">Fruitables</h1>
+                <h1 class="text-primary display-6">Trái cây</h1>
             </a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">
@@ -45,18 +45,10 @@ if (isset($_SESSION['user'])) {
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="?act=/" class="nav-item nav-link ">Home</a>
-                    <a href="?act=shop" class="nav-item nav-link">Shop</a>
-                    <a href="" class="nav-item nav-link">Shop Detail</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="?act=cart" class="dropdown-item">Cart</a>
-                            <a href="?act=chackout" class="dropdown-item">Chackout</a>
-                            <a href="?act=testimonial" class="dropdown-item">Testimonial</a>
-                            <a href="?act=404" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
+                    <a href="?act=/" class="nav-item nav-link">Home</a>
+                    <a href="?act=shop" class="nav-item nav-link ">Shop</a>
+                    <!-- <a href="" class="nav-item nav-link">Shop Detail</a> -->
+                    <a href="?act=dathang" class="nav-item nav-link">Order Detail</a>
                     <a href="?act=contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">
@@ -72,7 +64,7 @@ if (isset($_SESSION['user'])) {
                         <? else: ?> <span
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                 style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                                
+                                0
                             </span>
                         <?php endif; ?>
                     </a>
