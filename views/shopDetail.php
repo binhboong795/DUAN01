@@ -111,7 +111,7 @@
                                     <button class="nav-link active border-white border-bottom-0" type="button"
                                         role="tab" id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
                                         aria-controls="nav-about" aria-selected="true">Description</button>
-                                    <button class="nav-link border-white border-bottom-0" type="button" role="tab"
+                                    <button class="nav-link  border-white border-bottom-0" type="button" role="tab"
                                         id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
                                         aria-controls="nav-mission" aria-selected="false">Reviews</button>
                                 </div>
@@ -125,40 +125,56 @@
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
-                                    <?php
-                                    // echo $comments;
-                                    // echo $id;
-
-
-
-                                    foreach ($comments as $comment) { ?>
-
-                                        <div class="d-flex">
-                                            <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                                style="width: 100px; height: 100px;" alt="">
-                                            <div class="">
-                                                <p class="mb-2" style="font-size: 14px;">
-                                                    <?php echo $comment['ngaybinhluan'] ?></p>
-                                                <div class="d-flex justify-content-between">
-                                                    <h5><?php echo $comment['user'] ?></h5>
-                                                    <div class="d-flex mb-3">
-                                                        <?php
-                                                        for ($i = 1; $i <= 5; $i++) {
-                                                            if ($i <= $comment['rating']) {
-                                                                echo '<i class="fa fa-star text-warning"></i>';
-                                                            } else {
-                                                                echo '<i class="fa fa-star "></i>';
+                                    <div id="commentList">
+                                        <?php
+                                        $count = 0;
+                                        foreach ($comments as $comment) {
+                                            $count++;
+                                            // Thêm class "hidden-comment" nếu bình luận vượt quá 3.
+                                            $hiddenClass = ($count > 3) ? 'hidden-comment d-none' : '';
+                                        ?>
+                                            <div class="d-flex comment-item <?php echo $hiddenClass; ?>">
+                                                <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
+                                                    style="width: 100px; height: 100px;" alt="">
+                                                <div>
+                                                    <p class="mb-2" style="font-size: 14px;">
+                                                        <?php echo $comment['ngaybinhluan']; ?>
+                                                    </p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h5><?php echo $comment['user']; ?></h5>
+                                                        <div class="d-flex mb-3">
+                                                            <?php
+                                                            for ($i = 1; $i <= 5; $i++) {
+                                                                if ($i <= $comment['rating']) {
+                                                                    echo '<i class="fa fa-star text-warning"></i>';
+                                                                } else {
+                                                                    echo '<i class="fa fa-star"></i>';
+                                                                }
                                                             }
-                                                        }
-                                                        ?>
+                                                            ?>
+                                                        </div>
                                                     </div>
+                                                    <p><?php echo $comment['noidung']; ?></p>
                                                 </div>
-                                                <p><?php echo $comment['noidung'] ?></p>
                                             </div>
+                                        <?php } ?>
+                                    </div>
+                                    <!-- Nút "See more" và "Thu gọn" -->
+                                    <?php if (count($comments) > 3) { ?>
+                                        <div class="mt-3">
+                                            <button id="seeMoreBtn"
+                                                class="btn btn-link text-decoration-underline text-primary">See
+                                                more</button>
+                                            <button id="collapseBtn"
+                                                class="btn btn-link text-decoration-underline text-secondary d-none">Thu
+                                                gọn</button>
                                         </div>
                                     <?php } ?>
-
                                 </div>
+
+
+
+
                                 <div class="tab-pane" id="nav-vision" role="tabpanel">
                                     <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                                         tempor sit. Aliqu diam
@@ -561,3 +577,28 @@
 </body>
 
 </html>
+<script>
+    const seeMoreBtn = document.getElementById('seeMoreBtn');
+    const collapseBtn = document.getElementById('collapseBtn');
+    const hiddenComments = document.querySelectorAll('.hidden-comment');
+
+    // Khi nhấn "See more"
+    seeMoreBtn.addEventListener('click', function() {
+        hiddenComments.forEach(comment => {
+            comment.classList.remove('d-none');
+        });
+        seeMoreBtn.classList.add('d-none'); // Ẩn nút "See more"
+        collapseBtn.classList.remove('d-none'); // Hiển thị nút "Thu gọn"
+    });
+
+    // Khi nhấn "Thu gọn"
+    collapseBtn.addEventListener('click', function() {
+        hiddenComments.forEach(comment => {
+            comment.classList.add('d-none');
+        });
+        collapseBtn.classList.add('d-none'); // Ẩn nút "Thu gọn"
+        seeMoreBtn.classList.remove('d-none'); // Hiển thị lại nút "See more"
+    });
+</script>
+
+</script>
