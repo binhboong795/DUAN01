@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Fruitables - Vegetable Website Template</title>
+    <title>Shop bán trái cây - Group 5</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -54,8 +54,8 @@
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-md-12 col-lg-7">
-                    <h4 class="mb-3 text-secondary">100% Organic Foods</h4>
-                    <h1 class="mb-5 display-3 text-primary">Organic Veggies & Fruits Foods</h1>
+                    <h4 class="mb-3 text-secondary">100% Thực phẩm hữu cơ</h4>
+                    <h1 class="mb-5 display-3 text-primary">Trái cây nhập khẩu & nội địa</h1>
                     <div class="position-relative mx-auto">
                         <form action="" method="GET" class="">
                             <input name="name"
@@ -81,7 +81,7 @@
                                             style="height: 400px; object-fit: cover;"
                                             alt="<?= htmlspecialchars($banner['name'] ?? 'Banner') ?>">
 
-                                        <a href="#" class="btn px-4 py-2 text-white rounded">Fruits</a>
+                                        <!-- <a href="#" class="btn px-4 py-2 text-white rounded">Fruits</a> -->
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -89,13 +89,14 @@
                             <?php endif; ?>
                         </div>
                         <!-- Nút điều hướng -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
-                            data-bs-slide="prev">
+                        <button class="carousel-control-prev bg-transparent border-0" type="button"
+                            data-bs-target="#carouselId" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselId"
-                            data-bs-slide="next">
+
+                        <button class="carousel-control-next bg-transparent border-0" type="button"
+                            data-bs-target="#carouselId" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -235,7 +236,7 @@
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             $<?= $product['price'] ?> / kg</p>
-                                                        <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
                                                     </div>
@@ -269,7 +270,7 @@
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">
                                                             $<?= $product['price'] ?> / kg</p>
-                                                        <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
                                                     </div>

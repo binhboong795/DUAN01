@@ -37,4 +37,25 @@ class shopModel
         }
         return $stmt->fetchAll();
     }
+    function findCate($id)
+    {
+        $sql = "SELECT soluong FROM sanpham where id= :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // function findProductByIddm($iddm)
+    // {
+    //     // Câu truy vấn SQL với tham số động
+    //     $sql = "SELECT * FROM sanpham WHERE iddm = :iddm";
+
+    //     // Chuẩn bị truy vấn
+    //     $stmt = $this->conn->prepare($sql);
+
+    //     // Thực thi truy vấn với tham số
+    //     $stmt->execute([':iddm' => $iddm]);
+
+    //     // Lấy kết quả
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
 }

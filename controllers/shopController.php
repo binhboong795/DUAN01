@@ -9,7 +9,12 @@ class shopController
     }
     function shop()
     {
-
+        $cam = $this->shopModel->findCate('1');
+        $nho = $this->shopModel->findCate('2');
+        $chuoi = $this->shopModel->findCate('3');
+        $man = $this->shopModel->findCate('4');
+        $nhoxanh = $this->shopModel->findCate('5');
+        $taomeo = $this->shopModel->findCate('6');
         $products = [];
         if (isset($_GET['priceRange'])) {
             $priceRange = $_GET['priceRange'];
@@ -37,6 +42,14 @@ class shopController
             // Lấy tổng số lượng sản phẩm trong giỏ hàng
             $totalQuantity = $this->shopModel->getTotalQuantity($iduser);
         }
+
+        require_once 'views/shop.php';
+    }
+    function categories($id)
+    {
+        // Gọi model để cập nhật số lượt xem
+
+
 
         require_once 'views/shop.php';
     }
