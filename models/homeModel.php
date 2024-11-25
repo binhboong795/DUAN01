@@ -283,11 +283,11 @@ class homeModel
     }
 
 
-    function insertdonhang($id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $id_bill)
+    function insertdonhang($id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $idbill)
     {
-        $sql = "INSERT INTO chitietdonhang (id, iduser, id_pro, img, name, price, soluong, thanhtien, id_bill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO orders (id, iduser, id_pro, img, name, price, soluong, thanhtien, idbill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $id_bill]);
+        return $stmt->execute([$id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $idbill]);
     }
 
 
@@ -299,7 +299,7 @@ class homeModel
 
 
     function getOrder($iduser){
-        $sql = "SELECT * FROM `chitietdonhang` where iduser = ?";
+        $sql = "SELECT * FROM `orders` where iduser = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$iduser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
