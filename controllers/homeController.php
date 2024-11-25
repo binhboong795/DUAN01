@@ -251,7 +251,7 @@ class homeController
     // homeController.php
 
     // Ví dụ cho trang chi tiết sản phẩm (headerDetail.php)
-    function detail($id) {}
+
 
     // Ví dụ cho trang hợp đồng (headerContract.php)
 
