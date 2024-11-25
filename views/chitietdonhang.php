@@ -9,9 +9,16 @@ if (isset($_SESSION['bill_name'])) {
     $ngaydathang = $_SESSION['ngaydathang'];
 }
 
+// ngày giao hàng
 $chuanbi = 1;
 $vanchuyen = (stripos($bill_address, 'hà nội') !== false) ? 2 : 4;
 $ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen day"));
+
+// tổng tiền
+$totalPriceAll = 0; // Biến lưu tổng tiền
+foreach ($getOrder as $item) {
+    $totalPriceAll += $item['thanhtien']; // Cộng tổng tiền của từng sản phẩm vào tổng tiền
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,19 +40,23 @@ $ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen 
 
     table {
         width: 100%;
-        table-layout: fixed; /* Makes columns have equal width */
+        table-layout: fixed;
+        /* Makes columns have equal width */
         border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
         border: 1px solid #ccc;
         padding: 10px;
-        width: 14%; /* Set an approximate equal width for all columns */
+        width: 14%;
+        /* Set an approximate equal width for all columns */
         text-align: center;
     }
 
     /* Specific styling for the total row */
-    .total-row th, .total-row td {
+    .total-row th,
+    .total-row td {
         font-weight: bold;
     }
 </style>
@@ -131,30 +142,23 @@ $ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen 
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($cartItems)): ?>
-                        <?php foreach ($cartItems as $index => $item): ?>
-                            <tr>
-                                <td><?= $index + 1 ?></td>
-                                <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
-                                        width="50"></td>
-                                <td><?= $item['name'] ?></td>
-                                <td><?= number_format($item['price'], 2) ?> $</td>
-                                <td><?= $item['soluong'] ?></td>
-                                <td><?= number_format($item['total_price'], 2) ?> $</td>
-                            </tr>
-                        <?php endforeach; ?>
+                    <?php
+                    foreach ($getOrder as $index => $item) {
+                    ?>
+                        <tr>
+                            <td><?= $index + 1 ?></td>
+                            <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
+                            <td><?= $item['name'] ?></td>
+                            <td><?= $item['price'] ?></td>
+                            <td><?= $item['soluong'] ?></td>
+                            <td><?= $item['thanhtien'] ?></td>
+                        </tr>
+                    <?php } ?>
+                    <thead>
+                        <th>Total</th>
+                        <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> $</td>
+                    </thead>
                 </tbody>
-                <thead>
-                    <th>Total</th>
-                    <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> $</td>
-                </thead>
-
-            <?php else: ?>
-                <tr>
-                    <td colspan="6" class="text-center">Giỏ hàng trống</td>
-                </tr>
-            <?php endif; ?>
-            </tbody>
             </table>
             <h6 class="mt-5 text-dark">Phương thức thanh toán: <?php echo $bill_pttt ?></h6>
             <h6 class="mt-5 text-dark">Vui lòng thanh toán: <?php echo $totalPriceAll ?>$ Khi nhận hàng</h6>
@@ -165,9 +169,7 @@ $ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen 
 
 
     <?php require_once 'assets/footer/footer.php' ?>
-
-
-
+    
 </body>
 
 </html>

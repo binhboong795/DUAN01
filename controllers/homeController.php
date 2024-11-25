@@ -15,10 +15,10 @@ class homeController
     function chitietdonhang()
     {
         $iduser = $_SESSION['user']['id'];
-        $cartItems = $this->homeModel->getCartItems($iduser);
+        $getOrder = $this->homeModel->getOrder($iduser);
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-        $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
-        $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
+        // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
+        // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         require_once 'views/chitietdonhang.php';
     }
     function chuyenkhoan()
@@ -457,10 +457,29 @@ class homeController
         if (!isset($_POST["order"])) {  
             if (isset($_SESSION['user'])) {
                 $iduser = $_SESSION['user']['id'];
-                $this->homeModel->deleteAllCart($iduser);
-                if (isset($_SESSION['cart'])) {
+
+                // Lấy các sản phẩm từ giỏ hàng của người dùng
+                $cartItems = $this->homeModel->getCartItems($iduser);
+
+                 // Lưu từng sản phẩm trong giỏ hàng vào bảng `chitietdonhang`
+                 foreach($cartItems as $item) {
+                    $this->homeModel->insertdonhang(
+                        null,
+                        $iduser,
+                        $item['idpro'],
+                        $item['img'],
+                        $item['name'],
+                        $item['price'],
+                        $item['soluong'],
+                        $item['thanhtien'],
+                        $item['idbill'],
+                    );
+                 }
+
+                 $this->homeModel->deleteAllCart($iduser);
+                 if(isset($_SESSION['cart'])) {
                     unset($_SESSION['cart']);
-                }
+                 }
             }
             header('location: index.php?act=dathang');
             exit;
@@ -478,6 +497,8 @@ class homeController
 
         $error = "";
 
+   
+        $iduser = $_SESSION['user']['id'];
         $bill_name = $_POST['bill_name'];
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
@@ -509,8 +530,9 @@ class homeController
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
-            $insertOrder = $mOrder->insertOrder(null, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
+            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
 
+            
             $_SESSION['bill_name'] = $bill_name;
             $_SESSION['bill_address'] = $bill_address;
             $_SESSION['bill_tell'] = $bill_tell;
