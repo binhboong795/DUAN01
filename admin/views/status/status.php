@@ -35,6 +35,7 @@
                         <th>Số Điện Thoại</th>
                         <th>Email</th>
                         <th>Phương thức thanh toán</th>
+                        <th>Trạng thái</th>
                         <th>Ngày đặt hàng</th>
                         <th>Hành Động</th>
                     </tr>
@@ -48,21 +49,26 @@
                             <td><?= $value['bill_address']; ?></td>
                             <td><?= $value['bill_tell']; ?></td>
                             <td><?= $value['bill_email']; ?></td>
+                            <td><?= $value['bill_pttt']; ?></td>
                             <td>
                                 <!-- Form cập nhật phương thức thanh toán -->
                                 <form method="POST" action="index.php?act=updatestatus&id=<?= $value['id']; ?>">
-                                    <select class="form-control" name="bill_pttt" onchange="this.form.submit()">
+                                    <select class="form-control" name="bill_status" onchange="this.form.submit()">
                                         <option value="Đợi thanh toán"
-                                            <?= $value['bill_pttt'] == 'Đợi thanh toán' ? 'selected' : ''; ?>>
+                                            <?= $value['bill_status'] == 'Đợi thanh toán' ? 'selected' : ''; ?>>
                                             Đợi thanh toán
                                         </option>
                                         <option value="Đã thanh toán"
-                                            <?= $value['bill_pttt'] == 'Đã thanh toán' ? 'selected' : ''; ?>>
+                                            <?= $value['bill_status'] == 'Đã thanh toán' ? 'selected' : ''; ?>>
                                             Đã thanh toán
                                         </option>
-                                        <option value="Thanh Toán Khi Nhận Hàng"
-                                            <?= $value['bill_pttt'] == 'Thanh Toán Khi Nhận Hàng' ? 'selected' : ''; ?>>
-                                            Thanh Toán Khi Nhận Hàng
+                                        <option value="Đang giao hàng"
+                                            <?= $value['bill_status'] == 'Đang giao hàng' ? 'selected' : ''; ?>>
+                                            Đang giao hàng
+                                        </option>
+                                        <option value="Đã giao hàng"
+                                            <?= $value['bill_status'] == 'Đã giao hàng' ? 'selected' : ''; ?>>
+                                            Đã giao hàng
                                         </option>
                                     </select>
                                 </form>

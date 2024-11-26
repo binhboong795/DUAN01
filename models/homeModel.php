@@ -352,6 +352,8 @@ class homeModel
         $sql = "SELECT bill_status FROM trangthai WHERE id_user = :iduser";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['iduser' => $iduser]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Kiểm tra nếu có kết quả, trả về mảng với các trạng thái
+        return $stmt->fetchAll(PDO::FETCH_COLUMN) ?: [];
     }
 }

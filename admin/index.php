@@ -24,6 +24,7 @@ match ($act) {
     'taikhoan' => (new accController())->taikhoan(),
     'danhmuc' => (new danhmucController())->danhmuc(),
     'binhluan' => (new cmtController())->binhluan(),
+    'deleteBl'=>(new cmtController())->deleteBl(),
     'editUser' => (new accController())->editUser(),
     'deleteUser' => (new accController())->deleteUser(),
     'banner' => (new bannerController())->banner(),

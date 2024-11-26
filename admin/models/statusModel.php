@@ -17,13 +17,13 @@ class statusModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute();
     }
-    function updatePaymentMethod($id, $bill_pttt)
+    function updatePaymentMethod($id, $bill_status)
     {
-        $sql = "UPDATE trangthai SET bill_pttt = :bill_pttt WHERE id = :id";
+        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
 
         // Gắn tham số vào câu lệnh
-        $stmt->bindValue(':bill_pttt', $bill_pttt, PDO::PARAM_STR);
+        $stmt->bindValue(':bill_status', $bill_status, PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         // Thực thi câu lệnh

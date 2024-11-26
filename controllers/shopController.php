@@ -16,8 +16,29 @@ class shopController
         $nhoxanh = $this->shopModel->findCate('5');
         $taomeo = $this->shopModel->findCate('6');
         $products = [];
-        if (isset($_GET['priceRange'])) {
-            $priceRange = $_GET['priceRange'];
+        $products = [];
+        $categoryId = isset($_GET['category']) ? $_GET['category'] : null; // Lấy ID danh mục từ URL
+        $priceRange = isset($_GET['priceRange']) ? $_GET['priceRange'] : null; // Lấy khoảng giá từ URL
+
+        // Xử lý lọc sản phẩm
+        if ($categoryId && $priceRange) {
+            switch ($priceRange) {
+                case '<3':
+                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 0, 3);
+                    break;
+                case '3-6':
+                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 3, 6);
+                    break;
+                case '>6':
+                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 6);
+                    break;
+                default:
+                    $products = $this->shopModel->allProductShop();
+                    break;
+            }
+        } elseif ($categoryId) {
+            $products = $this->shopModel->getProductbyDanhmuc($categoryId, 0); // Lấy tất cả sản phẩm theo danh mục
+        } elseif ($priceRange) {
             switch ($priceRange) {
                 case '<3':
                     $products = $this->shopModel->getPrice(0, 3);
@@ -33,8 +54,11 @@ class shopController
                     break;
             }
         } else {
-            $products = $this->shopModel->allProductShop();
+            $products = $this->shopModel->allProductShop(); // Lấy tất cả sản phẩm nếu không có bộ lọc
         }
+       
+
+
         $danhmuc = $this->shopModel->allDanhmuc();
 
         if (isset($_SESSION['user'])) {

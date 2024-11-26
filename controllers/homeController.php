@@ -21,6 +21,7 @@ class homeController
         // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
         // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         require_once 'views/chitietdonhang.php';
+        require_once 'assets/header/headerDetail.php';
     }
     function chuyenkhoan()
     {

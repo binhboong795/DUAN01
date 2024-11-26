@@ -13,10 +13,10 @@ class statusController
     }
     function updateStatus()
     {
-        if (isset($_GET['id']) && isset($_POST['bill_pttt'])) {
+        if (isset($_GET['id']) && isset($_POST['bill_status'])) {
             $id = (int)$_GET['id']; // Chuyển đổi thành số nguyên
-            $bill_pttt = $_POST['bill_pttt']; // Lấy giá trị phương thức thanh toán
-            $this->statusModel->updatePaymentMethod($id, $bill_pttt);
+            $bill_status = $_POST['bill_status']; // Lấy giá trị phương thức thanh toán
+            $this->statusModel->updatePaymentMethod($id, $bill_status);
         }
         header("Location: ?act=status");
         exit;
