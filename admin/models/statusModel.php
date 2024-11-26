@@ -33,4 +33,14 @@ class statusModel
             die("Lỗi thực thi câu lệnh: " . implode(", ", $stmt->errorInfo()));
         }
     }
+    // function updateIdBillInTrangthai()
+    // {
+    //     $sql = "UPDATE trangthai AS t
+    //         JOIN orders AS o ON t.id_user = o.iduser
+    //         SET t.idbill = o.idbill
+    //         WHERE t.idbill IS NULL";
+
+    //     $stmt = $this->conn->prepare($sql);
+    //     return $stmt->execute();
+    // }
 }

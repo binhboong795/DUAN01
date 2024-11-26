@@ -21,6 +21,12 @@ class accModel
         $stmt->execute([$id]);
         return $stmt->fetch(); 
     }
+    function insertUser($id, $user, $pass, $email, $address, $tell)
+    {
+        $sql = "INSERT INTO taikhoan (id, user, pass, email, address, tell) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+        return $stmt->execute([$id, $user, $pass, $email, $address, $tell]);
+    }
     function editUser($id, $user, $pass, $email, $address, $tell)
     {
         $sql = "UPDATE taikhoan SET user = ?, pass = ?, email = ?, address = ?, tell = ? WHERE id = ?";

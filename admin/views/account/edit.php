@@ -1,6 +1,6 @@
 <?php
-    // require_once './views/components/style.php';
-    // require_once 'assets/header/headerLogin.php';
+// require_once './views/components/style.php';
+// require_once 'assets/header/headerLogin.php';
 ?>
 
 <!DOCTYPE html>
@@ -67,12 +67,24 @@
                                 placeholder="Tên tài khoản" value="<?php echo $idUser['user'] ?>">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
                                 placeholder="Mật khẩu" value="<?php echo $idUser['pass'] ?>">
+                            <?php if ($error && strpos($error, 'Mật khẩu') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
                             <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
                                 placeholder="Email" value="<?php echo $idUser['email'] ?>">
+                            <?php if ($error && strpos($error, 'Email phải lớn hơn') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address"
                                 placeholder="Address" value="<?php echo $idUser['address'] ?>">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell"
                                 placeholder="Tell" value="<?php echo $idUser['tell'] ?>">
+                            <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
+                            <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                                 type="submit" name="capnhat">Cập Nhật</button>
                             <p style="color: red;"><?php echo $error ?></p>

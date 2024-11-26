@@ -12,7 +12,7 @@ if (isset($_SESSION['bill_name'])) {
 // ngày giao hàng
 $chuanbi = 1;
 $vanchuyen = (stripos($bill_address, 'hà nội') !== false) ? 2 : 4;
-$ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day "));
+$ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen day"));
 
 // tổng tiền
 $totalPriceAll = 0; // Biến lưu tổng tiền
@@ -116,7 +116,8 @@ foreach ($getOrder as $item) {
                         <th>Email</th>
                         <th>Phương thức thanh toán</th>
                         <th>Ngày đặt hàng</th>
-                        <th>Trạng thái</th>
+                        <th>tt</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -129,9 +130,12 @@ foreach ($getOrder as $item) {
                         <td><?php echo $bill_pttt ?></td>
                         <td><?php echo $ngaydathang ?></td>
                         <td>
-                            <p style="color: green;">
-                                <?php echo htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?></p>
+                            <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
                         </td>
+
+
+
+
                     </tr>
             </table>
             <table>
@@ -143,29 +147,27 @@ foreach ($getOrder as $item) {
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Thành tiền</th>
+                        <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ($getOrder as $index => $item) {
-                    ?>
+                    <?php foreach ($getOrder as $index => $item) { ?>
                         <tr>
-                            <td><?= $index + 1 ?></td>
+                            <td><?= $item['idbill'] ?></td>
                             <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['price'] ?> $</td>
                             <td><?= $item['soluong'] ?></td>
                             <td><?= $item['thanhtien'] ?> $</td>
+                            <td>
+                                <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
+                            </td>
                         </tr>
                     <?php } ?>
-                    <thead>
-                        <th class="fw-bold fs-4">Total</th>
-                        <td colspan="5" class="text-right">
-                            <p class="fw-bold fs-4"><?= $totalPriceAll ?> $</p>
-                        </td>
-                    </thead>
                 </tbody>
             </table>
+
+
             <p class="fs-4">Phương thức thanh toán:<span class="text-monospace"><?php echo $bill_pttt ?></span>
             </p>
 

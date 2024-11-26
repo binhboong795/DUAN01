@@ -1,5 +1,6 @@
-<?php require_once 'views/components/style.php';
-require_once 'assets/header/headerLogin.php';
+<?php
+//  require_once 'views/components/style.php';
+// require_once 'assets/header/headerLogin.php';
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +50,7 @@ require_once 'assets/header/headerLogin.php';
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="text-center mx-auto" style="max-width: 700px;">
-                            <h1 class="text-primary">Đăng Ký</h1>
+                            <h1 class="text-primary">Thêm tài khoản</h1>
                         </div>
                     </div>
                     <!-- <div class="col-lg-12">
@@ -66,15 +67,26 @@ require_once 'assets/header/headerLogin.php';
                                 placeholder="Tên tài khoản">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
                                 placeholder="Mật khẩu">
+                            <?php if ($error && strpos($error, 'Mật khẩu') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
                             <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
                                 placeholder="Email">
+                            <?php if ($error && strpos($error, 'Email phải lớn hơn') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address"
                                 placeholder="Address">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell"
                                 placeholder="Tell">
-                            <p style="color: red;"><?=$error?></p>
+                            <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
+                            <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
+                                <p style="color: red;"><?= $error ?></p>
+                            <?php endif; ?>
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
-                                type="submit" name="dangky">Đăng ký</button>
+                                type="submit" name="themmoi">Thêm mới</button>
 
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
@@ -110,5 +122,5 @@ require_once 'assets/header/headerLogin.php';
 
 </html>
 <?php
-require_once 'assets/footer/footer.php';
+// require_once 'assets/footer/footer.php';
 ?>

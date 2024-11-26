@@ -34,6 +34,7 @@
                 </thead>
                 <tbody>
                     <?php
+
                     $stt = 1;
                     foreach ($product['binh_luan'] as $comment) { ?>
                         <tr>
@@ -42,7 +43,9 @@
                             <td><?php echo $comment['user']; ?></td>
                             <td><?php echo $comment['ngaybinhluan']  ?></td>
                             <td><?php echo $comment['rating']; ?></td>
-                            <td> <button class="btn btn-warning" onclick="deleteBl('index.php?act=deleteBl&id=<?php echo $comment['idbl']; ?>')">Xóa</button></td>
+                            <td> <button class="btn btn-warning"
+                                    onclick="deleteBl('index.php?act=deleteBl&id=<?php echo $comment['idbl']; ?>')">Xóa</button>
+                            </td>
 
                         </tr>
                     <?php } ?>

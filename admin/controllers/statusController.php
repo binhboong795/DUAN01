@@ -8,7 +8,9 @@ class statusController
     }
     function status()
     {
+        // $idbill = $this->statusModel->updateIdBillInTrangthai();
         $status = $this->statusModel->getAllStatus();
+
         require_once 'views/status/status.php';
     }
     function updateStatus()
