@@ -132,14 +132,13 @@ class homeController
 
             if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
-            }elseif(strlen($pass) < 8) {
+            } elseif (strlen($pass) < 8) {
                 $error = "Mật khẩu phải có ít nhất 8 kí tự!";
-            }elseif(strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
+            } elseif (strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
                 $error = "Email quá ngắn và ký tự và phải đúng định dạng!";
-            }elseif(!preg_match('/^[0-9]{10}$/', $tell)) {
+            } elseif (!preg_match('/^[0-9]{10}$/', $tell)) {
                 $error = "Số điện thoại không hợp lệ!";
-            }
-            else {
+            } else {
                 $mUser = new homeModel();
                 $registerUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tell);
                 echo "<script>
@@ -424,16 +423,15 @@ class homeController
     // chack thông tin
     function chackthongtin()
     {
-
-        if (!isset($_POST["order"])) {  
+        if (!isset($_POST["order"])) {
             if (isset($_SESSION['user'])) {
                 $iduser = $_SESSION['user']['id'];
 
                 // Lấy các sản phẩm từ giỏ hàng của người dùng
                 $cartItems = $this->homeModel->getCartItems($iduser);
 
-                 // Lưu từng sản phẩm trong giỏ hàng vào bảng `chitietdonhang`
-                 foreach($cartItems as $item) {
+                // Lưu từng sản phẩm trong giỏ hàng vào bảng `chitietdonhang`
+                foreach ($cartItems as $item) {
                     $this->homeModel->insertdonhang(
                         null,
                         $iduser,
@@ -445,17 +443,17 @@ class homeController
                         $item['thanhtien'],
                         $item['idbill'],
                     );
-                 }
+                }
 
-                 $this->homeModel->deleteAllCart($iduser);
-                 if(isset($_SESSION['cart'])) {
+                $this->homeModel->deleteAllCart($iduser);
+                if (isset($_SESSION['cart'])) {
                     unset($_SESSION['cart']);
-                 }
+                }
             }
             header('location: index.php?act=dathang');
             exit;
         }
-        
+
         $iduser = $_SESSION['user']['id'];
         $cartItems = $this->homeModel->getCartItems($iduser);
         if (empty($cartItems)) {
@@ -468,12 +466,12 @@ class homeController
 
         $error = "";
 
-   
         $iduser = $_SESSION['user']['id'];
         $bill_name = $_POST['bill_name'];
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
+
         // $bill_pttt = $_POST['bill_pttt'];
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
         if ($bill_pttt == "Thanh Toán Qua ATM") {
@@ -507,8 +505,8 @@ class homeController
 
             $mOrder = new homeModel();
             $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
-            
-        
+
+
             $_SESSION['bill_name'] = $bill_name;
             $_SESSION['bill_address'] = $bill_address;
             $_SESSION['bill_tell'] = $bill_tell;
@@ -518,10 +516,9 @@ class homeController
             header('location: index.php?act=testimonial');
             exit;
         }
-
         require_once 'views/chackout.php';
     }
-    
+
 
 
     function showCheckout()

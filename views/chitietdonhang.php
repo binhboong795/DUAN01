@@ -9,6 +9,7 @@ if (isset($_SESSION['bill_name'])) {
     $ngaydathang = $_SESSION['ngaydathang'];
     $bill_status = $_SESSION['bill_status'];
     $iduser = $_SESSION['user']['id'];
+    // $id_order = $_SESSION['order']['id'];
 }
 
 // ngày giao hàng
