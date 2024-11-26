@@ -19,6 +19,7 @@
 </div>
 
 <!-- content -->
+ <a href="index.php?act=addUser"><button>Thêm tài khoản</button></a>
 <div class="breadcrumbs mb-5">
     <table border="1">
         <thead>
