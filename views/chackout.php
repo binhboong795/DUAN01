@@ -59,7 +59,7 @@
     <div class="container-fluid py-5">
         <div class="container py-5">
             <h1 class="mb-4">Billing details</h1>
-            <form action="index.php?act=chackthongtin" method="post">
+            <form action="index.php?act=chackthongtin" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="row g-5">
                     <div class="col-md-12 col-lg-6 col-xl-7">
                         <div class="row">
@@ -136,12 +136,16 @@
                             <div class="col-12">
                                 <div class="form-check text-start my-3">
                                     <input type="radio" class="form-check-input bg-primary border-0" id="Transfer-1"
-                                        name="bill_pttt" value="Chuyển Khoản Ngân Hàng">
-                                    <label class="form-check-label" for="Transfer-1">Chuyển Khoản Ngân Hàng</label>
+                                        name="bill_pttt" value="Thanh Toán Qua MoMo">
+                                    <label class="form-check-label" for="Transfer-1">Thanh Toán Qua MoMo</label>
                                 </div>
-                                <p class="text-start text-dark">Make your payment directly into our bank account. Please
-                                    use your Order ID as the payment reference. Your order will not be shipped until the
-                                    funds have cleared in our account.</p>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check text-start my-3">
+                                    <input type="radio" class="form-check-input bg-primary border-0" id="Transfer-1"
+                                        name="bill_pttt" value="Thanh Toán Qua ATM">
+                                    <label class="form-check-label" for="Transfer-1">Thanh Toán Qua ATM</label>
+                                </div>
                             </div>
                         </div>
 
@@ -162,9 +166,12 @@
                             <button class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
                                 type="submit" name="order">Place Order</button>
                         </div>
+
+                        
                     </div>
                 </div>
             </form>
+            
         </div>
     </div>
     <!-- Checkout Page End -->

@@ -138,7 +138,6 @@ if (isset($_SESSION['bill_name'])) {
                                             <td colspan="5" class="text-right"><?= $totalPrice ?> $</td>
                                         </tr>
 
-
                                     <?php else: ?>
                                         <tr>
                                             <td colspan="6" class="text-center">Giỏ hàng trống</td>
@@ -146,10 +145,6 @@ if (isset($_SESSION['bill_name'])) {
                                     <?php endif; ?>
                                 </tbody>
                             </table>
-
-
-
-
 
                         </div>
                         <div class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">

@@ -12,6 +12,14 @@ class homeController
     {
         require_once 'views/dathang.php';
     }
+    function thanhtoan_momo()
+    {
+        require_once 'views/thanhtoan_momo.php';
+    }
+    function thanhtoan_atm()
+    {
+        require_once 'views/thanhtoan_atm.php';
+    }
     function chitietdonhang()
     {
         $iduser = $_SESSION['user']['id'];
@@ -466,9 +474,14 @@ class homeController
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
+        $bill_pttt = $_POST['bill_pttt'];
         $bill_status = 0;
         
-        $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
+        if ($bill_pttt == "Thanh Toán Qua ATM") {
+            header('location: index.php?act=thanhtoan_atm');
+            exit;
+        }
+        // $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
 
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
             $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";

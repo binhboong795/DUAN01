@@ -38,6 +38,8 @@ match ($act) {
     // 'deletecart' => (new homeController())->deleteCart($iduser),
 
     'chuyenkhoan' => (new homeController())->chuyenkhoan(),
+    'thanhtoan_momo' => (new homeController())->thanhtoan_momo(),
+    'thanhtoan_atm' => (new homeController())->thanhtoan_atm(),
 
     'chitietdonhang' => (new homeController())->chitietdonhang(),
     default => (new homeController())->error(), // Hành động không xác định
