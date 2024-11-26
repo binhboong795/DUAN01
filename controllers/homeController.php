@@ -474,14 +474,12 @@ class homeController
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
-        $bill_pttt = $_POST['bill_pttt'];
-        $bill_status = 0;
-        
+        // $bill_pttt = $_POST['bill_pttt'];
+        $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
         if ($bill_pttt == "Thanh Toán Qua ATM") {
             header('location: index.php?act=thanhtoan_atm');
             exit;
         }
-        // $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
 
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
             $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
@@ -508,17 +506,15 @@ class homeController
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
-            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $bill_status);
+            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
             
-            
-
+        
             $_SESSION['bill_name'] = $bill_name;
             $_SESSION['bill_address'] = $bill_address;
             $_SESSION['bill_tell'] = $bill_tell;
             $_SESSION['bill_email'] = $bill_email;
             $_SESSION['bill_pttt'] = $bill_pttt;
             $_SESSION['ngaydathang'] = $ngaydathang;
-            $_SESSION['bill_status'] = $bill_status;
             header('location: index.php?act=testimonial');
             exit;
         }

@@ -8,6 +8,7 @@ if (isset($_SESSION['bill_name'])) {
     $bill_pttt = $_SESSION['bill_pttt'];
     $ngaydathang = $_SESSION['ngaydathang'];
     $bill_status = $_SESSION['bill_status'];
+    $iduser = $_SESSION['user']['id'];
 }
 
 // ngày giao hàng
@@ -140,6 +141,7 @@ foreach ($getOrder as $item) {
                 <thead>
                     <tr>
                         <th>STT</th>
+                        <th>IdUser</th>
                         <th>Ảnh sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá</th>
@@ -153,6 +155,7 @@ foreach ($getOrder as $item) {
                     ?>
                         <tr>
                             <td><?= $index + 1 ?></td>
+                            <td><?= $iduser ?></td>
                             <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['price'] ?></td>
