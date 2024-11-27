@@ -142,10 +142,10 @@ if (isset($_SESSION['user'])) {
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="?act=/" class="nav-item nav-link">Home</a>
+                    <a href="?act=/" class="nav-item nav-link active">Home</a>
                     <a href="?act=shop" class="nav-item nav-link ">Shop</a>
-                    <!-- <a href="" class="nav-item nav-link">Shop Detail</a> -->
-                    <a href="?act=dathang" class="nav-item nav-link">Order Detail</a>
+                    <a href="?act=chitietdonhang" class="nav-item nav-link">Order Detail</a>
+                    <a href="?act=order" class="nav-item nav-link ">Order</a>
                     <a href="?act=contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-flex m-3 me-0">

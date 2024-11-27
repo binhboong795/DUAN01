@@ -7,9 +7,8 @@ if (isset($_SESSION['bill_name'])) {
     $bill_email = $_SESSION['bill_email'];
     $bill_pttt = $_SESSION['bill_pttt'];
     $ngaydathang = $_SESSION['ngaydathang'];
-    $bill_status = $_SESSION['bill_status'];
-    $iduser = $_SESSION['user']['id'];
-    // $id_order = $_SESSION['order']['id'];
+
+
 }
 
 // ngày giao hàng
@@ -75,7 +74,7 @@ foreach ($getOrder as $item) {
     <!-- Spinner End -->
 
 
-    <?php require_once 'assets/header/headerChackout.php' ?>
+    <?php require_once 'assets/header/headerOrder.php' ?>
 
 
     <!-- Modal Search Start -->
@@ -119,7 +118,8 @@ foreach ($getOrder as $item) {
                         <th>Email</th>
                         <th>Phương thức thanh toán</th>
                         <th>Ngày đặt hàng</th>
-                        <th>Trạng thái</th>
+                        <th>tt</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -131,51 +131,61 @@ foreach ($getOrder as $item) {
                         <td><?php echo $bill_email ?></td>
                         <td><?php echo $bill_pttt ?></td>
                         <td><?php echo $ngaydathang ?></td>
-                        <td><?php 
-                            if($bill_status == 0) {
-                                echo "Chờ xác nhận!";
-                            }
-                        ?></td>
+                        <td>
+                            <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
+                        </td>
+
+
+
+
                     </tr>
             </table>
             <table>
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>IdUser</th>
+                        <th>Mã Bill</th>
                         <th>Ảnh sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Thành tiền</th>
+                        <th>Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ($getOrder as $index => $item) {
-                    ?>
+                    <?php foreach ($getOrder as $item) { ?>
                         <tr>
-                            <td><?= $index + 1 ?></td>
-                            <td><?= $iduser ?></td>
+
+                            <td><?= $item['idbill'] ?></td>
                             <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
                             <td><?= $item['name'] ?></td>
-                            <td><?= $item['price'] ?></td>
+                            <td><?= $item['price'] ?> $</td>
                             <td><?= $item['soluong'] ?></td>
-                            <td><?= $item['thanhtien'] ?></td>
+                            <td><?= $item['thanhtien'] ?> $</td>
+                            <td>
+                                <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
+                            </td>
                         </tr>
                     <?php } ?>
-                    <thead>
-                        <th>Total</th>
-                        <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> $</td>
-                    </thead>
                 </tbody>
             </table>
-            <h6 class="mt-5 text-dark">Phương thức thanh toán: <?php echo $bill_pttt ?></h6>
-            <h6 class="mt-5 text-dark">Vui lòng thanh toán: <?php echo $totalPriceAll ?>$ Khi nhận hàng</h6>
-            <h6 class="mt-5 text-dark">Ngày giao hàng dự kiến: <?php echo $ngaygiaohang ?></h6>
+
+
+            <p class="fs-4 mt-5">Phương thức thanh toán:<span class="text-monospace"><?php echo $bill_pttt ?></span>
+            </p>
+
+            <p class=" fs-4">Vui lòng thanh toán: <span class="text-monospace"><?php echo $totalPriceAll ?></span>$
+                Khi nhận hàng</p>
+
+
+            <p class="fs-4">Ngày giao hàng dự kiến: <span class="text-monospace"><?php echo $ngaygiaohang ?></span></p>
+
         </div>
     </div>
     <!-- Checkout Page End -->
+
+
+
 
 
     <?php require_once 'assets/footer/footer.php' ?>

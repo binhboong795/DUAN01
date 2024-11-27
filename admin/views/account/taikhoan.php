@@ -19,8 +19,8 @@
 </div>
 
 <!-- content -->
- <a href="index.php?act=addUser"><button>Thêm tài khoản</button></a>
 <div class="breadcrumbs mb-5">
+<a href="index.php?act=addUser"><button class="mb-5 text-white btn btn-danger">Thêm tài khoản</button></a>
     <table border="1">
         <thead>
             <tr>
@@ -30,7 +30,8 @@
                 <th>Email</th>
                 <th>Địa Chỉ</th>
                 <th>Số Điện Thoại</th>
-                <th>Vai Trò</th>
+                <th>Vai Trò (Số)</th>
+                <th>Tên Vai Trò</th>
                 <th>Hành Động</th>
             </tr>
         </thead>
@@ -43,10 +44,11 @@
                     <td><?php echo $value['email']; ?></td>
                     <td><?php echo $value['address']; ?></td>
                     <td><?php echo $value['tell']; ?></td>
+                    <td><?php echo $value['role']?></td>
                     <td><?php echo $value['role'] == 1 ? "Admin" : "User" ?></td>
                     <td>
-                        <a href="index.php?act=editUser&id=<?php echo $value['id']; ?>"><button>Sửa</button></a>
-                        <button onclick="deleteUser('index.php?act=deleteUser&id=<?php echo $value['id']; ?>')">Xóa</button>
+                        <a href="index.php?act=editUser&id=<?php echo $value['id']; ?>"><button class="btn btn-info text-white">Sửa</button></a>
+                        <button class="btn btn-danger text-white" onclick="deleteUser('index.php?act=deleteUser&id=<?php echo $value['id']; ?>')">Xóa</button>
                     </td>
                 </tr>
             <?php } ?>

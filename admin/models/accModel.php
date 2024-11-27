@@ -21,17 +21,17 @@ class accModel
         $stmt->execute([$id]);
         return $stmt->fetch(); 
     }
-    function insertUser($id, $user, $pass, $email, $address, $tell)
+    function insertUser($id, $user, $pass, $email, $address, $tell, $role)
     {
-        $sql = "INSERT INTO taikhoan (id, user, pass, email, address, tell) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO taikhoan (id, user, pass, email, address, tell, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $user, $pass, $email, $address, $tell]);
+        return $stmt->execute([$id, $user, $pass, $email, $address, $tell, $role]);
     }
-    function editUser($id, $user, $pass, $email, $address, $tell)
+    function editUser($id, $user, $pass, $email, $address, $tell, $role)
     {
-        $sql = "UPDATE taikhoan SET user = ?, pass = ?, email = ?, address = ?, tell = ? WHERE id = ?";
+        $sql = "UPDATE taikhoan SET user = ?, pass = ?, email = ?, address = ?, tell = ?, $role = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$user, $pass, $email, $address, $tell, $id]);  
+        return $stmt->execute([$user, $pass, $email, $address, $tell, $role, $id]);  
     }
     function deleteUser($id)
     {

@@ -12,9 +12,6 @@ class accController
         require_once 'views/home.php';
     }
 
-
-
-
     function taikhoan()
     {
         $listUser = $this->accModel->getAllUser();
@@ -30,6 +27,7 @@ class accController
             $email = $_POST['email'];
             $address = $_POST['address'];
             $tell = $_POST['tell'];
+            $role = $_POST['role'];
 
             if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
@@ -42,7 +40,7 @@ class accController
             }
             else {
                 $mUser = new accModel();
-                $addUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tell);
+                $addUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tell, $role);
                 echo "<script>
                         alert('Bạn đã thêm thành công!');
                         window.location.href='?act=taikhoan';
@@ -66,6 +64,7 @@ class accController
             $email = $_POST['email'];
             $address = $_POST['address'];
             $tell = $_POST['tell'];
+            $role = $_POST['role'];
 
             if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
@@ -78,7 +77,7 @@ class accController
             }
             else {
                 $mUser = new accModel();
-                $registerUser = $mUser->editUser($id, $user, $pass, $email, $address, $tell);
+                $registerUser = $mUser->editUser($id, $user, $pass, $email, $address, $tell, $role);
                 echo "<script>
                         alert('Bạn đã cập nhật thành công!');
                         window.location.href='?act=taikhoan';

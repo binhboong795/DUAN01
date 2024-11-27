@@ -3,9 +3,7 @@
 function connectDB()
 {
 
-
     $host = "mysql:host=localhost; dbname=duan; charset=utf8";
-
 
     $user = "root";
     $pass = "";

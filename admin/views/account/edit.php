@@ -82,6 +82,8 @@
                             <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="role"
+                                placeholder="Vai Trò" value="<?php echo $idUser['role'] ?>">
                             <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>

@@ -23,11 +23,13 @@ class homeController
     function chitietdonhang()
     {
         $iduser = $_SESSION['user']['id'];
+        $status = $this->homeModel->getBillStatus($iduser);
         $getOrder = $this->homeModel->getOrder($iduser);
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
         // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
         // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         require_once 'views/chitietdonhang.php';
+        require_once 'assets/header/headerDetail.php';
     }
     function chuyenkhoan()
     {
@@ -68,7 +70,7 @@ class homeController
         require_once 'assets/header/headerContract.php'; // Truyền vào headerContract
     }
 
-    function testimonial()
+    function order()
     {
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
@@ -85,7 +87,7 @@ class homeController
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
         $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng từ Model
         $totalPrice = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
-        require_once 'views/testimonial.php';
+        require_once 'views/order.php';
         // Truyền vào headerContract
     }
     function error()
@@ -356,7 +358,8 @@ class homeController
 
         if ($product) {
             // Tạo idbill ngẫu nhiên (ví dụ: số ngẫu nhiên từ 1000 đến 9999)
-            $idbill = rand(1, 100);
+            $idbill = rand(1, 100); // Tạo giá trị ngẫu nhiên cho idbill
+            $_SESSION['id_bill'] = $idbill; // Lưu vào session
 
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
             $cartItem = $this->homeModel->getCartItems($iduser, $id);
@@ -424,13 +427,14 @@ class homeController
     function chackthongtin()
     {
         if (!isset($_POST["order"])) {
+
             if (isset($_SESSION['user'])) {
                 $iduser = $_SESSION['user']['id'];
 
                 // Lấy các sản phẩm từ giỏ hàng của người dùng
                 $cartItems = $this->homeModel->getCartItems($iduser);
 
-                // Lưu từng sản phẩm trong giỏ hàng vào bảng `chitietdonhang`
+
                 foreach ($cartItems as $item) {
                     $this->homeModel->insertdonhang(
                         null,
@@ -449,9 +453,12 @@ class homeController
                 if (isset($_SESSION['cart'])) {
                     unset($_SESSION['cart']);
                 }
+
+
+                header('location: index.php?act=dathang');
+                exit;
+
             }
-            header('location: index.php?act=dathang');
-            exit;
         }
 
         $iduser = $_SESSION['user']['id'];
@@ -466,18 +473,25 @@ class homeController
 
         $error = "";
 
+
         $iduser = $_SESSION['user']['id'];
+        $id_order = $_SESSION['id_order'];
+        $idbill = $_SESSION['id_bill'];
+
         $bill_name = $_POST['bill_name'];
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
 
-        // $bill_pttt = $_POST['bill_pttt'];
+
+
+
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
         if ($bill_pttt == "Thanh Toán Qua ATM") {
             header('location: index.php?act=thanhtoan_atm');
             exit;
         }
+
 
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
             $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
@@ -504,7 +518,30 @@ class homeController
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
-            $insertOrder = $mOrder->insertOrder(null, $iduser, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang);
+
+
+
+
+
+            if (!isset($_SESSION['id_bill'])) {
+                $_SESSION['id_bill'] = rand(1, 100); // Gán giá trị ngẫu nhiên nếu chưa tồn tại
+            }
+
+            $idbill = $_SESSION['id_bill'];
+
+            // Truyền ID Bill vào hàm insertOrder
+            $this->homeModel->insertOrder(
+                null,           // id
+                $iduser,        // id_user
+                $bill_name,     // Tên người nhận
+                $bill_address,  // Địa chỉ người nhận
+                $bill_tell,     // Số điện thoại
+                $bill_email,    // Email
+                $bill_pttt,     // Phương thức thanh toán
+                $ngaydathang,   // Ngày đặt hàng
+                $idbill         // ID Bill
+            );
+
 
 
             $_SESSION['bill_name'] = $bill_name;
@@ -513,12 +550,18 @@ class homeController
             $_SESSION['bill_email'] = $bill_email;
             $_SESSION['bill_pttt'] = $bill_pttt;
             $_SESSION['ngaydathang'] = $ngaydathang;
-            header('location: index.php?act=testimonial');
+
+            $_SESSION['id_bill'] = $idbill;
+            $_SESSION['id_order'] = $id_order;
+
+
+            header('location: index.php?act=order');
+
+
             exit;
         }
         require_once 'views/chackout.php';
     }
-
 
 
     function showCheckout()
@@ -542,11 +585,13 @@ class homeController
     }
 
 
+
     // function deleteCart()
     // {
     //     $iduser = $_SESSION['user']['id'];
     //     $this->homeModel->deleteCartUser($iduser);
     //     header('location: index.php?act=cart');
     // }
+
 
 }
