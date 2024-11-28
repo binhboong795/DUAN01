@@ -316,13 +316,32 @@ class homeModel
     //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     //     return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
     // }
-    function getBillStatus($iduser)
+    function getBillStatusById($id_bill)
     {
-        $sql = "SELECT bill_status FROM trangthai WHERE id_user = :iduser";
+        $sql = "SELECT bill_status FROM trangthai WHERE id_bill = :id_bill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id_bill' => $id_bill]);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng duy nhất
+    }
+
+
+    function getOrderStatusesById($iduser)
+    {
+        $sql = "SELECT o.idbill, t.bill_status
+                FROM `orders` AS o
+                LEFT JOIN trangthai AS t ON o.idbill = t.id
+                WHERE o.iduser = :iduser";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['iduser' => $iduser]);
-
-        // Kiểm tra nếu có kết quả, trả về mảng với các trạng thái
-        return $stmt->fetchAll(PDO::FETCH_COLUMN) ?: [];
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function updateBillStatus($id_bill, $status)
+    {
+        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'bill_status' => $status,
+            'id_bill' => $id_bill
+        ]);
     }
 }

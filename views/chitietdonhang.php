@@ -1,7 +1,8 @@
 <?php
-session_start();
+// session_start();
 $bill_pttt = $_SESSION['bill_pttt'];
 $ngaydathang = $_SESSION['ngaydathang'];
+
 
 // tổng tiền
 $totalPriceAll = 0; // Biến lưu tổng tiền
@@ -91,41 +92,49 @@ foreach ($getOrder as $item) {
 
 
     <!-- Checkout Page Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="testimonial-header text-center">
-                <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã Bill</th>
-                        <th>Ảnh sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Thông tin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($getOrder as $item) { ?>
+
+    <?php if (isset($_SESSION['user'])) { ?>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="testimonial-header text-center">
+                    <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
+                </div>
+
+                <table>
+                    <thead>
                         <tr>
-                            <td><?= $item['idbill'] ?></td>
-                            <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
-                            <td><?= $item['name'] ?></td>
-                            <td><?= $item['price'] ?> $</td>
-                            <td><?= $item['soluong'] ?></td>
-                            <td><?= $item['thanhtien'] ?> $</td>
-                            <td>
-                                <a href="index.php?act=chitietorder&idbill=<?= $item['idbill'] ?>">Xem chi tiết</a>
-                            </td>
+                            <th>STT</th>
+                            <th>Ảnh sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Thông tin</th>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($getOrder as $index => $item): ?>
+                            <tr>
+                                <td><?= $index + 1 ?></td>
+                                <td><img src="assets/img/<?= htmlspecialchars($item['img']) ?>" alt="" width="50"></td>
+                                <td><?= htmlspecialchars($item['name']) ?></td>
+                                <td><?= htmlspecialchars($item['price']) ?> $</td>
+                                <td><?= htmlspecialchars($item['soluong']) ?></td>
+                                <td><?= htmlspecialchars($item['thanhtien']) ?> $</td>
+                                <td>
+                                    <a href="index.php?act=chitietorder&idbill=<?= $item['idbill'] ?>">Xem chi tiết</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
-    </div>
+    <?php  } else {
+    ?>
+    <?php } ?>
+
     <!-- Checkout Page End -->
 
 

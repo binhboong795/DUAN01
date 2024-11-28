@@ -129,7 +129,9 @@ foreach ($getOrder as $value) {
                         <td><?= $bill_pttt ?></td>
                         <td><?= $ngaydathang ?></td>
                         <td>
-                            <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
+                            <p style="color: <?= $item['bill_status'] === 'Đã thanh toán' ? 'green' : 'red'; ?>;">
+                                <?= htmlspecialchars($item['bill_status']); ?>
+                            </p>
                         </td>
                     </tr>
             </table>

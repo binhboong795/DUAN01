@@ -26,7 +26,7 @@
                             <!-- Hiển thị ảnh hiện tại -->
                             <div class="mb-4">
                                 <label for="img">Ảnh hiện tại:</label>
-                                <img src="asset/imgae/<?= $idBanner['img'] ?>" alt="Banner Image" class="d-block mt-2"
+                                <img src="../assets/img/<?= $idBanner['img'] ?>" alt="Banner Image" class="d-block mt-2"
                                     style="max-width: 200px; border: 1px solid #ccc; padding: 5px;">
                             </div>
 

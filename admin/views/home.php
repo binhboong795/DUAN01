@@ -430,9 +430,12 @@
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="card weather-box">
+
+
                 <h4 class="weather-title box-title">Weather</h4>
                 <div class="card-body">
                     <div class="weather-widget">
+
                         <div id="weather-one" class="weather-one"></div>
                     </div>
                 </div>
@@ -506,6 +509,7 @@
 </div>
 <!-- /.content -->
 <div class="clearfix"></div>
+
 <!-- Footer -->
 <?php require_once 'asset/footerA/footer.php'; ?>
 <!-- /.site-footer -->

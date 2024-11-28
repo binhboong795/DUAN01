@@ -14,16 +14,39 @@ class homeController
     }
     function chitietorder()
     {
-            $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
-            $getOrder = $this->homeModel->getOrderByBill($idbill);
-            require_once 'views/chitietorder.php';
-        }
+        $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
+        $getOrder = $this->homeModel->getOrderByBill($idbill);
+        require_once 'views/chitietorder.php';
+    }
 
     function chitietdonhang()
     {
         $iduser = $_SESSION['user']['id'];
-        $status = $this->homeModel->getBillStatus($iduser);
-        $getOrder = $this->homeModel->getOrder($iduser);
+
+        $getOrder = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
+
+        // Thêm trạng thái vào từng đơn hàng
+        foreach ($getOrder as &$order) {
+            $status = $this->homeModel->getBillStatusById($order['idbill']);
+            // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
+            if (empty($status['bill_status'])) {
+                $order['bill_status'] = 'chờ thanh toán';
+                $this->homeModel->updateBillStatus($order['idbill'], 'Chờ thanh toán');
+            } else {
+                $order['bill_status'] = $status['bill_status'];
+            }
+        }
+
+
+        // Gắn trạng thái tương ứng vào từng đơn hàng
+        // foreach ($getOrder as &$order) {
+        //     foreach ($orderStatuses as $status) {
+        //         if ($order['idbill'] == $status['id_bill']) {
+        //             $order['bill_status'] = $status['bill_status'];
+        //             break;
+        //         }
+        //     }
+        // }
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
         // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
         // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
