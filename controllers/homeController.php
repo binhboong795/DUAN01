@@ -14,7 +14,9 @@ class homeController
     }
     function chitietorder()
     {
+
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
+        $infoStatus = $this->homeModel->getInfoStatus($idbill);
         $getOrder = $this->homeModel->getOrderByBill($idbill);
         
         foreach ($getOrder as &$order) {
