@@ -258,8 +258,6 @@ class homeModel
         return $stmt->execute(['iduser' => $iduser]);
     }
 
-
-
     function insertdonhang($id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $idbill)
     {
         $sql = "INSERT INTO orders (id, iduser, id_pro, img, name, price, soluong, thanhtien, idbill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -282,6 +280,13 @@ class homeModel
         $stmt->execute([$idbill]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    // function getOrderByBills($id)
+    // {
+    //     $sql = "SELECT * FROM `orders` WHERE idbill = ?";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute([$idbill]);
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
 
 
     function getAllBanner()

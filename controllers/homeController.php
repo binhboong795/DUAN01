@@ -16,6 +16,7 @@ class homeController
     {
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
         $getOrder = $this->homeModel->getOrderByBill($idbill);
+        
         foreach ($getOrder as &$order) {
             $status = $this->homeModel->getBillStatusById($order['idbill']);
             // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
@@ -504,7 +505,6 @@ class homeController
 
         $error = "";
 
-
         $iduser = $_SESSION['user']['id'];
         $id_order = $_SESSION['id_order'];
         $idbill = $_SESSION['id_bill'];
@@ -513,9 +513,6 @@ class homeController
         $bill_address = $_POST['bill_address'];
         $bill_tell = $_POST['bill_tell'];
         $bill_email = $_POST['bill_email'];
-
-
-
 
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
         if ($bill_pttt == "Thanh Toán Qua ATM") {
@@ -548,10 +545,6 @@ class homeController
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
-
-
-
-
 
             if (!isset($_SESSION['id_bill'])) {
                 $_SESSION['id_bill'] = rand(1, 100); // Gán giá trị ngẫu nhiên nếu chưa tồn tại
