@@ -13,13 +13,15 @@ class sanphamModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    function getIdProduct($id)
+    function getProductById($id)
     {
-        $sql = "SELECT * FROM sanpham WHERE id = :id";
+        $sql = "SELECT * FROM sanpham WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch();  // return the row that matches the given id
+        $stmt->execute([$id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Trả về thông tin sản phẩm
     }
+
     // Thêm sản phẩm
     function add($name, $price, $img, $mota, $luotxem, $iddm, $motachitiet, $soluong)
     {
@@ -38,25 +40,31 @@ class sanphamModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$name, $price, $img, $mota, $luotxem, $iddm, $motachitiet, $soluong]);
     }
-    // Cập nhât
-    function editsp($id, $name, $price, $img, $mota, $luotxem, $motachitiet, $soluong)
+    function editsp($id, $name, $price, $img, $mota, $luotxem, $iddm, $motachitiet, $soluong)
     {
-
-
-        // Câu lệnh SQL
         $sql = "UPDATE sanpham 
-                SET name = ?, price = ?, img = ?, mota = ?, luotxem = ?, motachitiet = ?, soluong = ? 
-                WHERE id = ?";
+            SET name = ?, 
+                price = ?, 
+                img = ?, 
+                mota = ?, 
+                luotxem = ?, 
+                iddm = ?, 
+                motachitiet = ?, 
+                soluong = ? 
+            WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
 
-        // Thực thi và kiểm tra lỗi
-        if (!$stmt->execute([$name, $price, $img, $mota, $luotxem, $motachitiet, $soluong, $id])) {
-            // In lỗi ra màn hình nếu có
-            error_log(print_r($stmt->errorInfo(), true)); // Ghi log lỗi
+        try {
+            return $stmt->execute([$name, $price, $img, $mota, $luotxem, $iddm, $motachitiet, $soluong, $id]);
+        } catch (PDOException $e) {
+            // Log lỗi hoặc thông báo ra màn hình
+            echo "Lỗi SQL: " . $e->getMessage();
             return false;
         }
-        return true;
     }
+
+
+
     function delete($id)
     {
         $sql = "DELETE FROM sanpham WHERE id = ?";

@@ -23,6 +23,9 @@ match ($act) {
     'sanpham' => (new sanphamController())->sanpham(),
     'taikhoan' => (new accController())->taikhoan(),
     'danhmuc' => (new danhmucController())->danhmuc(),
+    'deleteDanhmuc' => (new danhmucController())->deleteDanhmuc($_GET['id']),
+    'addDanhmuc' => (new danhmucController())->addDanhmuc(),
+    'editDanhmuc' => (new danhmucController())->editDanhmuc($_GET['id']),
     'binhluan' => (new cmtController())->binhluan(),
     'deleteBl' => (new cmtController())->deleteBl(),
     'addUser' => (new accController())->addUser(),
@@ -36,6 +39,7 @@ match ($act) {
     // 'addstatus'=> (new statusController())->addStatus(),
     'updatestatus' => (new statusController())->updateStatus($_GET['id']),
     'deletestatus' => (new statusController())->deleteStatus($_GET['id']),
+    'listsp' => (new sanphamController())->sanpham(),
     'add' => (new sanphamController())->add(),
     'editsp' => (new sanphamController())->editsp(),
     // 'listsp' => (new sanphamController())->sanpham(), // Thêm case 'danhsach'

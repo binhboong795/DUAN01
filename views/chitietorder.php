@@ -35,31 +35,31 @@ foreach ($getOrder as $value) {
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
-.text-right {
-    text-align: right;
-}
+    .text-right {
+        text-align: right;
+    }
 
-table {
-    width: 100%;
-    table-layout: fixed;
-    /* Makes columns have equal width */
-    border-collapse: collapse;
-}
+    table {
+        width: 100%;
+        table-layout: fixed;
+        /* Makes columns have equal width */
+        border-collapse: collapse;
+    }
 
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 14%;
-    /* Set an approximate equal width for all columns */
-    text-align: center;
-}
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 14%;
+        /* Set an approximate equal width for all columns */
+        text-align: center;
+    }
 
-/* Specific styling for the total row */
-.total-row th,
-.total-row td {
-    font-weight: bold;
-}
+    /* Specific styling for the total row */
+    .total-row th,
+    .total-row td {
+        font-weight: bold;
+    }
 </style>
 
 
@@ -129,12 +129,11 @@ td {
                         <td><?= $bill_pttt ?></td>
                         <td><?= $ngaydathang ?></td>
                         <td>
-
-                            <?php foreach ($getOrder as $index => $item): ?>
-                            <p style="color: <?= $item['bill_status'] === 'Đã thanh toán' ? 'green' : 'red'; ?>;">
-                                <?= htmlspecialchars($item['bill_status']); ?>
-                            </p>
-                            <?php endforeach; ?>
+                            <?php foreach ($getOrder as $value) { ?>
+                                <p style="color: <?= $value['bill_status'] === 'Đã thanh toán' ? 'green' : 'red'; ?>;">
+                                    <?= htmlspecialchars($value['bill_status']); ?>
+                                </p>
+                            <?php } ?>
                         </td>
                     </tr>
             </table>
@@ -151,14 +150,14 @@ td {
                 </thead>
                 <tbody>
                     <?php foreach ($getOrder as $value) { ?>
-                    <tr>
-                        <td><?= $value['idbill'] ?></td>
-                        <td><img src="assets/img/<?= $value['img'] ?>" alt="" width="50"></td>
-                        <td><?= $value['name'] ?></td>
-                        <td><?= $value['price'] ?> $</td>
-                        <td><?= $value['soluong'] ?></td>
-                        <td><?= $value['thanhtien'] ?> $</td>
-                    </tr>
+                        <tr>
+                            <td><?= $value['idbill'] ?></td>
+                            <td><img src="assets/img/<?= $value['img'] ?>" alt="" width="50"></td>
+                            <td><?= $value['name'] ?></td>
+                            <td><?= $value['price'] ?> $</td>
+                            <td><?= $value['soluong'] ?></td>
+                            <td><?= $value['thanhtien'] ?> $</td>
+                        </tr>
                     <?php } ?>
                 </tbody>
 

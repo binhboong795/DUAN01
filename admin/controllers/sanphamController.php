@@ -38,58 +38,63 @@ class sanphamController
     }
     function editsp()
     {
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        $id = $_GET['id'] ?? null; // Lấy ID từ URL
+
         if (!$id) {
-            echo "<script>alert('Không tìm thấy sản phẩm!'); window.location.href='index.php?act=listsp';</script>";
+            echo "ID không hợp lệ!";
             return;
         }
 
-        // Lấy thông tin sản phẩm
-        $product = $this->sanphamModel->getIdProduct($id);
-        if (!$product) {
-            echo "<script>alert('Sản phẩm không tồn tại!'); window.location.href='index.php?act=listsp';</script>";
+        // Lấy thông tin sản phẩm từ model
+        $sanpham = $this->sanphamModel->getProductById($id);
+
+        if (!$sanpham) {
+            echo "Không tìm thấy sản phẩm!";
             return;
         }
 
-        $error = "";
-
-        if (isset($_POST["capnhat"])) {
-            $name = $_POST['name'];
-            $price = $_POST['price'];
-            $mota = $_POST['mota'];
-            $luotxem = $_POST['luotxem'];
-            $motachitiet = $_POST['motachitiet'];
-            $soluong = $_POST['soluong'];
+        // Nếu form được submit
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_update'])) {
+            $name = $_POST['name'] ?? '';
+            $price = $_POST['price'] ?? 0;
+            $mota = $_POST['mota'] ?? '';
+            $luotxem = $_POST['luotxem'] ?? 0;
+            $iddm = $_POST['iddm'] ?? 0;
+            $motachitiet = $_POST['motachitiet'] ?? '';
+            $soluong = $_POST['soluong'] ?? 0;
 
             // Xử lý ảnh
-            if (!empty($_FILES['img']['name'])) {
+            $img = $sanpham['img']; // Mặc định là ảnh cũ
+            if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
                 $img = $_FILES['img']['name'];
                 $tmp = $_FILES['img']['tmp_name'];
-                move_uploaded_file($tmp, '../assets/img/' . $img);
-            } else {
-                $img = $product['img']; // Nếu không upload ảnh mới, giữ ảnh cũ
+                $uploadDir = '../assets/img/';
+
+                // Kiểm tra thư mục tồn tại, nếu không thì tạo mới
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                // Di chuyển file tải lên
+                move_uploaded_file($tmp, $uploadDir . $img);
             }
 
-            // Kiểm tra nhập liệu
-            if (empty($name) || empty($price) || empty($mota) || empty($luotxem) || empty($motachitiet) || empty($soluong)) {
-                $error = "Vui lòng nhập đầy đủ thông tin!";
+            // Gọi model để cập nhật sản phẩm
+            $updated = $this->sanphamModel->editsp($id, $name, $price, $img, $mota, $luotxem, $iddm, $motachitiet, $soluong);
+
+            if ($updated) {
+                header("Location: ?act=listsp");
+                exit;
             } else {
-                // Cập nhật sản phẩm
-                $success = $this->sanphamModel->editsp($id, $name, $price, $img, $mota, $luotxem, $motachitiet, $soluong);
-                if ($success) {
-                    echo "<script>
-                        alert('Bạn đã cập nhật thành công!');
-                        window.location.href='index.php?act=listsp';
-                      </script>";
-                } else {
-                    $error = "Đã xảy ra lỗi trong quá trình cập nhật!";
-                }
+                echo "Lỗi cập nhật sản phẩm!";
             }
         }
 
-        // Gửi dữ liệu tới view
+        // Gửi dữ liệu sản phẩm tới view
         require_once 'views/sanpham/editsp.php';
     }
+
+
     function deleteProduct()
     {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
