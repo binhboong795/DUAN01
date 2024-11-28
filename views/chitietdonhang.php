@@ -7,8 +7,6 @@ if (isset($_SESSION['bill_name'])) {
     $bill_email = $_SESSION['bill_email'];
     $bill_pttt = $_SESSION['bill_pttt'];
     $ngaydathang = $_SESSION['ngaydathang'];
-
-
 }
 
 // ngày giao hàng
@@ -111,7 +109,7 @@ foreach ($getOrder as $item) {
             </div>
             <table class="table">
                 <thead>
-                    <tr>
+                    <!-- <tr>
                         <th>Họ tên người nhận</th>
                         <th>Địa chỉ</th>
                         <th>Số điện thoại</th>
@@ -120,51 +118,51 @@ foreach ($getOrder as $item) {
                         <th>Ngày đặt hàng</th>
                         <th>tt</th>
 
-                    </tr>
+                    </tr> -->
                 </thead>
                 <tbody>
 
                     <tr>
-                        <td><?php echo $bill_name ?></td>
-                        <td><?php echo $bill_address ?></td>
-                        <td><?php echo $bill_tell ?></td>
-                        <td><?php echo $bill_email ?></td>
-                        <td><?php echo $bill_pttt ?></td>
-                        <td><?php echo $ngaydathang ?></td>
-                        <td>
+
+                        <!-- <td>
                             <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
-                        </td>
-
-
-
-
+                        </td> -->
                     </tr>
             </table>
             <table>
                 <thead>
                     <tr>
+                        <th>Họ tên người nhận</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Ngày đặt hàng</th>
                         <th>Mã Bill</th>
                         <th>Ảnh sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Thành tiền</th>
-                        <th>Trạng thái</th>
+                        <!-- <th>Trạng thái</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($getOrder as $item) { ?>
                         <tr>
-
+                            <td><?php echo $bill_name ?></td>
+                            <td><?php echo $bill_address ?></td>
+                            <td><?php echo $bill_tell ?></td>
+                            <td><?php echo $bill_email ?></td>
+                            <td><?php echo $bill_pttt ?></td>
+                            <td><?php echo $ngaydathang ?></td>
+                            <td><?php echo $bill_name ?></td>
                             <td><?= $item['idbill'] ?></td>
                             <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['price'] ?> $</td>
                             <td><?= $item['soluong'] ?></td>
                             <td><?= $item['thanhtien'] ?> $</td>
-                            <td>
-                                <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
-                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

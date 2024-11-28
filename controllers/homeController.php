@@ -492,20 +492,19 @@ class homeController
             exit;
         }
 
+        if (!isset($bill_pttt) || $bill_pttt == "") {
+            echo "<script>
+                alert('Vui lòng chọn phương thức thanh toán!');
+                window.location.href='index.php?act=chackout';
+             </script>";
+            exit;
+        }
 
         if ($bill_name == "" || $bill_address == "" || $bill_tell == "" || $bill_email == "") {
             $error = "Vui lòng nhập đầy đủ thông tin thanh toán!";
 
             if (!isset($_SESSION['user'])) {
                 header("Location: index.php?act=dangnhap");
-                exit;
-            }
-
-            if (!isset($bill_pttt) || $bill_pttt == "") {
-                echo "<script>
-                    alert('Vui lòng chọn phương thức thanh toán!');
-                    window.location.href='index.php?act=chackout';
-                 </script>";
                 exit;
             }
 
