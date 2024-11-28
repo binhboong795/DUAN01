@@ -12,6 +12,7 @@
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/Duan1/admin/asset/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/Duan1/admin/asset/css/style.css">
@@ -34,56 +35,56 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
     <style>
-        #weatherWidget .currentDesc {
-            color: #ffffff !important;
-        }
+    #weatherWidget .currentDesc {
+        color: #ffffff !important;
+    }
 
-        .traffic-chart {
-            min-height: 335px;
-        }
+    .traffic-chart {
+        min-height: 335px;
+    }
 
-        #flotPie1 {
-            height: 150px;
-        }
+    #flotPie1 {
+        height: 150px;
+    }
 
-        #flotPie1 td {
-            padding: 3px;
-        }
+    #flotPie1 td {
+        padding: 3px;
+    }
 
-        #flotPie1 table {
-            top: 20px !important;
-            right: -10px !important;
-        }
+    #flotPie1 table {
+        top: 20px !important;
+        right: -10px !important;
+    }
 
-        .chart-container {
-            display: table;
-            min-width: 270px;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+    .chart-container {
+        display: table;
+        min-width: 270px;
+        text-align: left;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
-        #flotLine5 {
-            height: 105px;
-        }
+    #flotLine5 {
+        height: 105px;
+    }
 
-        #flotBarChart {
-            height: 150px;
-        }
+    #flotBarChart {
+        height: 150px;
+    }
 
-        #cellPaiChart {
-            height: 160px;
-        }
+    #cellPaiChart {
+        height: 160px;
+    }
 
-        table {
-            width: 100%;
-            text-align: center;
-        }
+    table {
+        width: 100%;
+        text-align: center;
+    }
 
-        td,
-        th {
-            padding: 10px;
-        }
+    td,
+    th {
+        padding: 10px;
+    }
     </style>
 </head>
 
@@ -97,19 +98,22 @@
                         <a href="index.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=sanpham"><i class="menu-icon fa fa-laptop"></i>Sản phẩm </a>
+                        <a href="index.php?act=sanpham"><i class="fa-brands fa-product-hunt" style="margin-right: 42px;"></i>Sản phẩm </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=danhmuc"><i class="menu-icon fa fa-laptop"></i>Danh mục </a>
+                        <a href="index.php?act=danhmuc"><i class="fa-solid fa-list" style="margin-right: 42px;"></i>Danh mục </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=taikhoan"><i class="menu-icon fa fa-laptop"></i>Tài khoản </a>
+                        <a href="index.php?act=taikhoan"><i class="fa-solid fa-user" style="margin-right: 42px;"></i>Tài khoản </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=binhluan"><i class="menu-icon fa fa-laptop"></i>Bình luận</a>
+                        <a href="index.php?act=binhluan"><i class="fa-solid fa-comments" style="margin-right: 38px;"></i>Bình luận</a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=banner"><i class="menu-icon fa fa-laptop"></i>Banner</a>
+                        <a href="index.php?act=banner"><i class="fa-solid fa-gift" style="margin-right: 42px;"></i>Banner</a>
+                    </li>
+                    <li class="">
+                        <a href="index.php?act=status"><i class="fa-solid fa-box" style="margin-right: 42px;"></i>Trạng thái đơn</a>
                     </li>
 
     </aside>

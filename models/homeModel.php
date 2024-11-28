@@ -19,19 +19,7 @@ class homeModel
         $sql = "select * from danhmuc order by id desc";
         return $this->conn->query($sql);
     }
-    // function top3Product() {
-    // $sql="select * from product order by pro_id desc limit 3";
-    // return $this->conn->query($sql);
-    // }
-    // function findProductById($id) {
-    // $sql="select * from sanpham where id=$id";
-    // return $this->conn->query($sql)->fetch();
-    // }
-    // function allProductShop()
-    // {
-    //     $sql = "select * from sanpham order by id desc";
-    //     return $this->conn->query($sql);
-    // }
+
     function findProductById($id)
     {
         $sql = "select * from sanpham where id=$id";
@@ -52,20 +40,6 @@ class homeModel
         // Lấy kết quả
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    // public function findProductById($id)
-    // {
-    //     if (!$id || !is_numeric($id)) {
-    //         return null; // Trả về null nếu ID không hợp lệ
-    //     }
-
-    //     $sql = "SELECT * FROM sanpham WHERE id = $id";
-    //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->execute(['id' => $id]);
-
-    //     return $stmt->fetch(PDO::FETCH_ASSOC);
-    // }
-
     function insertUser($id, $user, $pass, $email, $address, $tell)
     {
         $sql = "INSERT INTO taikhoan (id, user, pass, email, address, tell) VALUES (?, ?, ?, ?, ?, ?)";
@@ -246,12 +220,14 @@ class homeModel
         return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
     }
 
-    function insertOrder($id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang)
+
+    function insertOrder($id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $idbill)
     {
-        $sql = "INSERT INTO trangthai (id, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO trangthai (id,id_user, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang,id_bill) VALUES (?,?, ?, ?, ?, ?, ?, ?,?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$id, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang]);
+        return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $idbill]);
     }
+
 
     function chackcart($iduser)
     {
@@ -281,6 +257,38 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute(['iduser' => $iduser]);
     }
+
+    function insertdonhang($id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $idbill)
+    {
+        $sql = "INSERT INTO orders (id, iduser, id_pro, img, name, price, soluong, thanhtien, idbill) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+        return $stmt->execute([$id, $iduser, $id_pro, $img, $name, $price, $soluong, $thanhtien, $idbill]);
+    }
+
+    function getOrder($iduser)
+    {
+        $sql = "SELECT * FROM `orders` where iduser = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$iduser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getOrderByBill($idbill)
+    {
+        $sql = "SELECT * FROM `orders` WHERE idbill = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idbill]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // function getOrderByBills($id)
+    // {
+    //     $sql = "SELECT * FROM `orders` WHERE idbill = ?";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute([$idbill]);
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
+
+
     function getAllBanner()
     {
         $sql = "SELECT * FROM banner";
@@ -297,13 +305,55 @@ class homeModel
     }
 
 
-    // function getProductById($id)
+    // function getTotalQuantityOrder($iduser)
     // {
-    //     // Lấy chi tiết sản phẩm theo ID
-    //     $sql = "SELECT * FROM sanpham WHERE id = :id";
+    //     $sql = "SELECT SUM(soluong) as total_quantity FROM chitietdonhang WHERE iduser = :iduser";
     //     $stmt = $this->conn->prepare($sql);
-    //     $stmt->execute(['id' => $id]);
-    //     return $stmt->fetch(PDO::FETCH_ASSOC);
+    //     $stmt->execute(['iduser' => $iduser]);
+    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
     // }
+    // function calculateTotalPriceOrder($iduser)
+    // {
+    //     $sql = "SELECT SUM(thanhtien) as total_price_all FROM chitietdonhang WHERE iduser = :iduser";
+    //     $stmt = $this->conn->prepare($sql);
+    //     $stmt->execute(['iduser' => $iduser]);
+    //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     return $result['total_price_all'] ?? 0; // Nếu không có sản phẩm thì trả về 0
+    // }
+    function getBillStatusById($id_bill)
+    {
+        $sql = "SELECT bill_status FROM trangthai WHERE id_bill = :id_bill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id_bill' => $id_bill]);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng duy nhất
+    }
 
+
+    function getOrderStatusesById($iduser)
+    {
+        $sql = "SELECT o.idbill, t.bill_status
+                FROM `orders` AS o
+                LEFT JOIN trangthai AS t ON o.idbill = t.id
+                WHERE o.iduser = :iduser";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['iduser' => $iduser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function updateBillStatus($id_bill, $status)
+    {
+        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'bill_status' => $status,
+            'id_bill' => $id_bill
+        ]);
+    }
+    function getInfoStatus($idbill)
+    {
+        $sql = "SELECT bill_name,bill_address,bill_tell,bill_email,bill_pttt,ngaydathang FROM trangthai WHERE id_bill = :idbill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':idbill' => $idbill]);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng duy nhất
+    }
 }

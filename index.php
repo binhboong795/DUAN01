@@ -21,7 +21,7 @@ match ($act) {
     'shopdetail' => (new detailController())->shopDetail($id), // Chi tiết sản phẩm
     'contact' => (new homeController())->contact(), // Trang liên hệ
     'cart' => (new homeController())->cart(), // Hiển thị giỏ hàng
-    'testimonial' => (new homeController())->testimonial(), // Trang đánh giá
+    'order' => (new homeController())->order(), // Trang đánh giá
     'dathang' => (new homeController())->dathang(), // Trang đặt hàng
     '404' => (new homeController())->error(), // Trang lỗi
     'chackout' => (new homeController())->chackout(), // Trang thanh toán
@@ -34,10 +34,13 @@ match ($act) {
     'removeFromCart' => (new homeController())->removeFromCart($id), // Xóa khỏi giỏ hàng
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
-
     // 'deletecart' => (new homeController())->deleteCart($iduser),
-
     'chuyenkhoan' => (new homeController())->chuyenkhoan(),
+    'chitietorder' => (new homeController())->chitietorder($id),
 
+    'thanhtoan_momo' => (new homeController())->thanhtoan_momo(),
+    'thanhtoan_atm' => (new homeController())->thanhtoan_atm(),
+
+    'chitietdonhang' => (new homeController())->chitietdonhang(),
     default => (new homeController())->error(), // Hành động không xác định
 };
