@@ -16,16 +16,6 @@ class homeController
     {
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
         $getOrder = $this->homeModel->getOrderByBill($idbill);
-        require_once 'views/chitietorder.php';
-    }
-
-    function chitietdonhang()
-    {
-        $iduser = $_SESSION['user']['id'];
-
-        $getOrder = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
-
-        // Thêm trạng thái vào từng đơn hàng
         foreach ($getOrder as &$order) {
             $status = $this->homeModel->getBillStatusById($order['idbill']);
             // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
@@ -36,6 +26,17 @@ class homeController
                 $order['bill_status'] = $status['bill_status'];
             }
         }
+        require_once 'views/chitietorder.php';
+    }
+
+    function chitietdonhang()
+    {
+        $iduser = $_SESSION['user']['id'];
+
+        $getOrder = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
+
+        // Thêm trạng thái vào từng đơn hàng
+
 
 
         // Gắn trạng thái tương ứng vào từng đơn hàng
@@ -51,6 +52,7 @@ class homeController
         // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
         // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         require_once 'views/chitietdonhang.php';
+
         require_once 'assets/header/headerDetail.php';
     }
     function thanhtoan_momo()
