@@ -226,7 +226,6 @@ class homeModel
         $sql = "INSERT INTO trangthai (id,id_user, bill_name, bill_address, bill_tell, bill_email, bill_pttt, ngaydathang,id_bill) VALUES (?,?, ?, ?, ?, ?, ?, ?,?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
         return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $idbill]);
-
     }
 
 
@@ -275,6 +274,15 @@ class homeModel
         $stmt->execute([$iduser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function getOrderByBill($idbill)
+    {
+        $sql = "SELECT * FROM `orders` WHERE idbill = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idbill]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     function getAllBanner()
     {

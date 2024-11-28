@@ -12,14 +12,13 @@ class homeController
     {
         require_once 'views/dathang.php';
     }
-    function thanhtoan_momo()
+    function chitietorder()
     {
-        require_once 'views/thanhtoan_momo.php';
-    }
-    function thanhtoan_atm()
-    {
-        require_once 'views/thanhtoan_atm.php';
-    }
+            $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
+            $getOrder = $this->homeModel->getOrderByBill($idbill);
+            require_once 'views/chitietorder.php';
+        }
+
     function chitietdonhang()
     {
         $iduser = $_SESSION['user']['id'];
@@ -30,6 +29,14 @@ class homeController
         // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         require_once 'views/chitietdonhang.php';
         require_once 'assets/header/headerDetail.php';
+    }
+    function thanhtoan_momo()
+    {
+        require_once 'views/thanhtoan_momo.php';
+    }
+    function thanhtoan_atm()
+    {
+        require_once 'views/thanhtoan_atm.php';
     }
     function chuyenkhoan()
     {
@@ -457,7 +464,6 @@ class homeController
 
                 header('location: index.php?act=dathang');
                 exit;
-
             }
         }
 

@@ -1,13 +1,25 @@
 <?php
-session_start();
-$bill_pttt = $_SESSION['bill_pttt'];
-$ngaydathang = $_SESSION['ngaydathang'];
+// session_start();
+if (isset($_SESSION['bill_name'])) {
+    $bill_name = $_SESSION['bill_name'];
+    $bill_address = $_SESSION['bill_address'];
+    $bill_tell = $_SESSION['bill_tell'];
+    $bill_email = $_SESSION['bill_email'];
+    $bill_pttt = $_SESSION['bill_pttt'];
+    $ngaydathang = $_SESSION['ngaydathang'];
+}
+
+// ngày giao hàng
+$chuanbi = 1;
+$vanchuyen = (stripos($bill_address, 'hà nội') !== false) ? 2 : 4;
+$ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen day"));
 
 // tổng tiền
 $totalPriceAll = 0; // Biến lưu tổng tiền
-foreach ($getOrder as $item) {
-    $totalPriceAll += $item['thanhtien']; // Cộng tổng tiền của từng sản phẩm vào tổng tiền
+foreach ($getOrder as $value) {
+    $totalPriceAll += $value['thanhtien']; // Cộng tổng tiền của từng sản phẩm vào tổng tiền
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -94,8 +106,33 @@ foreach ($getOrder as $item) {
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="testimonial-header text-center">
-                <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
+                <h1 class="display-5 mb-5 text-dark">Chi Tiết Order</h1>
             </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Họ tên người nhận</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?= $bill_name ?></td>
+                        <td><?= $bill_address ?></td>
+                        <td><?= $bill_tell ?></td>
+                        <td><?= $bill_email ?></td>
+                        <td><?= $bill_pttt ?></td>
+                        <td><?= $ngaydathang ?></td>
+                        <td>
+                            <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
+                        </td>
+                    </tr>
+            </table>
             <table>
                 <thead>
                     <tr>
@@ -105,24 +142,21 @@ foreach ($getOrder as $item) {
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Thành tiền</th>
-                        <th>Thông tin</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($getOrder as $item) { ?>
+                    <?php foreach ($getOrder as $value) { ?>
                         <tr>
-                            <td><?= $item['idbill'] ?></td>
-                            <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
-                            <td><?= $item['name'] ?></td>
-                            <td><?= $item['price'] ?> $</td>
-                            <td><?= $item['soluong'] ?></td>
-                            <td><?= $item['thanhtien'] ?> $</td>
-                            <td>
-                                <a href="index.php?act=chitietorder&idbill=<?= $item['idbill'] ?>">Xem chi tiết</a>
-                            </td>
+                            <td><?= $value['idbill'] ?></td>
+                            <td><img src="assets/img/<?= $value['img'] ?>" alt="" width="50"></td>
+                            <td><?= $value['name'] ?></td>
+                            <td><?= $value['price'] ?> $</td>
+                            <td><?= $value['soluong'] ?></td>
+                            <td><?= $value['thanhtien'] ?> $</td>
                         </tr>
                     <?php } ?>
                 </tbody>
+
             </table>
         </div>
     </div>
