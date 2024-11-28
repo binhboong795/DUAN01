@@ -10,9 +10,9 @@ if (isset($_SESSION['bill_name'])) {
 }
 
 // ngày giao hàng
-$chuanbi = 1;
-$vanchuyen = (stripos($bill_address, 'hà nội') !== false) ? 2 : 4;
-$ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen day"));
+// $chuanbi = 1;
+// $vanchuyen = (stripos($bill_address, 'hà nội') !== false) ? 2 : 4;
+// $ngaygiaohang = date('Y-m-d', strtotime("$ngaydathang +$chuanbi day +$vanchuyen day"));
 
 // tổng tiền
 $totalPriceAll = 0; // Biến lưu tổng tiền
@@ -122,12 +122,14 @@ foreach ($getOrder as $value) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?= $bill_name ?></td>
-                        <td><?= $bill_address ?></td>
-                        <td><?= $bill_tell ?></td>
-                        <td><?= $bill_email ?></td>
-                        <td><?= $bill_pttt ?></td>
-                        <td><?= $ngaydathang ?></td>
+                        <td><?= $infoStatus['bill_name'] ?></td>
+                        <td style=" max-width: 200px; word-wrap: break-word;     white-space: normal;">
+                            <?= $infoStatus['bill_address'] ?></td>
+                        <td><?= $infoStatus['bill_tell'] ?></td>
+                        <td><?= $infoStatus['bill_email'] ?></td>
+                        <td><?= $infoStatus['bill_pttt'] ?></td>
+                        <td><?= $infoStatus['ngaydathang'] ?></td>
+
                         <td>
                             <?php foreach ($getOrder as $value) { ?>
                                 <p style="color: <?= $value['bill_status'] === 'Đã thanh toán' ? 'green' : 'red'; ?>;">
