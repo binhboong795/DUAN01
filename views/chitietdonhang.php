@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+// session_start();
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user']['username'];  // Lấy thông tin người dùng từ session
+}
+
 if (isset($_SESSION['bill_name'])) {
     $bill_name = $_SESSION['bill_name'];
     $bill_address = $_SESSION['bill_address'];
@@ -102,83 +108,93 @@ foreach ($getOrder as $item) {
 
 
     <!-- Checkout Page Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="testimonial-header text-center">
-                <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Họ tên người nhận</th>
-                        <th>Địa chỉ</th>
-                        <th>Số điện thoại</th>
-                        <th>Email</th>
-                        <th>Phương thức thanh toán</th>
-                        <th>Ngày đặt hàng</th>
-                        <th>tt</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td><?php echo $bill_name ?></td>
-                        <td><?php echo $bill_address ?></td>
-                        <td><?php echo $bill_tell ?></td>
-                        <td><?php echo $bill_email ?></td>
-                        <td><?php echo $bill_pttt ?></td>
-                        <td><?php echo $ngaydathang ?></td>
-                        <td>
-                            <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
-                        </td>
-
-
-
-
-                    </tr>
-            </table>
-            <table>
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Ảnh sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Trạng thái</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($getOrder as $index => $item) { ?>
+    <?php if (isset($_SESSION['user'])) { ?>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="testimonial-header text-center">
+                    <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
+                </div>
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td><?= $item['idbill'] ?></td>
-                            <td><img src="assets/img/<?= $item['img'] ?>" alt="" width="50"></td>
-                            <td><?= $item['name'] ?></td>
-                            <td><?= $item['price'] ?> $</td>
-                            <td><?= $item['soluong'] ?></td>
-                            <td><?= $item['thanhtien'] ?> $</td>
-                            <td>
-                                <?= htmlspecialchars($status[0] ?? 'Không có trạng thái'); ?>
-                            </td>
+                            <th>Họ tên người nhận</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>Ngày đặt hàng</th>
+
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><?php echo $bill_name ?></td>
+                            <td><?php echo $bill_address ?></td>
+                            <td><?php echo $bill_tell ?></td>
+                            <td><?php echo $bill_email ?></td>
+                            <td><?php echo $bill_pttt ?></td>
+                            <td><?php echo $ngaydathang ?></td>
 
 
-            <p class="fs-4">Phương thức thanh toán:<span class="text-monospace"><?php echo $bill_pttt ?></span>
-            </p>
-
-            <p class=" fs-4">Vui lòng thanh toán: <span class="text-monospace"><?php echo $totalPriceAll ?></span>$
-                Khi nhận hàng</p>
 
 
-            <p class="fs-4">Ngày giao hàng dự kiến: <span class="text-monospace"><?php echo $ngaygiaohang ?></span></p>
 
+                        </tr>
+                </table>
+
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Ảnh sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($getOrder as $index => $item): ?>
+                            <tr>
+                                <td><?= $index + 1 ?></td>
+                                <td><img src="assets/img/<?= htmlspecialchars($item['img']) ?>" alt="" width="50"></td>
+                                <td><?= htmlspecialchars($item['name']) ?></td>
+                                <td><?= htmlspecialchars($item['price']) ?> $</td>
+                                <td><?= htmlspecialchars($item['soluong']) ?></td>
+                                <td><?= htmlspecialchars($item['thanhtien']) ?> $</td>
+                                <td>
+                                    <p style="color: <?= $item['bill_status'] === 'Đã thanh toán' ? 'green' : 'red'; ?>;">
+                                        <?= htmlspecialchars($item['bill_status']); ?>
+                                    </p>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+
+                <p class="fs-4">Phương thức thanh toán:<span class="text-monospace"><?php echo $bill_pttt ?></span>
+                </p>
+
+                <p class=" fs-4">Vui lòng thanh toán: <span class="text-monospace"><?php echo $totalPriceAll ?></span>$
+                    Khi nhận hàng</p>
+
+
+                <p class="fs-4">Ngày giao hàng dự kiến: <span class="text-monospace"><?php echo $ngaygiaohang ?></span></p>
+
+            </div>
         </div>
-    </div>
+    <?php  } else {
+    ?>
+        <div>
+            <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
+        </div>
+    <?php } ?>
+
     <!-- Checkout Page End -->
 
 

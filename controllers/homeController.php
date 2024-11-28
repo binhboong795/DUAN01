@@ -15,8 +15,31 @@ class homeController
     function chitietdonhang()
     {
         $iduser = $_SESSION['user']['id'];
-        $status = $this->homeModel->getBillStatus($iduser);
-        $getOrder = $this->homeModel->getOrder($iduser);
+
+        $getOrder = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
+
+        // Thêm trạng thái vào từng đơn hàng
+        foreach ($getOrder as &$order) {
+            $status = $this->homeModel->getBillStatusById($order['idbill']);
+            // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
+            if (empty($status['bill_status'])) {
+                $order['bill_status'] = 'chờ thanh toán';
+                $this->homeModel->updateBillStatus($order['idbill'], 'Chờ thanh toán');
+            } else {
+                $order['bill_status'] = $status['bill_status'];
+            }
+        }
+
+
+        // Gắn trạng thái tương ứng vào từng đơn hàng
+        // foreach ($getOrder as &$order) {
+        //     foreach ($orderStatuses as $status) {
+        //         if ($order['idbill'] == $status['id_bill']) {
+        //             $order['bill_status'] = $status['bill_status'];
+        //             break;
+        //         }
+        //     }
+        // }
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
         // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
         // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
@@ -425,7 +448,7 @@ class homeController
 
                 // Lấy các sản phẩm từ giỏ hàng của người dùng
                 $cartItems = $this->homeModel->getCartItems($iduser);
-
+                $orderStatuses = $this->homeModel->getOrderStatusesById($iduser);
                 // Lưu từng sản phẩm trong giỏ hàng vào bảng `o`
                 foreach ($cartItems as $item) {
                     $this->homeModel->insertdonhang(

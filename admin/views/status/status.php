@@ -54,9 +54,9 @@
                             <!-- Form cập nhật phương thức thanh toán -->
                             <form method="POST" action="index.php?act=updatestatus&id=<?= $value['id']; ?>">
                                 <select class="form-control" name="bill_status" onchange="this.form.submit()">
-                                    <option value="Đợi thanh toán"
-                                        <?= $value['bill_status'] == 'Đợi thanh toán' ? 'selected' : ''; ?>>
-                                        Đợi thanh toán
+                                    <option value="Chờ thanh toán"
+                                        <?= $value['bill_status'] == 'Chờ thanh toán' ? 'selected' : ''; ?>>
+                                        Chờ thanh toán
                                     </option>
                                     <option value="Đã thanh toán"
                                         <?= $value['bill_status'] == 'Đã thanh toán' ? 'selected' : ''; ?>>
