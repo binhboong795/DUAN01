@@ -18,7 +18,7 @@ class homeController
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
         $infoStatus = $this->homeModel->getInfoStatus($idbill);
         $getOrder = $this->homeModel->getOrderByBill($idbill);
-        
+
         foreach ($getOrder as &$order) {
             $status = $this->homeModel->getBillStatusById($order['idbill']);
             // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
@@ -381,6 +381,47 @@ class homeController
     //----------------------------------------------------------------
     // Thêm sản phẩm vào giỏ hàng
 
+    // function addToCartDb($id)
+    // {
+    //     if (!isset($_SESSION['user'])) {
+    //         header("Location: index.php?act=dangnhap");
+    //         exit;
+    //     }
+
+    //     $iduser = $_SESSION['user']['id'];
+    //     $product = $this->homeModel->findProductById($id);
+
+    //     if ($product) {
+    //         // Tạo idbill ngẫu nhiên (ví dụ: số ngẫu nhiên từ 1000 đến 9999)
+    //         $idbill = rand(1, 100); // Tạo giá trị ngẫu nhiên cho idbill
+    //         $_SESSION['id_bill'] = $idbill; // Lưu vào session
+
+    //         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+    //         $cartItem = $this->homeModel->getCartItems($iduser, $id);
+
+    //         if ($cartItem) {
+    //             // Nếu đã có, tăng số lượng và cập nhật thành tiền
+    //             $newQuantity = $cartItem['soluong'] + 1;
+    //             $newTotalPrice = $newQuantity * $product['price'];
+    //             $this->homeModel->updateCartItem($cartItem['id'], $newQuantity, $newTotalPrice);
+    //         } else {
+    //             // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng với idbill ngẫu nhiên
+    //             $this->homeModel->insertCartItem(
+    //                 $iduser,
+    //                 $id,
+    //                 $product['img'],
+    //                 $product['name'],
+    //                 $product['price'],
+    //                 1,
+    //                 $product['price'],
+    //                 $idbill
+    //             );
+    //         }
+    //     }
+
+    //     header("Location: index.php?act=cart");
+    // }
+
     function addToCartDb($id)
     {
         if (!isset($_SESSION['user'])) {
@@ -392,8 +433,11 @@ class homeController
         $product = $this->homeModel->findProductById($id);
 
         if ($product) {
-            // Tạo idbill ngẫu nhiên (ví dụ: số ngẫu nhiên từ 1000 đến 9999)
-            $idbill = rand(1, 100); // Tạo giá trị ngẫu nhiên cho idbill
+            // Tạo idbill ngẫu nhiên không trùng
+            do {
+                $idbill = rand(1000, 9999); // Tạo giá trị ngẫu nhiên cho idbill
+            } while ($this->homeModel->checkIdBillExists($idbill));
+
             $_SESSION['id_bill'] = $idbill; // Lưu vào session
 
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
@@ -421,7 +465,6 @@ class homeController
 
         header("Location: index.php?act=cart");
     }
-
 
     function updateQuantity($id, $action)
     {
@@ -544,6 +587,7 @@ class homeController
             $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
             $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         } else {
+            date_default_timezone_set('Asia/Bangkok');
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
@@ -619,4 +663,24 @@ class homeController
     // }
 
 
+    function huydonhang()
+    {
+        if (isset($_POST['huydonhang'])) {
+            $lido = $_POST['lido'];
+            $other_lido = $_POST['other_lido'];
+            $ngayhuy = date('Y-m-d H:i:s');
+            $iduser = $_SESSION['user']['id'];
+            $huydon = $this->homeModel->insertHuydon(null, $iduser, $ngayhuy, $lido, $other_lido);
+
+            $idbill = $_SESSION['id_bill'];
+            $this->homeModel->deleteOrder($idbill);
+            // if (isset($_SESSION['idbill'])) {
+            //     unset($_SESSION['idbill']);
+            // }
+            echo "<script>alert('Bạn đã hủy thành công!')
+                window.location.href='index.php?act=chitietdonhang'
+            </script>";
+        }
+        require_once 'views/huydonhang.php';
+    }
 }

@@ -14,6 +14,8 @@ require_once 'controllers/danhmucController.php';
 require_once 'models/danhmucModel.php';
 require_once 'controllers/statusController.php';
 require_once 'models/statusModel.php';
+require_once 'controllers/huydonController.php';
+require_once 'models/huydonModel.php';
 
 
 
@@ -42,4 +44,7 @@ match ($act) {
     'add' => (new sanphamController())->add(),
     'editsp' => (new sanphamController())->editsp(),
     'deleteproduct' => (new sanphamController())->deleteProduct($_GET['id']),
+    // 'listsp' => (new sanphamController())->sanpham(), // Thêm case 'danhsach'
+    'huydon' => (new huydonController())->huydon(),
+    'deletehuy' => (new huydonController())->deletehuy(),
 };

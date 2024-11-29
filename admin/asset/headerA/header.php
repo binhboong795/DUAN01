@@ -115,6 +115,9 @@
                     <li class="">
                         <a href="index.php?act=status"><i class="fa-solid fa-box" style="margin-right: 42px;"></i>Trạng thái đơn</a>
                     </li>
+                    <li class="">
+                        <a href="index.php?act=huydon"> <i class="fas fa-trash-alt" style="margin-right: 42px;"></i>Danh sách hủy đơn</a>
+                    </li>
 
     </aside>
     <!-- /#left-panel -->
