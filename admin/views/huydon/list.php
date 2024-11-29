@@ -23,7 +23,9 @@
     <table border="1">
         <thead>
             <tr>
+                <th>Tên khách hàng</th>
                 <th>Mã tài khoản</th>
+                <th>Mã bill</th>
                 <th>Ngày hủy</th>
                 <th>Lí do</th>
                 <th>Lí do khác</th>
@@ -33,7 +35,9 @@
         <tbody>
             <?php foreach ($listhuy as $value) { ?>
                 <tr>
+                    <td><?php echo $value['name']; ?></td>
                     <td><?php echo $value['id']; ?></td>
+                    <td><?php echo $value['idbill']; ?></td>
                     <td><?php echo $value['ngayhuy']; ?></td>
                     <td><?php echo $value['lido']; ?></td>
                     <td><?php echo $value['other_lido']; ?></td>
