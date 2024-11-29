@@ -620,4 +620,23 @@ class homeController
     // }
 
 
+    function huydonhang() {
+        if (isset($_POST['huydonhang'])) {
+            $lido = $_POST['lido'];
+            $other_lido = $_POST['other_lido'];
+            $ngayhuy = date('Y-m-d H:i:s');
+            $iduser = $_SESSION['user']['id'];
+            $huydon = $this->homeModel->insertHuydon(null, $iduser, $ngayhuy, $lido, $other_lido);
+
+            $idbill = $_SESSION['id_bill'];
+            $this->homeModel->deleteOrder($idbill);
+            // if (isset($_SESSION['idbill'])) {
+            //     unset($_SESSION['idbill']);
+            // }
+            echo "<script>alert('Bạn đã hủy thành công!')
+                window.location.href='index.php?act=chitietdonhang'
+            </script>";
+        }
+        require_once 'views/huydonhang.php';
+    }
 }

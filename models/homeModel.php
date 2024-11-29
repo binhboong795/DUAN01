@@ -356,4 +356,17 @@ class homeModel
         $stmt->execute([':idbill' => $idbill]);
         return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng duy nhất
     }
+
+
+    function insertHuydon($id, $id_user, $ngayhuy, $lido, $other_lido) {
+        $sql = "INSERT INTO huydonhang (id, id_user, ngayhuy, lido, other_lido) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$id, $id_user, $ngayhuy, $lido, $other_lido]);
+    }
+
+    function deleteOrder($idbill) {
+        $sql = "DELETE FROM orders WHERE idbill = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$idbill]);
+    }
 }

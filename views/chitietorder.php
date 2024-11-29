@@ -165,46 +165,18 @@ foreach ($getOrder as $value) {
 
         </div>
         <!-- Nút Hủy Đơn Hàng -->
-<div class="text-center">
-    <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary" 
-            type="button" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-        Hủy đơn hàng
-    </button>
-</div>
 
-<!-- Modal Hủy Đơn Hàng -->
-<div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="cancelOrderLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cancelOrderLabel">Lý do hủy đơn hàng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="cancelOrderForm">
-                    <div class="mb-3">
-                        <label for="cancelReason" class="form-label">Chọn lý do hủy:</label>
-                        <select id="cancelReason" class="form-select" required>
-                            <option value="" disabled selected>Chọn lý do</option>
-                            <option value="Đổi ý, không muốn mua nữa">Đổi ý, không muốn mua nữa</option>
-                            <option value="Giá sản phẩm quá cao">Giá sản phẩm quá cao</option>
-                            <option value="Đã tìm được nơi mua khác">Đã tìm được nơi mua khác</option>
-                            <option value="Lý do khác">Lý do khác</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="otherReasonInput" style="display: none;">
-                        <label for="otherReason" class="form-label">Nhập lý do khác:</label>
-                        <textarea id="otherReason" class="form-control" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="confirmCancel">Xác nhận hủy</button>
-            </div>
+        <div class="text-center">
+            <a href="index.php?act=huydonhang">
+                <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary"
+                    type="button" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                    Hủy đơn hàng
+                </button>
+            </a>
         </div>
     </div>
-</div>
+    </div>
+    </div>
 
 
     </div>
@@ -217,14 +189,14 @@ foreach ($getOrder as $value) {
 
 </html>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
         const cancelReasonSelect = document.getElementById('cancelReason');
         const otherReasonInput = document.getElementById('otherReasonInput');
         const confirmCancelButton = document.getElementById('confirmCancel');
 
         // Hiển thị ô nhập nếu chọn "Lý do khác"
-        cancelReasonSelect.addEventListener('change', function () {
+        cancelReasonSelect.addEventListener('change', function() {
             if (this.value === 'Lý do khác') {
                 otherReasonInput.style.display = 'block';
             } else {
@@ -233,7 +205,7 @@ foreach ($getOrder as $value) {
         });
 
         // Xử lý khi nhấn nút "Xác nhận hủy"
-        confirmCancelButton.addEventListener('click', function () {
+        confirmCancelButton.addEventListener('click', function() {
             const selectedReason = cancelReasonSelect.value;
             const otherReason = document.getElementById('otherReason').value;
 
@@ -262,4 +234,4 @@ foreach ($getOrder as $value) {
             alert('Đơn hàng của bạn đã bị hủy với lý do: ' + reason);
         });
     });
-</script>
+</script> -->
