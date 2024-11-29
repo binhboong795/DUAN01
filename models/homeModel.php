@@ -358,11 +358,11 @@ class homeModel
     }
 
 
-    function insertHuydon($id, $id_user, $ngayhuy, $lido, $other_lido)
+    function insertHuydon($id, $name, $id_user, $idbill, $ngayhuy, $lido, $other_lido)
     {
-        $sql = "INSERT INTO huydonhang (id, id_user, ngayhuy, lido, other_lido) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO huydonhang (id, name, id_user, idbill, ngayhuy, lido, other_lido) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$id, $id_user, $ngayhuy, $lido, $other_lido]);
+        return $stmt->execute([$id, $name, $id_user, $idbill, $ngayhuy, $lido, $other_lido]);
     }
 
     public function checkIdBillExists($idbill)
@@ -378,5 +378,25 @@ class homeModel
         $sql = "DELETE FROM orders WHERE idbill = ?";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$idbill]);
+    }
+    function deleteStatus($id_bill)
+    {
+        $sql = "DELETE FROM trangthai WHERE id_bill = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$id_bill]);
+    }
+    function getIdBillByUser($iduser)
+    {
+        $sql = "SELECT idbill FROM orders WHERE iduser = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$iduser]);
+        return $stmt->fetchColumn();
+    }
+    function getIdNameStatus($id_user)
+    {
+        $sql = "SELECT bill_name FROM trangthai WHERE id_user = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id_user]);
+        return $stmt->fetchColumn();
     }
 }
