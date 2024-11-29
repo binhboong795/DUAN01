@@ -348,7 +348,7 @@ class homeModel
             'bill_status' => $status,
             'id_bill' => $id_bill
         ]);
-    }
+    }   
     function getInfoStatus($idbill)
     {
         $sql = "SELECT bill_name,bill_address,bill_tell,bill_email,bill_pttt,ngaydathang FROM trangthai WHERE id_bill = :idbill";

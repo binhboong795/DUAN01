@@ -1,7 +1,7 @@
 <?php
 // session_start();
 $bill_pttt = $_SESSION['bill_pttt'];
-$ngaydathang = $_SESSION['ngaydathang'];
+// $ngaydathang = $_SESSION['ngaydathang'];
 
 
 // tổng tiền

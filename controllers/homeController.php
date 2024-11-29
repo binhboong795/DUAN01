@@ -18,7 +18,7 @@ class homeController
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
         $infoStatus = $this->homeModel->getInfoStatus($idbill);
         $getOrder = $this->homeModel->getOrderByBill($idbill);
-        
+
         foreach ($getOrder as &$order) {
             $status = $this->homeModel->getBillStatusById($order['idbill']);
             // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
@@ -544,6 +544,7 @@ class homeController
             $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
             $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
         } else {
+            date_default_timezone_set('Asia/Bangkok');
             $ngaydathang = date('Y-m-d H:i:s');
 
             $mOrder = new homeModel();
