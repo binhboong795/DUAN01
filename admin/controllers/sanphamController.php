@@ -83,7 +83,7 @@ class sanphamController
             $updated = $this->sanphamModel->editsp($id, $name, $price, $img, $mota, $luotxem, $iddm, $motachitiet, $soluong);
 
             if ($updated) {
-                header("Location: ?act=listsp");
+                header("Location: ?act=sanpham");
                 exit;
             } else {
                 echo "Lỗi cập nhật sản phẩm!";
@@ -99,7 +99,7 @@ class sanphamController
     {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
         if (!$id) {
-            echo "<script>alert('Không tìm thấy sản phẩm để xóa!'); window.location.href='index.php?act=listsp';</script>";
+            echo "<script>alert('Không tìm thấy sản phẩm để xóa!'); window.location.href='index.php?act=sanpham';</script>";
             return;
         }
 

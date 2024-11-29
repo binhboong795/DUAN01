@@ -32,9 +32,22 @@ class detailModel
     }
     function increaseViews($id)
     {
-        // Câu lệnh SQL cập nhật lượt xem
-        $sql = "UPDATE sanpham SET luotxem = luotxem + 1 WHERE id = :id";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['id' => $id]);
+        // Kiểm tra nếu sản phẩm có trong cơ sở dữ liệu hay không
+        $sqlCheck = "SELECT luotxem FROM sanpham WHERE id = :id";
+        $stmtCheck = $this->conn->prepare($sqlCheck);
+        $stmtCheck->execute(['id' => $id]);
+        $result = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+        if ($result === false || $result['luotxem'] === null) {
+            // Nếu sản phẩm chưa có giá trị luotxem, khởi tạo bằng 1
+            $sqlInit = "UPDATE sanpham SET luotxem = 1 WHERE id = :id";
+            $stmtInit = $this->conn->prepare($sqlInit);
+            $stmtInit->execute(['id' => $id]);
+        } else {
+            // Nếu đã có, tăng thêm 1
+            $sqlUpdate = "UPDATE sanpham SET luotxem = luotxem + 1 WHERE id = :id";
+            $stmtUpdate = $this->conn->prepare($sqlUpdate);
+            $stmtUpdate->execute(['id' => $id]);
+        }
     }
 }

@@ -41,11 +41,12 @@ match ($act) {
     // 'addstatus'=> (new statusController())->addStatus(),
     'updatestatus' => (new statusController())->updateStatus($_GET['id']),
     'deletestatus' => (new statusController())->deleteStatus($_GET['id']),
-    'listsp' => (new sanphamController())->sanpham(),
     'add' => (new sanphamController())->add(),
     'editsp' => (new sanphamController())->editsp(),
+
     // 'listsp' => (new sanphamController())->sanpham(), // Thêm case 'danhsach'
-    'deleteProduct' => (new sanphamController())->deleteProduct(),
     'huydon' => (new huydonController())->huydon(),
     'deletehuy' => (new huydonController())->deletehuy(),
+
+    'deleteproduct' => (new sanphamController())->deleteProduct($_GET['id']),
 };
