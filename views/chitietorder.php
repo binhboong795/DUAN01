@@ -167,12 +167,16 @@ foreach ($getOrder as $value) {
         <!-- Nút Hủy Đơn Hàng -->
 
         <div class="text-center">
-            <a href="index.php?act=huydonhang">
-                <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary"
-                    type="button" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    Hủy đơn hàng
-                </button>
-            </a>
+            <?php if ($value['bill_status'] === 'Chờ thanh toán') { ?>
+                <a href="index.php?act=huydonhang">
+                    <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary"
+                        type="button" data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                        Hủy đơn hàng
+                    </button>
+                </a>
+            <?php } else { ?>
+                <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary text-secondary" type="button" disabled>Hủy đơn hàng</button>
+            <?php } ?>
         </div>
     </div>
     </div>
@@ -188,50 +192,3 @@ foreach ($getOrder as $value) {
 </body>
 
 </html>
-
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const cancelReasonSelect = document.getElementById('cancelReason');
-        const otherReasonInput = document.getElementById('otherReasonInput');
-        const confirmCancelButton = document.getElementById('confirmCancel');
-
-        // Hiển thị ô nhập nếu chọn "Lý do khác"
-        cancelReasonSelect.addEventListener('change', function() {
-            if (this.value === 'Lý do khác') {
-                otherReasonInput.style.display = 'block';
-            } else {
-                otherReasonInput.style.display = 'none';
-            }
-        });
-
-        // Xử lý khi nhấn nút "Xác nhận hủy"
-        confirmCancelButton.addEventListener('click', function() {
-            const selectedReason = cancelReasonSelect.value;
-            const otherReason = document.getElementById('otherReason').value;
-
-            if (!selectedReason) {
-                alert('Vui lòng chọn lý do hủy đơn hàng.');
-                return;
-            }
-
-            let reason = selectedReason;
-            if (selectedReason === 'Lý do khác') {
-                reason = otherReason;
-            }
-
-            if (!reason) {
-                alert('Vui lòng nhập lý do hủy đơn hàng.');
-                return;
-            }
-
-            // Thực hiện gửi lý do hủy qua AJAX hoặc chuyển hướng tới server xử lý
-            console.log('Lý do hủy đơn hàng:', reason);
-
-            // Ví dụ: Đóng modal sau khi xử lý
-            const cancelOrderModal = bootstrap.Modal.getInstance(document.getElementById('cancelOrderModal'));
-            cancelOrderModal.hide();
-
-            alert('Đơn hàng của bạn đã bị hủy với lý do: ' + reason);
-        });
-    });
-</script> -->

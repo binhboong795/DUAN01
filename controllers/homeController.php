@@ -517,10 +517,10 @@ class homeController
         $bill_email = $_POST['bill_email'];
 
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
-        if ($bill_pttt == "Thanh Toán Qua ATM") {
-            header('location: index.php?act=thanhtoan_atm');
-            exit;
-        }
+        // if ($bill_pttt == "Thanh Toán Qua ATM") {
+        //     header('location: index.php?act=thanhtoan_atm');
+        //     exit;
+        // }
 
         if (!isset($bill_pttt) || $bill_pttt == "") {
             echo "<script>
