@@ -22,12 +22,17 @@ class danhmucController
     }
     function addDanhmuc()
     {
-        if (isset($_POST['themmoi'])) {
-            $name = $_POST['name'];
-            $this->danhmucModel->addDanhmuc($name);
-            // Chuyển hướng sau khi thêm thành công
-            header('location:index.php?act=danhmuc');
-            exit; // Dừng script ngay sau khi chuyển hướng
+        $error="";
+        if(isset($_POST['themmoi'])){
+            $name = trim($_POST['name']);
+            if($name==""){
+                $error="Vui long nhap ten danh muc";
+            }else{
+                $this->danhmucModel->addDanhmuc($name);
+                // Chuyển hướng sau khi thêm thành công
+                header('location:index.php?act=danhmuc');
+                exit;
+            }
         }
         require_once 'views/danhmuc/addDanhmuc.php';
     }

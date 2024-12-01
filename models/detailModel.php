@@ -50,4 +50,14 @@ class detailModel
             $stmtUpdate->execute(['id' => $id]);
         }
     }
+    function getTbStart($productId)
+    {
+        $sql = "SELECT AVG(rating) AS tbStart, COUNT(*) AS sumStart FROM binhluan WHERE idpro = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id' => $productId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result; // Trả về tbStart (sao trung bình) và sumStart (số lượt đánh giá)
+    }
+   
 }

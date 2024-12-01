@@ -21,7 +21,15 @@ class detailController
             // Lấy thông tin chi tiết sản phẩm
             $product = $this->detailModel->findProductById($id);
         }
+        $ratingData = $this->detailModel->getTbStart($id);
 
+        // Tính các giá trị để hiển thị số sao
+        $tbStart = round($ratingData['tbStart'], 1); // Làm tròn sao trung bình đến 1 chữ số thập phân
+        $sumStart = $ratingData['sumStart'];
+
+        $fullStart = floor($tbStart); // Phần nguyên là số sao đầy
+        $halfStart = ($tbStart - $fullStart) >= 0.5 ? 1 : 0; // Nếu phần thập phân >= 0.5, có nửa sao vàng
+        $emptyStart = 5 - $fullStart - $halfStart; // Số sao trống
         require_once 'views/shopDetail.php';
     }
 }
