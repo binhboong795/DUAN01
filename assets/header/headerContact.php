@@ -45,11 +45,11 @@ if (isset($_SESSION['user'])) {
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="?act=/" class="nav-item nav-link">Home</a>
-                    <a href="?act=shop" class="nav-item nav-link ">Shop</a>
-                    <a href="?act=chitietdonhang" class="nav-item nav-link">Order Detail</a>
-                    <!-- <a href="?act=order" class="nav-item nav-link">Order</a> -->
-                    <a href="?act=contact" class="nav-item nav-link active">Contact</a>
+                    <a href="?act=/" class="nav-item nav-link ">TRANG CHỦ</a>
+                    <a href="?act=shop" class="nav-item nav-link ">CỬA HÀNG</a>
+                    <a href="?act=chitietdonhang" class="nav-item nav-link ">CHI TIẾT ĐƠN HÀNG</a>
+                    <a href="?act=order" class="nav-item nav-link ">ĐẶT HÀNG</a>
+                    <a href="?act=contact" class="nav-item nav-link active">LIÊN HỆ</a>
                 </div>
                 <div class="d-flex m-3 me-0">
                     <a href="?act=cart" class="position-relative me-4 my-auto">

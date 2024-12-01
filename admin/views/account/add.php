@@ -1,6 +1,5 @@
 <?php
-//  require_once 'views/components/style.php';
-// require_once 'assets/header/headerLogin.php';
+    require_once 'asset/headerA/header.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +86,7 @@
                             <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>
-                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+                            <button class="w-100 btn form-control border-secondary bg-white text-primary"
                                 type="submit" name="themmoi">Thêm mới</button>
 
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
@@ -95,21 +94,21 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="d-flex p-4 rounded mb-4 bg-white">
-                            <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
+                            <i class="fas fa-map-marker-alt fa-2x fs-7 text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>
                             <div>
                                 <h4>Address</h4>
                                 <p class="mb-2">Trường Cao Đẳng FPT Polytechnic</p>
                             </div>
                         </div>
                         <div class="d-flex p-4 rounded mb-4 bg-white">
-                            <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                            <i class="fas fa-envelope fa-2x text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>
                             <div>
                                 <h4>Mail Us</h4>
                                 <p class="mb-2">caodangfpt@fpt.edu.vn</p>
                             </div>
                         </div>
                         <div class="d-flex p-4 rounded bg-white">
-                            <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                            <i class="fa fa-phone-alt fa-2x text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>
                             <div>
                                 <h4>Telephone</h4>
                                 <p class="mb-2">0954835784</p>

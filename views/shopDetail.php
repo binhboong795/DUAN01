@@ -11,6 +11,53 @@
     <?php require_once 'views/components/style.php' ?>
 
 </head>
+<style>
+    .stars {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+
+    }
+
+    .stars input {
+        display: none;
+    }
+
+    .stars label {
+        font-size: 40px;
+        color: grey;
+        cursor: pointer;
+    }
+
+    .stars input:checked~label,
+    .stars label:hover,
+    .stars label:hover~label {
+        color: gold;
+    }
+
+    .bold {
+        font-size: 24px;
+        color: gold;
+    }
+
+    .grey {
+        color: grey;
+    }
+
+    .full {
+        font-size: 24px;
+        color: gold;
+    }
+
+    .half {
+        font-size: 24px;
+        color: grey;
+    }
+
+    .stars input[checked="checked"]:nth-of-type(5)~label {
+        color: gold;
+    }
+</style>
 
 <body>
 
@@ -76,6 +123,22 @@
                                 <?= $productOne['name'] ?></h4>
                             <p class="mb-3">Category: Vegetables</p>
                             <h5 class="fw-bold mb-3">3,35 $</h5>
+                            <div class="d-flex mb-3">
+                                <?php
+                                for ($i = 1; $i <= 5; $i++) {
+                                    if ($i <= $fullStart) {
+                                        // Sao vàng đầy
+                                        echo "<span class='star full'>★</span>";
+                                    } else {
+                                        // Sao xám
+                                        echo "<span class='star half'>☆</span>";
+                                    }
+                                }
+                                ?>
+                                <span class="ms-2 mt-2">(<?= $tbStart ?> / 5 sao)</span>
+                            </div>
+
+                            <p><strong><?= $sumStart ?> đánh giá</strong></p>
 
                             <p><?= $productOne['mota'] ?></p>
                             <p>Lượt xem: <?= $productOne['luotxem'] ?></p>
@@ -128,36 +191,41 @@
                                     <div id="commentList">
                                         <?php
                                         $count = 0;
-                                        foreach ($comments as $comment) {
-                                            $count++;
-                                            // Thêm class "hidden-comment" nếu bình luận vượt quá 3.
-                                            $hiddenClass = ($count > 3) ? 'hidden-comment d-none' : '';
+                                        if (!empty($comments)) {
+                                            foreach ($comments as $comment) {
+                                                $count++;
+                                                // Thêm class "hidden-comment" nếu bình luận vượt quá 3.
+                                                $hiddenClass = ($count > 3) ? 'hidden-comment d-none' : '';
                                         ?>
-                                            <div class="d-flex comment-item <?php echo $hiddenClass; ?>">
-                                                <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                                    style="width: 100px; height: 100px;" alt="">
-                                                <div>
-                                                    <p class="mb-2" style="font-size: 14px;">
-                                                        <?php echo $comment['ngaybinhluan']; ?>
-                                                    </p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <h5><?php echo $comment['user']; ?></h5>
-                                                        <div class="d-flex mb-3">
-                                                            <?php
-                                                            for ($i = 1; $i <= 5; $i++) {
-                                                                if ($i <= $comment['rating']) {
-                                                                    echo '<i class="fa fa-star text-warning"></i>';
-                                                                } else {
-                                                                    echo '<i class="fa fa-star"></i>';
+                                                <div class="d-flex comment-item <?php echo $hiddenClass; ?>">
+                                                    <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
+                                                        style="width: 100px; height: 100px;" alt="">
+                                                    <div>
+                                                        <p class="mb-2" style="font-size: 14px;">
+                                                            <?php echo $comment['ngaybinhluan']; ?>
+                                                        </p>
+                                                        <div class="d-flex justify-content-between">
+                                                            <h5><?php echo $comment['user']; ?></h5>
+                                                            <div class="d-flex mb-3">
+                                                                <?php
+                                                                for ($i = 1; $i <= 5; $i++) {
+                                                                    if ($i <= $comment['rating']) {
+                                                                        echo "<span class='star bold'>★</span>";
+                                                                    } else {
+                                                                        echo "<span class='star bold grey'>★</span>";
+                                                                    }
                                                                 }
-                                                            }
-                                                            ?>
+                                                                ?>
+                                                            </div>
                                                         </div>
+                                                        <p><?php echo $comment['noidung']; ?></p>
                                                     </div>
-                                                    <p><?php echo $comment['noidung']; ?></p>
                                                 </div>
-                                            </div>
-                                        <?php } ?>
+                                            <?php }
+                                        } else { ?>
+                                            <p>Chưa có bình luận</p>
+                                        <?php  }
+                                        ?>
                                     </div>
                                     <!-- Nút "See more" và "Thu gọn" -->
                                     <?php if (count($comments) > 3) { ?>
@@ -219,15 +287,13 @@
                                         <div class="d-flex justify-content-between py-3 mb-5">
                                             <div class="d-flex align-items-center">
                                                 <p class="mb-0 me-3">Please rate:</p>
-                                                <div class="d-flex align-items-center" style="font-size: 12px;">
-                                                    <?php for ($i = 1; $i <= 5; $i++) {  ?>
-                                                        <input type="radio" class="fa fa-star" name="rating" value="<?= $i ?>"
-                                                            style="display:none;" />
-                                                        <i class="fa fa-star "
-                                                            style="color:<?= $i <= $rating ? 'gold' : 'grey'; ?>"
-                                                            data-rating="<?= $i ?>"></i>
-                                                    <?php } ?>
-                                                </div>
+                                                <div class="stars">
+                                                    <input type="radio" id="star5" name="rating" value="5" checked><label for="star5">★</label>
+                                                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                                                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                                                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                                                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                                                </div><br>
                                             </div>
                                             <button type="submit"
                                                 class="btn border border-secondary text-primary rounded-pill px-4 py-3">

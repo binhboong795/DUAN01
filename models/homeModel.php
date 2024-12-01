@@ -144,10 +144,10 @@ class homeModel
     // }
 
     // Thêm sản phẩm mới vào giỏ hàng
-    function insertCartItem($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien, $idbill)
+    function insertCartItem($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien)
     {
-        $sql = "INSERT INTO giohang (iduser, idpro, img, name, price, soluong, thanhtien, idbill) 
-            VALUES (:iduser, :idpro, :img, :name, :price, :soluong, :thanhtien, :idbill)";
+        $sql = "INSERT INTO giohang (iduser, idpro, img, name, price, soluong, thanhtien) 
+            VALUES (:iduser, :idpro, :img, :name, :price, :soluong, :thanhtien)";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([
             'iduser' => $iduser,
@@ -157,7 +157,7 @@ class homeModel
             'price' => $price,
             'soluong' => $soluong,
             'thanhtien' => $thanhtien,
-            'idbill' => $idbill,
+
         ]);
     }
 
@@ -227,6 +227,7 @@ class homeModel
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
         return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $idbill]);
     }
+
 
 
     function chackcart($iduser)
@@ -342,7 +343,7 @@ class homeModel
     }
     function updateBillStatus($id_bill, $status)
     {
-        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill";
+        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill    ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             'bill_status' => $status,
@@ -355,5 +356,71 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':idbill' => $idbill]);
         return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng duy nhất
+    }
+
+
+    function insertHuydon($id, $name, $id_user, $idbill, $ngayhuy, $lido, $other_lido)
+    {
+        $sql = "INSERT INTO huydonhang (id, name, id_user, idbill, ngayhuy, lido, other_lido) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$id, $name, $id_user, $idbill, $ngayhuy, $lido, $other_lido]);
+    }
+
+    public function checkIdBillExists($idbill)
+    {
+        $sql = "SELECT COUNT(*) as count FROM orders WHERE idbill = :idbill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['idbill' => $idbill]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
+    function deleteOrder($idbill)
+    {
+        $sql = "DELETE FROM orders WHERE idbill = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$idbill]);
+    }
+    function deleteStatus($id_bill)
+    {
+        $sql = "DELETE FROM trangthai WHERE id_bill = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$id_bill]);
+    }
+    function getIdBillByUser($iduser)
+    {
+        $sql = "SELECT idbill FROM orders WHERE iduser = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$iduser]);
+        return $stmt->fetchColumn();
+    }
+    function getIdNameStatus($id_user)
+    {
+        $sql = "SELECT bill_name FROM trangthai WHERE id_user = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id_user]);
+        return $stmt->fetchColumn();
+    }
+    // function insertLienhe($name, $email, $content)
+    // {
+    //     $sql = "INSERT INTO lienhe (id, name, email, content) VALUES (?, ?, ?, ?)";
+    //     $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+    //     return $stmt->execute([$name, $email, $content]);
+    // }
+    function insertLienhe($name, $email, $content)
+    {
+        $sql = "INSERT INTO lienhe VALUES (null, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+        return $stmt->execute([$name, $email, $content]);
+    }
+    function updateIdBillInTrangthai($id_bill)
+    {
+        $sql = "UPDATE trangthai 
+            SET id_bill = :id_bill 
+            ";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+
+            'id_bill' => $id_bill
+        ]);
     }
 }

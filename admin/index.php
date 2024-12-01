@@ -14,6 +14,8 @@ require_once 'controllers/danhmucController.php';
 require_once 'models/danhmucModel.php';
 require_once 'controllers/statusController.php';
 require_once 'models/statusModel.php';
+require_once 'controllers/huydonController.php';
+require_once 'models/huydonModel.php';
 
 
 
@@ -22,15 +24,15 @@ match ($act) {
     '/' => (new accController())->home(),
     'sanpham' => (new sanphamController())->sanpham(),
     'taikhoan' => (new accController())->taikhoan(),
+    'addUser' => (new accController())->addUser(),
+    'editUser' => (new accController())->editUser(),
+    'deleteUser' => (new accController())->deleteUser(),
     'danhmuc' => (new danhmucController())->danhmuc(),
     'deleteDanhmuc' => (new danhmucController())->deleteDanhmuc($_GET['id']),
     'addDanhmuc' => (new danhmucController())->addDanhmuc(),
     'editDanhmuc' => (new danhmucController())->editDanhmuc($_GET['id']),
     'binhluan' => (new cmtController())->binhluan(),
     'deleteBl' => (new cmtController())->deleteBl(),
-    'addUser' => (new accController())->addUser(),
-    'editUser' => (new accController())->editUser(),
-    'deleteUser' => (new accController())->deleteUser(),
     'banner' => (new bannerController())->banner(),
     'editBanner' => (new bannerController())->editBanner($_GET['id']),
     'deletebanner' => (new bannerController())->deleteBanner($_GET['id']),
@@ -42,4 +44,7 @@ match ($act) {
     'add' => (new sanphamController())->add(),
     'editsp' => (new sanphamController())->editsp(),
     'deleteproduct' => (new sanphamController())->deleteProduct($_GET['id']),
+    // 'listsp' => (new sanphamController())->sanpham(), // Thêm case 'danhsach'
+    'huydon' => (new huydonController())->huydon(),
+    'deletehuy' => (new huydonController())->deletehuy(),
 };

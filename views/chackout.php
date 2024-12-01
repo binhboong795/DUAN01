@@ -111,15 +111,15 @@
                                                 <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
                                                         width="50"></td>
                                                 <td><?= $item['name'] ?></td>
-                                                <td><?= number_format($item['price'], 2) ?> $</td>
+                                                <td><?= number_format($item['price']) ?> đ</td>
                                                 <td><?= $item['soluong'] ?></td>
-                                                <td><?= number_format($item['total_price'], 2) ?> $</td>
+                                                <td><?= number_format($item['total_price']) ?> đ</td>
                                             </tr>
 
                                         <?php endforeach; ?>
                                         <thead>
                                             <th>Total</th>
-                                            <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> $</td>
+                                            <td colspan="5" class="text-right"><?= number_format($totalPriceAll) ?> đ</td>
                                         </thead>
 
                                     <?php else: ?>
@@ -167,11 +167,11 @@
                                 type="submit" name="order">Place Order</button>
                         </div>
 
-                        
+
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </div>
     <!-- Checkout Page End -->
