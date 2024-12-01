@@ -43,5 +43,6 @@ match ($act) {
 
     'chitietdonhang' => (new homeController())->chitietdonhang(),
     'huydonhang' => (new homeController())->huydonhang(),
+    'addlienhe' => (new homeController())->addLienhe(),
     default => (new homeController())->error(), // Hành động không xác định
 };

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 if (isset($_SESSION['bill_name'])) {
     $bill_name = $_SESSION['bill_name'];
     $bill_address = $_SESSION['bill_address'];
@@ -80,12 +80,11 @@ if (isset($_SESSION['bill_name'])) {
 
                             <div class="form-item w-100">
                                 <label class="form-label my-3">Name<sup>*</sup></label>
-                                <input type="text" name="bill_name" class="form-control"
-                                    value=" <?php if (isset($_SESSION['bill_name'])) {
-                                                echo $bill_name;
-                                            } else {
-                                                echo "Chưa nhập tên";
-                                            } ?>">
+                                <input type="text" name="bill_name" class="form-control" value=" <?php if (isset($_SESSION['bill_name'])) {
+                                                                                                        echo $bill_name;
+                                                                                                    } else {
+                                                                                                        echo "Chưa nhập tên";
+                                                                                                    } ?>">
                             </div>
 
 
@@ -93,33 +92,30 @@ if (isset($_SESSION['bill_name'])) {
 
                         <div class="form-item">
                             <label class="form-label my-3">Address <sup>*</sup></label>
-                            <input type="text" class="form-control" name="bill_address"
-                                value=" <?php if (isset($_SESSION['bill_address'])) {
-                                            echo $bill_address;
-                                        } else {
-                                            echo "Chưa nhập địa chỉ";
-                                        } ?>">
+                            <input type="text" class="form-control" name="bill_address" value=" <?php if (isset($_SESSION['bill_address'])) {
+                                                                                                    echo $bill_address;
+                                                                                                } else {
+                                                                                                    echo "Chưa nhập địa chỉ";
+                                                                                                } ?>">
                         </div>
 
 
 
                         <div class="form-item">
                             <label class="form-label my-3">Mobile<sup>*</sup></label>
-                            <input type="tel" name="bill_tell" class="form-control"
-                                value=" <?php if (isset($_SESSION['bill_tell'])) {
-                                            echo $bill_tell;
-                                        } else {
-                                            echo "Chưa nhập số điện thoại";
-                                        } ?>">
+                            <input type="tel" name="bill_tell" class="form-control" value=" <?php if (isset($_SESSION['bill_tell'])) {
+                                                                                                echo $bill_tell;
+                                                                                            } else {
+                                                                                                echo "Chưa nhập số điện thoại";
+                                                                                            } ?>">
                         </div>
                         <div class="form-item">
                             <label class="form-label my-3">Email<sup>*</sup></label>
-                            <input type="email" name="bill_email" class="form-control"
-                                value=" <?php if (isset($_SESSION['bill_email'])) {
-                                            echo $bill_email;
-                                        } else {
-                                            echo "Chưa nhập email";
-                                        } ?>">
+                            <input type="email" name="bill_email" class="form-control" value=" <?php if (isset($_SESSION['bill_email'])) {
+                                                                                                    echo $bill_email;
+                                                                                                } else {
+                                                                                                    echo "Chưa nhập email";
+                                                                                                } ?>">
                         </div>
                         <?php if (!empty($error)) : ?>
                             <p style="color: red;"><?= $error ?></p>
@@ -139,20 +135,20 @@ if (isset($_SESSION['bill_name'])) {
                                 </thead>
 
                                 <tbody>
-                                    <?php if (!empty($cartItems)): ?>
-                                        <?php foreach ($cartItems as $item): ?>
+                                    <?php if (!empty($getOrder)): ?>
+                                        <?php foreach ($getOrder as $item): ?>
                                             <tr>
                                                 <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
                                                         width="50"></td>
                                                 <td><?= $item['name'] ?></td>
-                                                <td><?= number_format($item['price'], 2) ?> $</td>
+                                                <td><?= number_format($item['price']) ?> đ</td>
                                                 <td><?= $item['soluong'] ?></td>
-                                                <td><?= number_format($item['total_price'], 2) ?> $</td>
+                                                <td><?= number_format($item['total_price']) ?> đ</td>
                                             </tr>
 
                                         <?php endforeach; ?>
                                         <tr>
-                                            <td colspan="5" class="text-right"><?= $totalPrice ?> $</td>
+                                            <td colspan="5" class="text-right"><?= number_format($totalPrice) ?> đ</td>
                                         </tr>
 
                                     <?php else: ?>

@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <?php require_once 'views/components/style.php'?>
+    <?php require_once 'views/components/style.php' ?>
 
 </head>
 
@@ -22,7 +22,7 @@
     <!-- Spinner End -->
 
 
-    <?php require_once 'assets/header/headerContact.php'?>
+    <?php require_once 'assets/header/headerContact.php' ?>
 
 
     <!-- Modal Search Start -->
@@ -72,14 +72,28 @@
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <form action="" class="">
-                            <input type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Your Name">
-                            <input type="email" class="w-100 form-control border-0 py-3 mb-4"
+                        <!-- <form action="" method="post">
+                            <input name="name" type="text" class="w-100 form-control border-0 py-3 mb-4"
+                                placeholder="Your Name">
+                            <input name="email" type="email" class="w-100 form-control border-0 py-3 mb-4"
                                 placeholder="Enter Your Email">
-                            <textarea class="w-100 form-control border-0 mb-4" rows="5" cols="10"
-                                placeholder="Your Message"></textarea>
+                            <input name="content" type="text" class="w-100 form-control border-0 mb-4" rows="5"
+                                cols="10" placeholder="Your Message"></input>
+                            <button type="submit" name="addlienhe">thêm</button>
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
-                                type="submit">Submit</button>
+                                type="submit" name="addlienhe">thêm</button>
+                        </form> -->
+                        <form action="?act=addlienhe" method="post">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="name"
+                                placeholder="Tên">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="email"
+                                placeholder="email">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="content"
+                                placeholder="Content">
+                            <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+                                type="submit" name="addlienhe">them</button>
+
+                            <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
                     </div>
                     <div class="col-lg-5">

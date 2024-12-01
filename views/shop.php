@@ -11,13 +11,13 @@
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
-.fruite-item img {
-    max-height: 200px;
-    height: 200px;
-    /* Cố định chiều cao */
+    .fruite-item img {
+        max-height: 200px;
+        height: 200px;
+        /* Cố định chiều cao */
 
 
-}
+    }
 </style>
 
 <body>
@@ -95,10 +95,10 @@
 
                                         <option value="">All</option>
                                         <?php foreach ($danhmuc as $dm) { ?>
-                                        <option value="<?= $dm['id'] ?>"
-                                            <?= (isset($_GET['category']) && $_GET['category'] == $dm['id']) ? 'selected' : '' ?>>
-                                            <?= $dm['name'] ?>
-                                        </option>
+                                            <option value="<?= $dm['id'] ?>"
+                                                <?= (isset($_GET['category']) && $_GET['category'] == $dm['id']) ? 'selected' : '' ?>>
+                                                <?= $dm['name'] ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
 
@@ -113,53 +113,53 @@
                                             <h4>Categories</h4>
                                             <ul class="list-unstyled fruite-categorie">
                                                 <?php foreach ($cam as $cate) { ?>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Cam</a>
-                                                        <span>(<?= $cate['soluong'] ?>)</span>
-                                                    </div>
-                                                </li>
+                                                    <li>
+                                                        <div class="d-flex justify-content-between fruite-name">
+                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Cam</a>
+                                                            <span>(<?= $cate['soluong'] ?>)</span>
+                                                        </div>
+                                                    </li>
                                                 <?php } ?>
                                                 <?php foreach ($nho as $cate) { ?>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Nho mỹ</a>
-                                                        <span>(<?= $cate['soluong'] ?>)</span>
-                                                    </div>
-                                                </li>
+                                                    <li>
+                                                        <div class="d-flex justify-content-between fruite-name">
+                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Nho mỹ</a>
+                                                            <span>(<?= $cate['soluong'] ?>)</span>
+                                                        </div>
+                                                    </li>
                                                 <?php } ?>
                                                 <?php foreach ($chuoi as $cate) { ?>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Chuối </a>
-                                                        <span>(<?= $cate['soluong'] ?>)</span>
-                                                    </div>
-                                                </li>
+                                                    <li>
+                                                        <div class="d-flex justify-content-between fruite-name">
+                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Chuối </a>
+                                                            <span>(<?= $cate['soluong'] ?>)</span>
+                                                        </div>
+                                                    </li>
                                                 <?php } ?>
                                                 <?php foreach ($man as $cate) { ?>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Mận cam</a>
-                                                        <span>(<?= $cate['soluong'] ?>)</span>
-                                                    </div>
-                                                </li>
+                                                    <li>
+                                                        <div class="d-flex justify-content-between fruite-name">
+                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Mận cam</a>
+                                                            <span>(<?= $cate['soluong'] ?>)</span>
+                                                        </div>
+                                                    </li>
                                                 <?php } ?>
                                                 <?php foreach ($nhoxanh as $cate) { ?>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Nho xanh</a>
-                                                        <span>(<?= $cate['soluong'] ?>)</span>
-                                                    </div>
-                                                </li>
+                                                    <li>
+                                                        <div class="d-flex justify-content-between fruite-name">
+                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Nho xanh</a>
+                                                            <span>(<?= $cate['soluong'] ?>)</span>
+                                                        </div>
+                                                    </li>
                                                 <?php } ?>
                                                 <?php foreach ($taomeo as $cate) { ?>
-                                                <li>
-                                                    <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>
-                                                            Táo mèo</a>
-                                                        <span>(<?= $cate['soluong'] ?>)</span>
-                                                    </div>
-                                                </li>
+                                                    <li>
+                                                        <div class="d-flex justify-content-between fruite-name">
+                                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>
+                                                                Táo mèo</a>
+                                                            <span>(<?= $cate['soluong'] ?>)</span>
+                                                        </div>
+                                                    </li>
                                                 <?php } ?>
                                             </ul>
                                         </div>
@@ -205,73 +205,90 @@
                                         $search = "";
                                     };
                                     ?>
-                                    <?php if (empty($products)) : ?>
-                                    <p class="text-center">Khong có sản phẩm phù hợp.</p>
-                                    <?php else : ?>
-
-
-
                                     <?php
-                                        foreach ($products as $list_products) :
+                                    // Số sản phẩm mỗi trang
+                                    $itemsPerPage = 3;
+
+                                    // Xác định trang hiện tại
+                                    $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+                                    // Tính tổng số trang
+                                    $totalItems = count($products);
+                                    $totalPages = ceil($totalItems / $itemsPerPage);
+
+                                    // Xác định chỉ số bắt đầu và kết thúc cho mảng sản phẩm
+                                    $startIndex = ($currentPage - 1) * $itemsPerPage;
+                                    $productsToShow = array_slice($products, $startIndex, $itemsPerPage);
+                                    ?>
+
+                                    <?php if (empty($productsToShow)) : ?>
+                                        <p class="text-center">Không có sản phẩm phù hợp.</p>
+                                    <?php else : ?>
+                                        <?php
+                                        foreach ($productsToShow as $list_products) :
                                         ?>
-                                    <?php if (
+                                            <?php if (
                                                 (empty($search)) || (is_string($list_products['name']) && strpos(strtolower($list_products["name"]), strtolower($search)) !== false)
                                             ) : ?>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <!-- ảnh -->
-                                            <div class="fruite-img">
-                                                <img style="height: 200px;"
-                                                    src="assets/img/<?= $list_products['img'] ?>"
-                                                    class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="col-md-6 col-lg-6 col-xl-4">
+                                                    <div class="rounded position-relative fruite-item">
+                                                        <!-- ảnh -->
+                                                        <div class="fruite-img">
+                                                            <img style="height: 200px;"
+                                                                src="assets/img/<?= $list_products['img'] ?>"
+                                                                class="img-fluid w-100 rounded-top" alt="">
 
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Fruits</div>
-                                            <div style="height:270px;"
-                                                class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <!-- Tên -->
-                                                <h4>
-                                                    <a class="linkpro"
-                                                        href="?act=shopdetail&id=<?= $list_products['id'] ?>">
-                                                        <?= $list_products['name'] ?></a>
-                                                </h4>
-                                                <!-- Mô tả -->
+                                                        </div>
+                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                            style="top: 10px; left: 10px;">Fruits</div>
+                                                        <div style="height:270px;"
+                                                            class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                            <!-- Tên -->
+                                                            <h4>
+                                                                <a class="linkpro"
+                                                                    href="?act=shopdetail&id=<?= $list_products['id'] ?>">
+                                                                    <?= $list_products['name'] ?></a>
+                                                            </h4>
+                                                            <!-- Mô tả -->
 
-                                                <p style="height:90px;">
-                                                    <?= mb_strimwidth($list_products['mota'], 0, 90, "..."); ?>
-                                                </p>
-                                                <p>Lượt xem: <?= $list_products['luotxem'] ?></p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">
-                                                        <!-- Giá -->
-                                                        <?= $list_products['price'] ?><span> $/ kg</span>
-                                                    </p>
-                                                    <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary">
-                                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
-                                                    </a>
+                                                            <p style="height:90px;">
+                                                                <?= mb_strimwidth($list_products['mota'], 0, 90, "..."); ?>
+                                                            </p>
+                                                            <p>Lượt xem: <?= $list_products['luotxem'] ?></p>
+                                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                                <p class="text-dark fs-5 fw-bold mb-0">
+                                                                    <!-- Giá -->
+                                                                    <?= $list_products['price'] ?><span> $/ kg</span>
+                                                                </p>
+                                                                <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                                    class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
                                                 </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <?php endif ?>
-                                    <?php endforeach ?>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
 
                                     <?php endif ?>
 
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5">
-                                            <a href="#" class="rounded">&laquo;</a>
-                                            <a href="#" class="active rounded">1</a>
-                                            <a href="#" class="rounded">2</a>
-                                            <a href="#" class="rounded">3</a>
-                                            <a href="#" class="rounded">4</a>
-                                            <a href="#" class="rounded">5</a>
-                                            <a href="#" class="rounded">6</a>
-                                            <a href="#" class="rounded">&raquo;</a>
+                                            <?php if ($currentPage > 1) : ?>
+                                                <a href="?act=shop&page=<?= $currentPage - 1 ?>" class="rounded">&laquo;</a>
+                                            <?php endif; ?>
+
+                                            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                                                <a href="?act=shop&page=<?= $i ?>"
+                                                    class="rounded <?= $i === $currentPage ? 'active' : '' ?>"><?= $i ?></a>
+                                            <?php endfor; ?>
+
+                                            <?php if ($currentPage < $totalPages) : ?>
+                                                <a href="?act=shop&page=<?= $currentPage + 1 ?>" class="rounded">&raquo;</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
 

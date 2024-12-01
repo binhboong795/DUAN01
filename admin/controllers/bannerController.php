@@ -30,8 +30,6 @@ class bannerController
 
             if ($this->bannerModel->insertBanner($name, $img)) {
                 header("Location:?act=banner");
-
-                // Dừng script ngay sau khi chuyển hướng
             } else {
                 echo "Lỗi";
             }

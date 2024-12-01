@@ -144,10 +144,10 @@ class homeModel
     // }
 
     // Thêm sản phẩm mới vào giỏ hàng
-    function insertCartItem($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien, $idbill)
+    function insertCartItem($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien)
     {
-        $sql = "INSERT INTO giohang (iduser, idpro, img, name, price, soluong, thanhtien, idbill) 
-            VALUES (:iduser, :idpro, :img, :name, :price, :soluong, :thanhtien, :idbill)";
+        $sql = "INSERT INTO giohang (iduser, idpro, img, name, price, soluong, thanhtien) 
+            VALUES (:iduser, :idpro, :img, :name, :price, :soluong, :thanhtien)";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([
             'iduser' => $iduser,
@@ -157,7 +157,7 @@ class homeModel
             'price' => $price,
             'soluong' => $soluong,
             'thanhtien' => $thanhtien,
-            'idbill' => $idbill,
+
         ]);
     }
 
@@ -227,6 +227,7 @@ class homeModel
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
         return $stmt->execute([$id, $id_user, $bill_name, $bill_address, $bill_tell, $bill_email, $bill_pttt, $ngaydathang, $idbill]);
     }
+
 
 
     function chackcart($iduser)
@@ -398,5 +399,17 @@ class homeModel
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id_user]);
         return $stmt->fetchColumn();
+    }
+    // function insertLienhe($name, $email, $content)
+    // {
+    //     $sql = "INSERT INTO lienhe (id, name, email, content) VALUES (?, ?, ?, ?)";
+    //     $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+    //     return $stmt->execute([$name, $email, $content]);
+    // }
+    function insertLienhe($name, $email, $content)
+    {
+        $sql = "INSERT INTO lienhe VALUES (null, ?, ?, ?)";
+        $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
+        return $stmt->execute([$name, $email, $content]);
     }
 }

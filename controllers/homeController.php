@@ -144,13 +144,31 @@ class homeController
 
         $iduser = $_SESSION['user']['id'];
 
+        $idbill = rand(1000, 9999);
+        $_SESSION['idbill'] = $idbill;
+        // Tạo giá trị ngẫu nhiên cho idbill
+
         // Lấy dữ liệu từ Model
         $cartItems = $this->homeModel->getCartItems($iduser);
+        foreach ($cartItems as $item) {
+            $this->homeModel->insertdonhang(
+                null,
+                $iduser,
+                $item['idpro'],
+                $item['img'],
+                $item['name'],
+                $item['price'],
+                $item['soluong'],
+                $item['thanhtien'],
+                $idbill
+            );
+        }
+
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
         $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng từ Model
 
         // Cộng thêm 3 vào tổng giá trị
-        $totalPriceAll += 3;
+        $totalPriceAll += 30000;
 
         // Truyền dữ liệu cho view
         require_once 'views/chackout.php';
@@ -317,7 +335,7 @@ class homeController
 
 
     // Ví dụ cho trang shop (headerShop.php)
-    function shopCart() {}
+
 
     // Hiển thị giỏ hàng
     function cart()
@@ -336,7 +354,7 @@ class homeController
         foreach ($cartItems as $item) {
             $totalPrice += $item['total_price']; // Giả sử 'total_price' là giá trị của mỗi sản phẩm
         }
-        $totalPriceAll = $totalPrice + 3;
+        $totalPriceAll = $totalPrice + 30000;
         require_once 'views/cart.php';
 
         require_once 'assets/header/headerShop.php';
@@ -434,11 +452,11 @@ class homeController
 
         if ($product) {
             // Tạo idbill ngẫu nhiên không trùng
-            do {
-                $idbill = rand(1000, 9999); // Tạo giá trị ngẫu nhiên cho idbill
-            } while ($this->homeModel->checkIdBillExists($idbill));
 
-            $_SESSION['id_bill'] = $idbill; // Lưu vào session
+            // $idbill = rand(1000, 9999); // Tạo giá trị ngẫu nhiên cho idbill
+
+
+            // $_SESSION['id_bill'] = $idbill; // Lưu vào session
 
             // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
             $cartItem = $this->homeModel->getCartItems($iduser, $id);
@@ -457,8 +475,8 @@ class homeController
                     $product['name'],
                     $product['price'],
                     1,
-                    $product['price'],
-                    $idbill
+                    $product['price']
+                    // $idbill
                 );
             }
         }
@@ -482,10 +500,14 @@ class homeController
 
             if ($action === 'increase') {
                 $newQuantity++;
-            } elseif ($action === 'decrease' && $cartItem['soluong'] > 1) {
+            } elseif ($action === 'decrease' && $cartItem['soluong'] > 0) {
                 $newQuantity--;
             }
-
+        }
+        if ($newQuantity <= 0) {
+            $this->homeModel->deleteCartItem($iduser, $id);
+            header("Location: index.php?act=cart");
+        } else {
             $newTotalPrice = $newQuantity * $cartItem['price'];
             $this->homeModel->updateCartItem($cartItem['id'], $newQuantity, $newTotalPrice);
         }
@@ -510,11 +532,12 @@ class homeController
                 $iduser = $_SESSION['user']['id'];
 
                 // Lấy các sản phẩm từ giỏ hàng của người dùng
-                $cartItems = $this->homeModel->getCartItems($iduser);
+                $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
+                //đang fix           
+                $getOrder = $this->homeModel->getOrderByBill($idbill);
 
-
-                foreach ($cartItems as $item) {
-                    $this->homeModel->insertdonhang(
+                foreach ($getOrder as $item) {
+                    $this->homeModel->insertOrder(
                         null,
                         $iduser,
                         $item['idpro'],
@@ -523,7 +546,7 @@ class homeController
                         $item['price'],
                         $item['soluong'],
                         $item['thanhtien'],
-                        $item['idbill'],
+                        $idbill,
                     );
                 }
 
@@ -550,9 +573,7 @@ class homeController
 
         $error = "";
 
-        $iduser = $_SESSION['user']['id'];
-        $id_order = $_SESSION['id_order'];
-        $idbill = $_SESSION['id_bill'];
+
 
         $bill_name = $_POST['bill_name'];
         $bill_address = $_POST['bill_address'];
@@ -560,10 +581,10 @@ class homeController
         $bill_email = $_POST['bill_email'];
 
         $bill_pttt = isset($_POST['bill_pttt']) ? $_POST['bill_pttt'] : null;
-        if ($bill_pttt == "Thanh Toán Qua ATM") {
-            header('location: index.php?act=thanhtoan_atm');
-            exit;
-        }
+        // if ($bill_pttt == "Thanh Toán Qua ATM") {
+        //     header('location: index.php?act=thanhtoan_atm');
+        //     exit;
+        // }
 
         if (!isset($bill_pttt) || $bill_pttt == "") {
             echo "<script>
@@ -613,15 +634,6 @@ class homeController
 
 
 
-            $_SESSION['bill_name'] = $bill_name;
-            $_SESSION['bill_address'] = $bill_address;
-            $_SESSION['bill_tell'] = $bill_tell;
-            $_SESSION['bill_email'] = $bill_email;
-            $_SESSION['bill_pttt'] = $bill_pttt;
-            $_SESSION['ngaydathang'] = $ngaydathang;
-
-            $_SESSION['id_bill'] = $idbill;
-            $_SESSION['id_order'] = $id_order;
 
 
             header('location: index.php?act=order');
@@ -676,14 +688,56 @@ class homeController
             $bill_name = $this->homeModel->getIdNameStatus($iduser);
 
             $huydon = $this->homeModel->insertHuydon(null, $bill_name, $iduser, $idbill, $ngayhuy, $lido, $other_lido);
-    
+
             $this->homeModel->deleteOrder($idbill);
             $this->homeModel->deleteStatus($idbill);
-           
+
             echo "<script>alert('Bạn đã hủy thành công!')
                 window.location.href='index.php?act=chitietdonhang'
             </script>";
-        }   
+        }
         require_once 'views/huydonhang.php';
+    }
+    // function addLienhe()
+    // {
+
+    //     if (isset($_POST['addlienhe'])) {
+    //         $name = $_POST['name'];
+    //         $email = $_POST['email'];
+    //         $content = $_POST['content'];
+    //         if ($this->homeModel->insertLienhe(null, $name, $email, $content)) {
+    //             echo "<script>
+    //                     alert('Bạn đã thêm thành công!');
+    //                     // window.location.href='?act=dangnhap';
+    //                 </script>";
+
+    //             // Dừng script ngay sau khi chuyển hướng
+    //         } else {
+    //             echo "Lỗi";
+    //         }
+    //     }
+    //     require_once 'views/contact.php';
+    // }
+
+    function addLienhe()
+    {
+
+
+        if (isset($_SESSION["user"])) {
+            if (isset($_POST["addlienhe"])) {
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $content = $_POST['content'];
+
+
+                $this->homeModel->insertLienhe($name, $email, $content);
+                header("location:?act=contact");
+            } else {
+                header("location:?act=404");
+            }
+        } else {
+            header("location:?act=dangnhap");
+        }
+        require_once 'views/contact.php';
     }
 }

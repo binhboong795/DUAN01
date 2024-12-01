@@ -8,9 +8,11 @@ class shopModel
     }
     function allProductShop()
     {
-        $sql = "select * from sanpham order by id desc";
-        return $this->conn->query($sql);
+        $sql = "SELECT * FROM sanpham ORDER BY id DESC";
+        $stmt = $this->conn->query($sql); // Thực hiện truy vấn
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Trả về kết quả dưới dạng mảng
     }
+
     function allDanhmuc()
     {
         $sql = "select * from danhmuc order by id desc";
@@ -24,7 +26,7 @@ class shopModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
     }
-   
+
     function findCate($id)
     {
         $sql = "SELECT soluong FROM sanpham where id= :id";
@@ -46,19 +48,21 @@ class shopModel
     //     // Lấy kết quả
     //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     // }
-    function getPrice($minPrice,$maxPrice=null){
-        if($maxPrice===null){
+    function getPrice($minPrice, $maxPrice = null)
+    {
+        if ($maxPrice === null) {
             $sql = "SELECT * FROM sanpham WHERE price >= ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$minPrice]);
-        }else {
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$minPrice]);
+        } else {
             $sql = "SELECT * FROM sanpham WHERE price >= ? AND price <= ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([$minPrice, $maxPrice]);
         }
         return $stmt->fetchAll();
     }
-    function getProductbyDanhmuc($categoryId, $minPrice, $maxPrice = null){
+    function getProductbyDanhmuc($categoryId, $minPrice, $maxPrice = null)
+    {
         if ($maxPrice === null) {
             $sql = "SELECT * FROM sanpham WHERE iddm = ? AND price >= ?";
             $stmt = $this->conn->prepare($sql);

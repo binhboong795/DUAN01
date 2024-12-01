@@ -78,7 +78,7 @@
                                     <!-- Tên sản phẩm -->
                                     <td><?= htmlspecialchars($item['name']) ?></td>
                                     <!-- Giá sản phẩm -->
-                                    <td><?= number_format($item['price'], 2) ?> $</td>
+                                    <td><?= number_format($item['price']) ?> đ</td>
                                     <!-- Số lượng và nút tăng/giảm -->
                                     <td>
                                         <div class="input-group quantity mt-4" style="width: 100px;">
@@ -102,7 +102,7 @@
                                         </div>
                                     </td>
                                     <!-- Tổng giá sản phẩm -->
-                                    <td><?= number_format($item['total_price'], 2) ?> $</td>
+                                    <td><?= number_format($item['total_price']) ?> đ</td>
                                     <!-- Nút xóa sản phẩm -->
                                     <td>
                                         <a href="index.php?act=removeFromCart&id=<?= $item['idpro'] ?>">Xóa</a>
@@ -136,7 +136,7 @@
                                 <?php if (!empty($cartItems)): ?>
                                     <!-- Hiển thị tổng giá trị nếu có sản phẩm trong giỏ hàng -->
                                     <div>
-                                        <span><?= number_format($totalPrice, 2) ?> $</span>
+                                        <span><?= number_format($totalPrice) ?> đ</span>
                                     </div>
                                 <?php else: ?>
                                     <!-- Nếu giỏ hàng trống -->
@@ -148,7 +148,7 @@
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0 me-4">Shipping</h5>
                                 <div class="">
-                                    <p class="mb-0">Flat rate: $3.00</p>
+                                    <p class="mb-0">Flat rate: 30,000 đ</p>
                                 </div>
                             </div>
                             <p class="mb-0 text-end">Ha noi</p>
@@ -156,7 +156,18 @@
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
                             <div style="margin-right: 27px;">
-                                <span><?= number_format($totalPriceAll, 2) ?> $</span>
+                                <?php if (!empty($cartItems)): ?>
+                                    <!-- Hiển thị tổng giá trị nếu có sản phẩm trong giỏ hàng -->
+                                    <div>
+                                        <span><?= number_format($totalPriceAll) ?> đ</span>
+                                    </div>
+                                <?php else: ?>
+                                    <!-- Nếu giỏ hàng trống -->
+                                    <div>
+                                        <span>...</span>
+                                    </div>
+                                <?php endif; ?>
+
                             </div>
                         </div>
 

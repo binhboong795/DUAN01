@@ -11,9 +11,9 @@
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
-    .text-right {
-        text-align: right;
-    }
+.text-right {
+    text-align: right;
+}
 </style>
 
 <body>
@@ -88,7 +88,7 @@
                             <input type="email" name="bill_email" class="form-control">
                         </div>
                         <?php if (!empty($error)) : ?>
-                            <p style="color: red;"><?= $error ?></p>
+                        <p style="color: red;"><?= $error ?></p>
                         <?php endif; ?>
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-5">
@@ -106,26 +106,26 @@
 
                                 <tbody>
                                     <?php if (!empty($cartItems)): ?>
-                                        <?php foreach ($cartItems as $item): ?>
-                                            <tr>
-                                                <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
-                                                        width="50"></td>
-                                                <td><?= $item['name'] ?></td>
-                                                <td><?= number_format($item['price'], 2) ?> $</td>
-                                                <td><?= $item['soluong'] ?></td>
-                                                <td><?= number_format($item['total_price'], 2) ?> $</td>
-                                            </tr>
+                                    <?php foreach ($cartItems as $item): ?>
+                                    <tr>
+                                        <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
+                                                width="50"></td>
+                                        <td><?= $item['name'] ?></td>
+                                        <td><?= number_format($item['price']) ?> đ</td>
+                                        <td><?= $item['soluong'] ?></td>
+                                        <td><?= number_format($item['total_price']) ?> đ</td>
+                                    </tr>
 
-                                        <?php endforeach; ?>
-                                        <thead>
-                                            <th>Total</th>
-                                            <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> $</td>
-                                        </thead>
+                                    <?php endforeach; ?>
+                                    <thead>
+                                        <th>Total</th>
+                                        <td colspan="5" class="text-right"><?= ($totalPriceAll) ?> đ</td>
+                                    </thead>
 
                                     <?php else: ?>
-                                        <tr>
-                                            <td colspan="6" class="text-center">Giỏ hàng trống</td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Giỏ hàng trống</td>
+                                    </tr>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
@@ -167,11 +167,11 @@
                                 type="submit" name="order">Place Order</button>
                         </div>
 
-                        
+
                     </div>
                 </div>
             </form>
-            
+
         </div>
     </div>
     <!-- Checkout Page End -->

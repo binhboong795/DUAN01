@@ -19,17 +19,17 @@ if (isset($_SESSION['user'])) {
                 <?php
                 if (isset($_SESSION['user'])) {
                 ?>
-                <!-- Hiển thị khi đã đăng nhập -->
-                <a class="text-white mx-2">
-                    Xin chào, <?php echo $_SESSION['user']['username'] ?>
-                </a>
-                <a class="text-white mx-2">|</a>
-                <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
+                    <!-- Hiển thị khi đã đăng nhập -->
+                    <a class="text-white mx-2">
+                        Xin chào, <?php echo $_SESSION['user']['username'] ?>
+                    </a>
+                    <a class="text-white mx-2">|</a>
+                    <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
                 <?php
                 } else {
                 ?>
-                <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
-                <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
+                    <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
+                    <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                 <?php } ?>
             </div>
         </div>
@@ -45,11 +45,11 @@ if (isset($_SESSION['user'])) {
             </button>
             <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="?act=/" class="nav-item nav-link">Home</a>
-                    <a href="?act=shop" class="nav-item nav-link active">Shop</a>
-                    <a href="?act=chitietdonhang" class="nav-item nav-link">Order Detail</a>
-                    <!-- <a href="?act=order" class="nav-item nav-link">Order</a> -->
-                    <a href="?act=contact" class="nav-item nav-link">Contact</a>
+                    <a href="?act=/" class="nav-item nav-link ">TRANG CHỦ</a>
+                    <a href="?act=shop" class="nav-item nav-link active">CỬA HÀNG</a>
+                    <a href="?act=chitietdonhang" class="nav-item nav-link">CHI TIẾT ĐƠN HÀNG</a>
+                    <a href="?act=order" class="nav-item nav-link ">ĐẶT HÀNG</a>
+                    <a href="?act=contact" class="nav-item nav-link">LIÊN HỆ</a>
                 </div>
                 <div class="d-flex m-3 me-0">
                     <a href="?act=cart" class="position-relative me-4 my-auto">
@@ -57,17 +57,17 @@ if (isset($_SESSION['user'])) {
 
 
                         <?php if (isset($totalQuantity)): ?>
-                        <span
-                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                            <? echo $totalQuantity; ?>
-                        </span>
+                            <span
+                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                                <? echo $totalQuantity; ?>
+                            </span>
 
                         <? else: ?> <span
-                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                            0
-                        </span>
+                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                                0
+                            </span>
                         <?php endif; ?>
 
                     </a>
