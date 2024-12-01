@@ -25,7 +25,7 @@
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="name"
                                 placeholder="Tên danh mục">
                            
-                            <!-- <p style="color: red;"><?=$error?></p> -->
+                            <p style="color: red;"><?=$error?></p>
                             <button class="btn form-control btn-primary text-light "
                                 type="submit" name="themmoi">Thêm mới</button>
 
