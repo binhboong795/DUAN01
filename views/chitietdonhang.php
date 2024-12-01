@@ -24,31 +24,31 @@ foreach ($getOrder as $item) {
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
-.text-right {
-    text-align: right;
-}
+    .text-right {
+        text-align: right;
+    }
 
-table {
-    width: 100%;
-    table-layout: fixed;
-    /* Makes columns have equal width */
-    border-collapse: collapse;
-}
+    table {
+        width: 100%;
+        table-layout: fixed;
+        /* Makes columns have equal width */
+        border-collapse: collapse;
+    }
 
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 14%;
-    /* Set an approximate equal width for all columns */
-    text-align: center;
-}
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 14%;
+        /* Set an approximate equal width for all columns */
+        text-align: center;
+    }
 
-/* Specific styling for the total row */
-.total-row th,
-.total-row td {
-    font-weight: bold;
-}
+    /* Specific styling for the total row */
+    .total-row th,
+    .total-row td {
+        font-weight: bold;
+    }
 </style>
 
 
@@ -94,43 +94,61 @@ td {
     <!-- Checkout Page Start -->
 
     <?php if (isset($_SESSION['user'])) { ?>
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="testimonial-header text-center">
-                <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="testimonial-header text-center">
+                    <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
+                </div>
+
+
+                <!-- zxcnmzxn -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Thông tin sản phẩm</th>
+
+                            <th>Tổng tiền</th>
+                            <th>Thông tin chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $groupedOrders = [];
+
+                        // Nhóm các sản phẩm theo idbill
+                        foreach ($getOrder as $item) {
+                            $groupedOrders[$item['idbill']][] = $item;
+                        }
+
+                        // Hiển thị dữ liệu theo nhóm idbill
+                        $stt = 1;
+                        foreach ($groupedOrders as $idbill => $orders):
+                            $totalAmount = array_sum(array_column($orders, 'thanhtien')); // Tổng tiền của idbill
+                        ?>
+                            <tr>
+                                <td><?= $stt++ ?></td>
+                                <td>
+                                    <?php foreach ($orders as $item): ?>
+                                        <div>
+                                            x <?= htmlspecialchars($item['soluong']) ?>
+                                            <img src="assets/img/<?= htmlspecialchars($item['img']) ?>" alt="" width="50">
+                                            <strong><?= htmlspecialchars($item['name']) ?></strong> :
+
+                                            <br>Giá: <?= number_format($item['thanhtien']) ?> đ
+                                        </div>
+                                    <?php endforeach; ?>
+                                </td>
+
+                                <td><?= htmlspecialchars($totalAmount) ?> đ</td>
+                                <td> <a href="index.php?act=chitietorder&idbill=<?= $item['idbill'] ?>">Xem chi tiết</a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
             </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Ảnh sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Thông tin</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($getOrder as $index => $item): ?>
-                    <tr>
-                        <td><?= $index + 1 ?></td>
-                        <td><img src="assets/img/<?= htmlspecialchars($item['img']) ?>" alt="" width="50"></td>
-                        <td><?= htmlspecialchars($item['name']) ?></td>
-                        <td><?= htmlspecialchars($item['price']) ?> đ</td>
-                        <td><?= htmlspecialchars($item['soluong']) ?></td>
-                        <td><?= htmlspecialchars($item['thanhtien']) ?> đ</td>
-                        <td>
-                            <a href="index.php?act=chitietorder&idbill=<?= $item['idbill'] ?>">Xem chi tiết</a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-
         </div>
-    </div>
     <?php  } else {
     ?>
     <?php } ?>

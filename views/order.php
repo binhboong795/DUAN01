@@ -135,8 +135,8 @@ if (isset($_SESSION['bill_name'])) {
                                 </thead>
 
                                 <tbody>
-                                    <?php if (!empty($getOrder)): ?>
-                                        <?php foreach ($getOrder as $item): ?>
+                                    <?php if (!empty($cartItems)): ?>
+                                        <?php foreach ($cartItems as $item): ?>
                                             <tr>
                                                 <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
                                                         width="50"></td>
@@ -148,7 +148,7 @@ if (isset($_SESSION['bill_name'])) {
 
                                         <?php endforeach; ?>
                                         <tr>
-                                            <td colspan="5" class="text-right"><?= number_format($totalPrice) ?> đ</td>
+                                            <td colspan="5" class="text-right"><?= number_format($totalPriceAll) ?> đ</td>
                                         </tr>
 
                                     <?php else: ?>

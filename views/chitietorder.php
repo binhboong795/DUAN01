@@ -34,31 +34,31 @@ foreach ($getOrder as $value) {
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
-.text-right {
-    text-align: right;
-}
+    .text-right {
+        text-align: right;
+    }
 
-table {
-    width: 100%;
-    table-layout: fixed;
-    /* Makes columns have equal width */
-    border-collapse: collapse;
-}
+    table {
+        width: 100%;
+        table-layout: fixed;
+        /* Makes columns have equal width */
+        border-collapse: collapse;
+    }
 
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 14%;
-    /* Set an approximate equal width for all columns */
-    text-align: center;
-}
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 14%;
+        /* Set an approximate equal width for all columns */
+        text-align: center;
+    }
 
-/* Specific styling for the total row */
-.total-row th,
-.total-row td {
-    font-weight: bold;
-}
+    /* Specific styling for the total row */
+    .total-row th,
+    .total-row td {
+        font-weight: bold;
+    }
 </style>
 
 
@@ -130,12 +130,14 @@ td {
                         <td><?= $infoStatus['ngaydathang'] ?></td>
 
                         <td>
-                            <?php foreach ($getOrder as $value) { ?>
-                            <p style="color: <?= $value['bill_status'] === 'Đã thanh toán' ? 'green' : 'red'; ?>;">
-                                <?= htmlspecialchars($value['bill_status']); ?>
+
+                            <p
+                                style="color: <?= $status['bill_status'] === 'Giao hàng thành công' ? 'green' : 'red'; ?>;">
+                                <?= htmlspecialchars($status['bill_status']); ?>
                             </p>
-                            <?php } ?>
+
                         </td>
+
                     </tr>
             </table>
             <table>
@@ -151,14 +153,14 @@ td {
                 </thead>
                 <tbody>
                     <?php foreach ($getOrder as $value) { ?>
-                    <tr>
-                        <td><?= $value['idbill'] ?></td>
-                        <td><img src="assets/img/<?= $value['img'] ?>" alt="" width="50"></td>
-                        <td><?= $value['name'] ?></td>
-                        <td><?= $value['price'] ?> đ</td>
-                        <td><?= $value['soluong'] ?></td>
-                        <td><?= $value['thanhtien'] ?> đ</td>
-                    </tr>
+                        <tr>
+                            <td><?= $value['idbill'] ?></td>
+                            <td><img src="assets/img/<?= $value['img'] ?>" alt="" width="50"></td>
+                            <td><?= $value['name'] ?></td>
+                            <td><?= $value['price'] ?> $</td>
+                            <td><?= $value['soluong'] ?></td>
+                            <td><?= $value['thanhtien'] ?> $</td>
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
@@ -168,15 +170,15 @@ td {
 
         <div class="text-center">
             <?php if ($value['bill_status'] === 'Chờ thanh toán') { ?>
-            <a href="index.php?act=huydonhang">
-                <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary" type="button"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    Hủy đơn hàng
-                </button>
-            </a>
+                <a href="index.php?act=huydonhang">
+                    <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary" type="button"
+                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                        Hủy đơn hàng
+                    </button>
+                </a>
             <?php } else { ?>
-            <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary text-secondary" type="button"
-                disabled>Hủy đơn hàng</button>
+                <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary text-secondary" type="button"
+                    disabled>Hủy đơn hàng</button>
             <?php } ?>
         </div>
     </div>

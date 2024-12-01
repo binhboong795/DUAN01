@@ -343,7 +343,7 @@ class homeModel
     }
     function updateBillStatus($id_bill, $status)
     {
-        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill";
+        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill    ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             'bill_status' => $status,
@@ -411,5 +411,16 @@ class homeModel
         $sql = "INSERT INTO lienhe VALUES (null, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
         return $stmt->execute([$name, $email, $content]);
+    }
+    function updateIdBillInTrangthai($id_bill)
+    {
+        $sql = "UPDATE trangthai 
+            SET id_bill = :id_bill 
+            ";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([
+
+            'id_bill' => $id_bill
+        ]);
     }
 }
