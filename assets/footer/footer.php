@@ -22,7 +22,8 @@
                     <div class="d-flex justify-content-end pt-3">
                         <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
                                 class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                        <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
+                            href="https://www.facebook.com/profile.php?id=61567342464675&is_tour_dismissed"><i
                                 class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
                                 class="fab fa-youtube"></i></a>

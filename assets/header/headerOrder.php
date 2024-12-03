@@ -36,7 +36,7 @@ if (isset($_SESSION['user'])) {
     </div>
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand">
+            <a href="?act=/" class="navbar-brand">
                 <h1 class="text-primary display-6">Trái cây</h1>
             </a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -48,7 +48,7 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=/" class="nav-item nav-link ">TRANG CHỦ</a>
                     <a href="?act=shop" class="nav-item nav-link ">CỬA HÀNG</a>
                     <a href="?act=chitietdonhang" class="nav-item nav-link active">CHI TIẾT ĐƠN HÀNG</a>
-                    <a href="?act=order" class="nav-item nav-link">ĐẶT HÀNG</a>
+                    <a href="?act=chackout" class="nav-item nav-link">ĐẶT HÀNG</a>
                     <a href="?act=contact" class="nav-item nav-link">LIÊN HỆ</a>
                 </div>
                 <div class="d-flex m-3 me-0">

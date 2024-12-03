@@ -36,11 +36,11 @@ match ($act) {
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
     // 'deletecart' => (new homeController())->deleteCart($iduser),
     'chuyenkhoan' => (new homeController())->chuyenkhoan(),
-    'chitietorder' => (new homeController())->chitietorder($id),
+    'chitietorder' => (new homeController())->chitietorder(),
 
     'thanhtoan_momo' => (new homeController())->thanhtoan_momo(),
     'thanhtoan_atm' => (new homeController())->thanhtoan_atm(),
-
+    'deletebill' => (new homeController())->deleteBill(),
     'chitietdonhang' => (new homeController())->chitietdonhang(),
     'huydonhang' => (new homeController())->huydonhang(),
     'addlienhe' => (new homeController())->addLienhe(),

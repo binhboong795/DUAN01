@@ -100,6 +100,15 @@ foreach ($getOrder as $item) {
                     <h1 class="display-5 mb-5 text-dark">Chi Tiết Đơn Hàng</h1>
                 </div>
 
+                <?php if (isset($_SESSION['message'])): ?>
+                    <div class="alert alert-success"><?= $_SESSION['message'];
+                                                        unset($_SESSION['message']); ?></div>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger"><?= $_SESSION['error'];
+                                                    unset($_SESSION['error']); ?></div>
+                <?php endif; ?>
 
                 <!-- zxcnmzxn -->
                 <table>
@@ -107,9 +116,10 @@ foreach ($getOrder as $item) {
                         <tr>
                             <th>STT</th>
                             <th>Thông tin sản phẩm</th>
-
                             <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
                             <th>Thông tin chi tiết</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,34 +127,56 @@ foreach ($getOrder as $item) {
                         $groupedOrders = [];
 
                         // Nhóm các sản phẩm theo idbill
-                        foreach ($getOrder as $item) {
+                        foreach ($getOrderAll as $item) {
                             $groupedOrders[$item['idbill']][] = $item;
                         }
 
                         // Hiển thị dữ liệu theo nhóm idbill
                         $stt = 1;
                         foreach ($groupedOrders as $idbill => $orders):
-                            $totalAmount = array_sum(array_column($orders, 'thanhtien')); // Tổng tiền của idbill
+                            $totalAmount = array_sum(array_column($orders, 'thanhtien')); // Tính tổng tiền của idbill
+
+                            // Lấy trạng thái hóa đơn (đã xử lý trước đó trong controller)
+                            $billStatus = $this->homeModel->getBillStatusById($idbill);
+                            $billStatusText = $billStatus['bill_status'] ?? 'Chờ xác nhận'; // Hiển thị trạng thái mặc định nếu không có
                         ?>
                             <tr>
                                 <td><?= $stt++ ?></td>
                                 <td>
                                     <?php foreach ($orders as $item): ?>
-                                        <div>
-                                            x <?= htmlspecialchars($item['soluong']) ?>
-                                            <img src="assets/img/<?= htmlspecialchars($item['img']) ?>" alt="" width="50">
-                                            <strong><?= htmlspecialchars($item['name']) ?></strong> :
-
-                                            <br>Giá: <?= number_format($item['thanhtien']) ?> đ
-                                        </div>
+                                        <strong><?= htmlspecialchars($item['name']) ?>,</strong>
                                     <?php endforeach; ?>
                                 </td>
-
                                 <td><?= htmlspecialchars($totalAmount) ?> đ</td>
-                                <td> <a href="index.php?act=chitietorder&idbill=<?= $item['idbill'] ?>">Xem chi tiết</a></td>
+                                <td>
+                                    <p style="color: <?= $billStatusText === 'Giao hàng thành công' ? 'green' : 'red'; ?>;">
+                                        <?= htmlspecialchars($billStatusText); ?>
+                                    </p>
+                                </td>
+                                <td><a href="index.php?act=chitietorder&idbill=<?= $idbill ?>">Xem chi tiết</a></td>
+                                <td>
+                                    <?php if ($billStatusText === 'Giao hàng thành công') { ?>
+                                        <a href="?act=deletebill&id_bill=<?= $idbill ?>"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?');">
+                                            <button class="btn btn-danger btn-sm">Xóa</button>
+                                        </a>
+                                    <?php } elseif ($billStatusText === 'Chờ xác nhận') { ?>
+                                        <a href="index.php?act=huydonhang">
+                                            <button class="btn btn-primary btn-sm">
+                                                Hủy
+                                            </button>
+                                        </a>
+
+                                    <?php } ?>
+
+
+                                </td>
+
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
+
                 </table>
 
             </div>

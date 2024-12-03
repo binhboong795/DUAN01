@@ -1,13 +1,13 @@
 <?php
 // session_start();
-if (isset($_SESSION['bill_name'])) {
-    $bill_name = $_SESSION['bill_name'];
-    $bill_address = $_SESSION['bill_address'];
-    $bill_tell = $_SESSION['bill_tell'];
-    $bill_email = $_SESSION['bill_email'];
-    $bill_pttt = $_SESSION['bill_pttt'];
-    $ngaydathang = $_SESSION['ngaydathang'];
-}
+// if (isset($_SESSION['bill_name'])) {
+//     $bill_name = $_SESSION['bill_name'];
+//     $bill_address = $_SESSION['bill_address'];
+//     $bill_tell = $_SESSION['bill_tell'];
+//     $bill_email = $_SESSION['bill_email'];
+//     $bill_pttt = $_SESSION['bill_pttt'];
+//     $ngaydathang = $_SESSION['ngaydathang'];
+// }
 
 // ngày giao hàng
 // $chuanbi = 1;
@@ -108,19 +108,22 @@ foreach ($getOrder as $value) {
                 <h1 class="display-5 mb-5 text-dark">Chi Tiết Order</h1>
             </div>
             <table class="table">
+                <?php var_dump($infoStatus) ?>
                 <thead>
                     <tr>
+                        <th>Mã Bill</th>
                         <th>Họ tên người nhận</th>
                         <th>Địa chỉ</th>
                         <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Phương thức thanh toán</th>
                         <th>Ngày đặt hàng</th>
-                        <th>Trạng thái</th>
+                        <!-- <th>Trạng thái</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td><?= $value['idbill'] ?></td>
                         <td><?= $infoStatus['bill_name'] ?></td>
                         <td style=" max-width: 200px; word-wrap: break-word;     white-space: normal;">
                             <?= $infoStatus['bill_address'] ?></td>
@@ -129,21 +132,22 @@ foreach ($getOrder as $value) {
                         <td><?= $infoStatus['bill_pttt'] ?></td>
                         <td><?= $infoStatus['ngaydathang'] ?></td>
 
-                        <td>
+                        <!-- <td>
 
                             <p
-                                style="color: <?= $status['bill_status'] === 'Giao hàng thành công' ? 'green' : 'red'; ?>;">
-                                <?= htmlspecialchars($status['bill_status']); ?>
+                                style="color: <?= isset($status['bill_status']) && $status['bill_status'] === 'Giao hàng thành công' ? 'green' : 'red'; ?>;">
+                                <?= isset($status['bill_status']) ? $status['bill_status'] : 'Chờ xác nhận'; ?>
                             </p>
 
-                        </td>
+
+                        </td> -->
 
                     </tr>
             </table>
             <table>
                 <thead>
                     <tr>
-                        <th>Mã Bill</th>
+
                         <th>Ảnh sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá</th>
@@ -154,7 +158,7 @@ foreach ($getOrder as $value) {
                 <tbody>
                     <?php foreach ($getOrder as $value) { ?>
                         <tr>
-                            <td><?= $value['idbill'] ?></td>
+
                             <td><img src="assets/img/<?= $value['img'] ?>" alt="" width="50"></td>
                             <td><?= $value['name'] ?></td>
                             <td><?= $value['price'] ?> $</td>
@@ -166,10 +170,10 @@ foreach ($getOrder as $value) {
             </table>
 
         </div>
-        <!-- Nút Hủy Đơn Hàng -->
+        <!-- Nút Hủy Đơn Hàng
 
         <div class="text-center">
-            <?php if ($value['bill_status'] === 'Chờ thanh toán') { ?>
+            <?php if ($value['bill_status'] === 'Chờ xác nhận') { ?>
                 <a href="index.php?act=huydonhang">
                     <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary" type="button"
                         data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
@@ -180,7 +184,7 @@ foreach ($getOrder as $value) {
                 <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary text-secondary" type="button"
                     disabled>Hủy đơn hàng</button>
             <?php } ?>
-        </div>
+        </div> -->
     </div>
     </div>
     </div>

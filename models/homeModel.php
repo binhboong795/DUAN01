@@ -341,18 +341,27 @@ class homeModel
         $stmt->execute(['iduser' => $iduser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    function updateBillStatus($id_bill, $status)
+    function updateBillStatus($idbill, $status)
     {
-        $sql = "UPDATE trangthai SET bill_status = :bill_status WHERE id_bill = :id_bill    ";
+        $sql = "UPDATE trangthai SET bill_status = :status WHERE id_bill = :idbill";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            'bill_status' => $status,
-            'id_bill' => $id_bill
-        ]);
+
+        if (!$stmt->execute([
+            'status' => $status,
+            'idbill' => $idbill
+        ])) {
+            // Nếu có lỗi, in ra thông tin
+            error_log("SQL Error: " . json_encode($stmt->errorInfo()));
+        } else {
+            error_log("Bill status updated for ID Bill: $idbill");
+        }
     }
+
+
+
     function getInfoStatus($idbill)
     {
-        $sql = "SELECT bill_name,bill_address,bill_tell,bill_email,bill_pttt,ngaydathang FROM trangthai WHERE id_bill = :idbill";
+        $sql = "SELECT bill_name,bill_address,bill_tell,bill_email,bill_pttt,ngaydathang,id_bill FROM trangthai WHERE id_bill = :idbill";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':idbill' => $idbill]);
         return $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng duy nhất
@@ -422,5 +431,27 @@ class homeModel
 
             'id_bill' => $id_bill
         ]);
+    }
+    function deleteBill($idbill)
+    {
+        try {
+            // Xóa dữ liệu trong bảng chi tiết đơn hàng trước
+            $sqlDetails = "DELETE FROM orders WHERE idbill = :idbill";
+            $stmtDetails = $this->conn->prepare($sqlDetails);
+            $stmtDetails->execute(['idbill' => $idbill]);
+
+            // Xóa dữ liệu trong bảng trạng thái (nếu có)
+            $sqlStatus = "DELETE FROM trangthai WHERE id_bill = :idbill";
+            $stmtStatus = $this->conn->prepare($sqlStatus);
+            $stmtStatus->execute(['idbill' => $idbill]);
+
+            // Xóa dữ liệu trong bảng đơn hàng
+            // $sqlBill = "DELETE FROM donhang WHERE idbill = :idbill";
+            // $stmtBill = $this->conn->prepare($sqlBill);
+            // $stmtBill->execute(['idbill' => $idbill]);
+        } catch (PDOException $e) {
+            error_log("Error deleting bill: " . $e->getMessage());
+            throw $e; // Ném lỗi để xử lý thêm nếu cần
+        }
     }
 }
