@@ -122,7 +122,7 @@
                             <h4>
                                 <?= $productOne['name'] ?></h4>
                             <p class="mb-3">Category: Vegetables</p>
-                            <h5 class="fw-bold mb-3">3,35 $</h5>
+                            <p class="fw-bold mb-3"><?= number_format($productOne['price']) ?> đ</p>
                             <div class="d-flex mb-3">
                                 <?php
                                 for ($i = 1; $i <= 5; $i++) {
@@ -288,11 +288,16 @@
                                             <div class="d-flex align-items-center">
                                                 <p class="mb-0 me-3">Please rate:</p>
                                                 <div class="stars">
-                                                    <input type="radio" id="star5" name="rating" value="5" checked><label for="star5">★</label>
-                                                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-                                                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-                                                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-                                                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                                                    <input type="radio" id="star5" name="rating" value="5" checked><label
+                                                        for="star5">★</label>
+                                                    <input type="radio" id="star4" name="rating" value="4"><label
+                                                        for="star4">★</label>
+                                                    <input type="radio" id="star3" name="rating" value="3"><label
+                                                        for="star3">★</label>
+                                                    <input type="radio" id="star2" name="rating" value="2"><label
+                                                        for="star2">★</label>
+                                                    <input type="radio" id="star1" name="rating" value="1"><label
+                                                        for="star1">★</label>
                                                 </div><br>
                                             </div>
                                             <button type="submit"

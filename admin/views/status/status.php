@@ -103,13 +103,13 @@ table tbody tr td:hover {
                             <form method="POST" action="index.php?act=updatestatus&id=<?= $value['id']; ?>">
                                 <select class="form-select form-select-sm" name="bill_status"
                                     onchange="this.form.submit()">
-                                    <option value="Chờ thanh toán"
-                                        <?= $value['bill_status'] == 'Chờ thanh toán' ? 'selected' : ''; ?>>
-                                        Chờ thanh toán
+                                    <option value="Chờ xác nhận"
+                                        <?= $value['bill_status'] == 'Chờ xác nhận' ? 'selected' : ''; ?>>
+                                        Chờ xác nhận
                                     </option>
-                                    <option value="Đã thanh toán"
-                                        <?= $value['bill_status'] == 'Đã thanh toán' ? 'selected' : ''; ?>>
-                                        Đã thanh toán
+                                    <option value="Đã xác nhận"
+                                        <?= $value['bill_status'] == 'Đã xác nhận' ? 'selected' : ''; ?>>
+                                        Đã xác nhận
                                     </option>
                                     <option value="Đang giao hàng"
                                         <?= $value['bill_status'] == 'Đang giao hàng' ? 'selected' : ''; ?>>

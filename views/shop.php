@@ -176,14 +176,14 @@
                                                     <option value="">All</option>
                                                     <option value="<3"
                                                         <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '<3') ? 'selected' : '' ?>>
-                                                        < 3$</option>
+                                                        < 3đ</option>
                                                     <option value="3-6"
                                                         <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '3-6') ? 'selected' : '' ?>>
-                                                        3$ - 6$</option>
+                                                        3đ - 6đ</option>
                                                     <option value=">6"
                                                         <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '>6') ? 'selected' : '' ?>>
                                                         >
-                                                        6$</option>
+                                                        6đ</option>
                                                 </select>
 
                                             </div>
@@ -207,7 +207,7 @@
                                     ?>
                                     <?php
                                     // Số sản phẩm mỗi trang
-                                    $itemsPerPage = 3;
+                                    $itemsPerPage = 6;
 
                                     // Xác định trang hiện tại
                                     $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -258,7 +258,8 @@
                                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                                 <p class="text-dark fs-5 fw-bold mb-0">
                                                                     <!-- Giá -->
-                                                                    <?= $list_products['price'] ?><span> $/ kg</span>
+                                                                    <?= number_format($list_products['price']) ?><span> đ /
+                                                                        kg</span>
                                                                 </p>
                                                                 <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
                                                                     class="btn border border-secondary rounded-pill px-3 text-primary">

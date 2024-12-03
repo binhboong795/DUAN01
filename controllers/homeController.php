@@ -19,46 +19,89 @@ class homeController
         $infoStatus = $this->homeModel->getInfoStatus($idbill);
         $getOrder = $this->homeModel->getOrderByBill($idbill);
 
+        require_once 'views/chitietorder.php';
+    }
+
+    // function chitietdonhang()
+    // {
+    //     $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
+    //     $getOrder = $this->homeModel->getOrderByBill($idbill);
+
+    //     foreach ($getOrder as &$order) {
+    //         $status = $this->homeModel->getBillStatusById($order['idbill']);
+    //         // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
+    //         if (empty($status['bill_status'])) {
+    //             $order['bill_status'] = 'Chờ xác nhận';
+    //             $this->homeModel->updateBillStatus($order['idbill'], 'Chờ xác nhận');
+    //         } else {
+    //             $order['bill_status'] = $status['bill_status'];
+    //         }
+    //     }
+    //     $getStatus = $this->homeModel->getBillStatusById($idbill);
+    //     $iduser = $_SESSION['user']['id'];
+
+    //     $getOrderAll = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
+
+    //     // Thêm trạng thái vào từng đơn hàng
+
+
+
+    //     // Gắn trạng thái tương ứng vào từng đơn hàng
+    //     // foreach ($getOrder as &$order) {
+    //     //     foreach ($orderStatuses as $status) {
+    //     //         if ($order['idbill'] == $status['id_bill']) {
+    //     //             $order['bill_status'] = $status['bill_status'];
+    //     //             break;
+    //     //         }
+    //     //     }
+    //     // }
+    //     $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
+    //     // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
+    //     // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
+    //     require_once 'views/chitietdonhang.php';
+
+    //     require_once 'assets/header/headerDetail.php';
+    // }
+    function chitietdonhang()
+    {
+        $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
+
+        // Lấy danh sách đơn hàng theo idbill
+        $getOrder = $this->homeModel->getOrderByBill($idbill);
+
+        // Duyệt qua từng đơn hàng để kiểm tra và cập nhật trạng thái
         foreach ($getOrder as &$order) {
             $status = $this->homeModel->getBillStatusById($order['idbill']);
-            // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
+
+            // Debug giá trị $order['idbill'] và $status
+            error_log("ID Bill: " . $order['idbill']);
+            error_log("Current Status: " . json_encode($status));
+
             if (empty($status['bill_status'])) {
-                $order['bill_status'] = 'chờ thanh toán';
-                $this->homeModel->updateBillStatus($order['idbill'], 'Đã thanh toán');
+                $order['bill_status'] = 'Chờ xác nhận';
+
+                // Debug trước khi cập nhật
+                error_log("Updating ID Bill: " . $order['idbill'] . " with status: Chờ xác nhận");
+                $this->homeModel->updateBillStatus($order['idbill'], 'Chờ xác nhận');
             } else {
                 $order['bill_status'] = $status['bill_status'];
             }
         }
+
+
+        // Lấy trạng thái của hóa đơn theo idbill
         $getStatus = $this->homeModel->getBillStatusById($idbill);
-        require_once 'views/chitietorder.php';
-    }
 
-    function chitietdonhang()
-    {
+        // Lấy thông tin người dùng
         $iduser = $_SESSION['user']['id'];
+        $getOrderAll = $this->homeModel->getOrder($iduser); // Lấy danh sách tất cả đơn hàng của user
+        $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Lấy tổng số lượng
 
-        $getOrder = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
-
-        // Thêm trạng thái vào từng đơn hàng
-
-
-
-        // Gắn trạng thái tương ứng vào từng đơn hàng
-        // foreach ($getOrder as &$order) {
-        //     foreach ($orderStatuses as $status) {
-        //         if ($order['idbill'] == $status['id_bill']) {
-        //             $order['bill_status'] = $status['bill_status'];
-        //             break;
-        //         }
-        //     }
-        // }
-        $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-        // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
-        // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
+        // Import giao diện
         require_once 'views/chitietdonhang.php';
-
         require_once 'assets/header/headerDetail.php';
     }
+
     function thanhtoan_momo()
     {
         require_once 'views/thanhtoan_momo.php';
@@ -699,5 +742,38 @@ class homeController
             </script>";
         }
         require_once 'views/huydonhang.php';
+    }
+    function deletebill()
+    {
+        $idbill = isset($_GET['id_bill']) ? $_GET['id_bill'] : null;
+
+        if ($idbill) {
+            try {
+                // Gọi model để xóa đơn hàng
+                $this->homeModel->deleteBill($idbill);
+
+                // Thông báo thành công
+                $_SESSION['message'] = "Đơn hàng đã được xóa thành công!";
+            } catch (Exception $e) {
+                // Thông báo lỗi
+                $_SESSION['error'] = "Xóa đơn hàng thất bại: " . $e->getMessage();
+            }
+
+            // Chuyển hướng về trang danh sách đơn hàng
+            header("Location: index.php?act=chitietdonhang");
+            exit();
+        } else {
+            echo "ID Bill không hợp lệ!";
+        }
+    }
+    function addLienhe()
+    {
+        if (isset($_POST['addlienhe'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $content = $_POST['content'];
+            $this->homeModel->insertLienhe($name, $email, $content);
+        }
+        require_once 'views/contact.php';
     }
 }

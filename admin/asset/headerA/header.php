@@ -98,25 +98,36 @@
                         <a href="index.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=sanpham"><i class="fa-brands fa-product-hunt" style="margin-right: 42px;"></i>Sản phẩm </a>
+                        <a href="index.php?act=sanpham"><i class="fa-brands fa-product-hunt"
+                                style="margin-right: 42px;"></i>Sản phẩm </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=danhmuc"><i class="fa-solid fa-list" style="margin-right: 42px;"></i>Danh mục </a>
+                        <a href="index.php?act=danhmuc"><i class="fa-solid fa-list" style="margin-right: 42px;"></i>Danh
+                            mục </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=taikhoan"><i class="fa-solid fa-user" style="margin-right: 42px;"></i>Tài khoản </a>
+                        <a href="index.php?act=taikhoan"><i class="fa-solid fa-user" style="margin-right: 42px;"></i>Tài
+                            khoản </a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=binhluan"><i class="fa-solid fa-comments" style="margin-right: 38px;"></i>Bình luận</a>
+                        <a href="index.php?act=binhluan"><i class="fa-solid fa-comments"
+                                style="margin-right: 38px;"></i>Bình luận</a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=banner"><i class="fa-solid fa-gift" style="margin-right: 42px;"></i>Banner</a>
+                        <a href="index.php?act=banner"><i class="fa-solid fa-gift"
+                                style="margin-right: 42px;"></i>Banner</a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=status"><i class="fa-solid fa-box" style="margin-right: 42px;"></i>Trạng thái đơn</a>
+                        <a href="index.php?act=status"><i class="fa-solid fa-box" style="margin-right: 42px;"></i>Trạng
+                            thái đơn</a>
                     </li>
                     <li class="">
-                        <a href="index.php?act=huydon"> <i class="fas fa-trash-alt" style="margin-right: 42px;"></i>Danh sách hủy đơn</a>
+                        <a href="index.php?act=huydon"> <i class="fas fa-trash-alt" style="margin-right: 42px;"></i>Danh
+                            sách hủy đơn</a>
+                    </li>
+                    <li class="">
+                        <a href="index.php?act=lienhe"> <i class="fas fa-envelope" style="margin-right: 42px;"></i>Danh
+                            sách liên hệ</a>
                     </li>
 
     </aside>
