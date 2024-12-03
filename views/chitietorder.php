@@ -108,7 +108,7 @@ foreach ($getOrder as $value) {
                 <h1 class="display-5 mb-5 text-dark">Chi Tiết Order</h1>
             </div>
             <table class="table">
-                <?php var_dump($infoStatus) ?>
+
                 <thead>
                     <tr>
                         <th>Mã Bill</th>
