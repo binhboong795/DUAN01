@@ -128,7 +128,7 @@
             <div class="tab-class text-center">
                 <div class="row g-4">
                     <div class="col-lg-6 text-start">
-                        <h1>NHỮNG SẢN PHẨM TƯƠI SẠCH</h1>
+                        <h1>SẢN PHẨM TƯƠI SẠCH</h1>
                     </div>
                     <div class="col-lg-6 text-end">
                         <ul class="nav nav-pills d-inline-flex text-center mb-5">

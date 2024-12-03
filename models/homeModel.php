@@ -268,7 +268,7 @@ class homeModel
 
     function getOrder($iduser)
     {
-        $sql = "SELECT * FROM `orders` where iduser = ?";
+        $sql = "SELECT * FROM `orders` where iduser = ? ORDER BY id DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$iduser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

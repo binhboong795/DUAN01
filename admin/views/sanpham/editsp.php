@@ -75,7 +75,7 @@
             <!-- Nút submit -->
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-primary" name="btn_update">Cập nhật</button>
-                <a href="?act=list" class="btn btn-secondary">Hủy</a>
+                <a href="?act=sanpham" class="btn btn-secondary">Hủy</a>
             </div>
         </form>
     </div>

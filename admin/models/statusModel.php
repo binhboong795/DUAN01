@@ -43,4 +43,33 @@ class statusModel
     //     $stmt = $this->conn->prepare($sql);
     //     return $stmt->execute();
     // }
+    function getCurrentStatusById($id)
+    {
+        $sql = "SELECT bill_status FROM trangthai WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchColumn(); // Lấy giá trị của `bill_status`
+    }
+    function deleteBill($idbill)
+    {
+        try {
+            // Xóa dữ liệu trong bảng chi tiết đơn hàng trước
+            $sqlDetails = "DELETE FROM orders WHERE idbill = :idbill";
+            $stmtDetails = $this->conn->prepare($sqlDetails);
+            $stmtDetails->execute(['idbill' => $idbill]);
+
+            // Xóa dữ liệu trong bảng trạng thái (nếu có)
+            $sqlStatus = "DELETE FROM trangthai WHERE id_bill = :idbill";
+            $stmtStatus = $this->conn->prepare($sqlStatus);
+            $stmtStatus->execute(['idbill' => $idbill]);
+
+            // Xóa dữ liệu trong bảng đơn hàng
+            // $sqlBill = "DELETE FROM donhang WHERE idbill = :idbill";
+            // $stmtBill = $this->conn->prepare($sqlBill);
+            // $stmtBill->execute(['idbill' => $idbill]);
+        } catch (PDOException $e) {
+            error_log("Error deleting bill: " . $e->getMessage());
+            throw $e; // Ném lỗi để xử lý thêm nếu cần
+        }
+    }
 }

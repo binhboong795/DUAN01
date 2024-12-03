@@ -40,7 +40,7 @@ match ($act) {
     'status' => (new statusController())->status(),
     // 'addstatus'=> (new statusController())->addStatus(),
     'updatestatus' => (new statusController())->updateStatus($_GET['id']),
-    'deletestatus' => (new statusController())->deleteStatus($_GET['id']),
+    'deletestatus' => (new statusController())->deletebill(),
     'add' => (new sanphamController())->add(),
     'editsp' => (new sanphamController())->editsp(),
     'deleteproduct' => (new sanphamController())->deleteProduct($_GET['id']),
