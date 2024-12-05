@@ -174,16 +174,16 @@
                                                 <select name="priceRange" class="form-select"
                                                     onchange="this.form.submit()">
                                                     <option value="">All</option>
-                                                    <option value="<3"
-                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '<3') ? 'selected' : '' ?>>
-                                                        < 3đ</option>
-                                                    <option value="3-6"
-                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '3-6') ? 'selected' : '' ?>>
-                                                        3đ - 6đ</option>
-                                                    <option value=">6"
-                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '>6') ? 'selected' : '' ?>>
+                                                    <option value="<100000"
+                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '<100000') ? 'selected' : '' ?>>
+                                                        < 100.000đ</option>
+                                                    <option value="100000-300000"
+                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '100000-300000') ? 'selected' : '' ?>>
+                                                        100.000đ-300.000đ</option>
+                                                    <option value=">300000"
+                                                        <?= (isset($_GET['priceRange']) && $_GET['priceRange'] == '>300000') ? 'selected' : '' ?>>
                                                         >
-                                                        6đ</option>
+                                                        300.000đ</option>
                                                 </select>
 
                                             </div>

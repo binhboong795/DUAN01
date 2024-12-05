@@ -23,14 +23,14 @@ class shopController
         // Xử lý lọc sản phẩm
         if ($categoryId && $priceRange) {
             switch ($priceRange) {
-                case '<3':
-                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 0, 3);
+                case '<100000':
+                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 0, 100000);
                     break;
-                case '3-6':
-                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 3, 6);
+                case '100000-300000':
+                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 100000, 300000);
                     break;
-                case '>6':
-                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 6);
+                case '>300000':
+                    $products = $this->shopModel->getProductbyDanhmuc($categoryId, 300000);
                     break;
                 default:
                     $products = $this->shopModel->allProductShop();
@@ -40,14 +40,14 @@ class shopController
             $products = $this->shopModel->getProductbyDanhmuc($categoryId, 0); // Lấy tất cả sản phẩm theo danh mục
         } elseif ($priceRange) {
             switch ($priceRange) {
-                case '<3':
-                    $products = $this->shopModel->getPrice(0, 3);
+                case '<100000':
+                    $products = $this->shopModel->getPrice(0, 100000);
                     break;
-                case '3-6':
-                    $products = $this->shopModel->getPrice(3, 6);
+                case '100000-300000':
+                    $products = $this->shopModel->getPrice(100000, 300000);
                     break;
-                case '>6':
-                    $products = $this->shopModel->getPrice(6);
+                case '>300000':
+                    $products = $this->shopModel->getPrice(300000);
                     break;
                 default:
                     $products = $this->shopModel->allProductShop();
