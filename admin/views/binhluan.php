@@ -3,83 +3,77 @@
 <!-- /#header -->
 
 <!-- Content -->
-<!-- Breadcrumbs-->
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Bình Luận</h1>
-                    </div>
-                </div>
+<!-- Breadcrumbs -->
+<div class="breadcrumbs bg-light py-3 mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-primary">Quản lý Bình Luận</h1>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Main Content -->
 <div class="breadcrumbs mb-5">
-    <?php if (!empty($commentsByProduct)) { ?>
-        <?php foreach ($commentsByProduct as $idpro => $product) { ?>
-            <h4>Bình luận của sản phẩm <?php echo $product['tensp'] ?></h4>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Nội Dung</th>
-                        <th>Ten Người Bình Luận</th>
-                        <th>Ngay Bình Luận</th>
-                        <th>Rating</th>
-                        <th>Thao Tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
 
-                    $stt = 1;
-                    foreach ($product['binh_luan'] as $comment) { ?>
-                        <tr>
-                            <td><?php echo $stt++; ?></td>
-                            <td><?php echo $comment['noidung']; ?></td>
-                            <td><?php echo $comment['user']; ?></td>
-                            <td><?php echo $comment['ngaybinhluan']  ?></td>
-                            <td><?php echo $comment['rating']; ?></td>
-                            <td> <button class="btn btn-warning"
-                                    onclick="deleteBl('index.php?act=deleteBl&id=<?php echo $comment['idbl']; ?>')">Xóa</button>
-                            </td>
-
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        <?php } ?>
-    <?php } else { ?>
-        <p>Khong co binh luan nao</p>
-    <?php } ?>
+    <?php if (!empty($commentsByProduct)): ?>
+        <?php foreach ($commentsByProduct as $idpro => $product): ?>
+            <h4 class="mb-4">Bình luận của sản phẩm: <?= $product['tensp']; ?></h4>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover text-center align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Nội Dung</th>
+                                    <th>Tên Người Bình Luận</th>
+                                    <th>Ngày Bình Luận</th>
+                                    <th>Rating</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $stt = 1;
+                                foreach ($product['binh_luan'] as $comment): ?>
+                                    <tr>
+                                        <td><?= $stt++; ?></td>
+                                        <td><?= $comment['noidung']; ?></td>
+                                        <td><?= $comment['user']; ?></td>
+                                        <td><?= $comment['ngaybinhluan']; ?></td>
+                                        <td><?= $comment['rating']; ?></td>
+                                        <td>
+                                            <button class="btn btn-warning btn-sm text-white"
+                                                onclick="deleteBl('index.php?act=deleteBl&id=<?= $comment['idbl']; ?>')">
+                                                <i class="fa fa-trash"></i> Xóa
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p class="text-center">Không có bình luận nào.</p>
+    <?php endif; ?>
 </div>
-<!-- content -->
 
-<!-- content -->
-
-
-<!-- .animated -->
-
-<!-- /.content -->
-<div class="clearfix"></div>
 <!-- Footer -->
 <?php require_once 'asset/footerA/footer.php'; ?>
-<!-- /.site-footer -->
-</div>
-<!-- /#right-panel -->
-
-
-</body>
-
-</html>
+<!-- /#footer -->
 
 <script>
     function deleteBl(Url) {
-        if (confirm("Bạn có muốn xóa không")) {
+        if (confirm("Bạn có muốn xóa không?")) {
             document.location = Url;
         }
     }
 </script>
+</body>
+
+</html>

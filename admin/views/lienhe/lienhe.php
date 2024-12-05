@@ -3,79 +3,73 @@
 <!-- /#header -->
 
 <!-- Content -->
-<!-- Breadcrumbs-->
-<div class="breadcrumbs mb-5">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Tài Khoản</h1>
-                    </div>
-                </div>
+<!-- Breadcrumbs -->
+<div class="breadcrumbs bg-light py-3 mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-primary">Danh Sách Liên Hệ</h1>
             </div>
         </div>
     </div>
 </div>
 
-<!-- content -->
+<!-- Main Content -->
 <div class="breadcrumbs mb-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên & ID KH</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th>Nội Dung</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($contact as $index => $value): ?>
+                            <tr>
+                                <td><?= $index + 1 ?></td>
+                                <td><?= $value['name']; ?> (<?= $value['iduser']; ?>)</td>
+                                <td><?= $value['sdt']; ?></td>
+                                <td><?= $value['mail']; ?></td>
+                                <td><?= $value['noidung']; ?></td>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Tên & ID KH </th>
-                <th>SĐT</th>
-                <th>Email</th>
-                <th>Nội dung</th>
-                <th>Địa Chỉ</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($contact as $index => $value) { ?>
-                <tr>
-                    <td><?php echo $index + 1 ?></td>
-                    <td><?= $value['name']; ?>
-                        (<?= $value['iduser']; ?>)</td>
-                    <td><?php echo $value['sdt']; ?></td>
-                    <td><?php echo $value['mail']; ?></td>
-                    <td><?php echo $value['noidung']; ?></td>
-                    <td>
-                        <a href="index.php?act=editcontact&id=<?php echo $value['id']; ?>"><button
-                                class="btn btn-info text-white">Sửa</button></a>
-                        <button class="btn btn-danger text-white"
-                            onclick="deleteContact('index.php?act=deletecontact&id=<?= $value['id']; ?>')">Xóa</button>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-
+                                <td>
+                                    <a href="index.php?act=editcontact&id=<?= $value['id']; ?>"
+                                        class="btn btn-info btn-sm text-white">
+                                        <i class="fa fa-edit"></i> Sửa
+                                    </a>
+                                    <button class="btn btn-danger btn-sm text-white"
+                                        onclick="deleteContact('index.php?act=deletecontact&id=<?= $value['id']; ?>')">
+                                        <i class="fa fa-trash"></i> Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<!-- content -->
 
-
-<!-- .animated -->
-
-<!-- /.content -->
-<div class="clearfix"></div>
 <!-- Footer -->
 <?php require_once 'asset/footerA/footer.php'; ?>
-<!-- /.site-footer -->
-</div>
-<!-- /#right-panel -->
-
-
-</body>
-
-</html>
+<!-- /#footer -->
 
 <script>
     function deleteContact(Url) {
-        if (confirm("Bạn có muốn xóa không")) {
+        if (confirm("Bạn có muốn xóa không?")) {
             document.location = Url;
         }
     }
 </script>
+
+</body>
+
+</html>

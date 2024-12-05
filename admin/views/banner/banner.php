@@ -3,70 +3,74 @@
 <!-- /#header -->
 
 <!-- Content -->
-<!-- Breadcrumbs-->
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Banner</h1>
-                    </div>
-                </div>
+<!-- Breadcrumbs -->
+<div class="breadcrumbs bg-light py-3 mb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="text-primary">Quản lý Banner</h1>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="breadcrumbs mb-5">
+    <div class="card shadow">
+        <div class="col-md-6 text-md-end">
+            <a href="?act=insertbanner" class="btn btn-success">Thêm Banner Mới</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Mã Banner</th>
+                            <th>Tên Ảnh</th>
+                            <th>Ảnh</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($listBanner as $value): ?>
+                            <tr>
+                                <td><?= $value['id']; ?></td>
+                                <td><?= $value['name']; ?></td>
+                                <td>
+                                    <img src="../assets/img/<?= $value['img']; ?>" style="width: 150px; height: auto;">
+                                </td>
+                                <td>
+                                    <a href="index.php?act=editBanner&id=<?= $value['id']; ?>"
+                                        class="btn btn-info btn-sm text-white">
+                                        <i class="fa fa-edit"></i> Sửa
+                                    </a>
+                                    <button class="btn btn-danger btn-sm text-white"
+                                        onclick="deleteBanner('index.php?act=deletebanner&id=<?= $value['id']; ?>')">
+                                        <i class="fa fa-trash"></i> Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-<!-- content -->
-<div class="breadcrumbs mb-5">
-    <a href="?act=insertbanner">Thêm banner mới</a>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Mã Banner</th>
-                <th>Tên Ảnh</th>
-                <th>Ảnh</th>
-                <th>Hành Động</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($listBanner as $value) { ?>
-                <tr>
-                    <td><?= $value['id']; ?></td>
-                    <td><?= $value['name']; ?></td>
-                    <td> <img src="../assets/img/<?= $value['img'] ?>" style="width: 150px;"></td>
-                    <td>
-                        <a href="index.php?act=editBanner&id=<?= $value['id']; ?>"><button>Sửa</button></a>
-                        <button onclick="deleteBanner('index.php?act=deletebanner&id=<?= $value['id']; ?>')">Xóa</button>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-
-</div>
-<!-- content -->
-
-
-<!-- .animated -->
-
-<!-- /.content -->
-<div class="clearfix"></div>
 <!-- Footer -->
 <?php require_once 'asset/footerA/footer.php'; ?>
-<!-- /.site-footer -->
-</div>
-<!-- /#right-panel -->
+<!-- /#footer -->
 
-
-</body>
-
-</html>
 <script>
     function deleteBanner(Url) {
-        if (confirm("Bạn có muốn xóa không")) {
+        if (confirm("Bạn có muốn xóa không?")) {
             document.location = Url;
         }
     }
 </script>
+
+</body>
+
+</html>
