@@ -197,6 +197,29 @@ class homeModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
     }
+    function updateProductQuantity($idpro, $quantity)
+    {
+        // echo "<pre>";
+        // print_r($idpro);
+        // echo "</pre>";
+        // exit;
+
+
+        // Giảm số lượng sản phẩm trong bảng sanpham
+        $sql = "UPDATE sanpham SET soluong = soluong - :quantity WHERE id = :idpro";
+        $stmt = $this->conn->prepare($sql);
+
+        // Gắn giá trị vào câu lệnh
+        $stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->bindValue(':idpro', $idpro, PDO::PARAM_INT);
+
+        // Thực thi câu lệnh
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die("Lỗi thực thi câu lệnh: " . implode(", ", $stmt->errorInfo()));
+        }
+    }
 
     function getPrice($minPrice, $maxPrice = null)
     {
@@ -373,6 +396,28 @@ class homeModel
         $sql = "INSERT INTO huydonhang (id, name, id_user, idbill, ngayhuy, lido, other_lido) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$id, $name, $id_user, $idbill, $ngayhuy, $lido, $other_lido]);
+    }
+    // Lấy thông tin các sản phẩm trong đơn hàng
+    function getOrderItemsByIdBill($idbill)
+    {
+        $sql = "SELECT id_pro, soluong FROM orders WHERE idbill = :idbill";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['idbill' => $idbill]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Cập nhật lại số lượng sản phẩm trong bảng sanpham khi hủy đơn hàng
+    function restoreProductQuantity($id_pro, $quantity)
+    {
+        $sql = "UPDATE sanpham SET soluong = soluong + :quantity WHERE id = :id_pro";
+        $stmt = $this->conn->prepare($sql);
+
+        // Gắn giá trị vào câu lệnh
+        $stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->bindValue(':id_pro', $id_pro, PDO::PARAM_INT);
+
+        // Thực thi câu lệnh
+        return $stmt->execute();
     }
 
     public function checkIdBillExists($idbill)

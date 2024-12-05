@@ -31,14 +31,13 @@ class accController
 
             if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
-            }elseif(strlen($pass) < 8) {
+            } elseif (strlen($pass) < 8) {
                 $error = "Mật khẩu phải có ít nhất 8 kí tự!";
-            }elseif(strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
+            } elseif (strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
                 $error = "Email quá ngắn và ký tự và phải đúng định dạng!";
-            }elseif(!preg_match('/^[0-9]{10}$/', $tell)) {
+            } elseif (!preg_match('/^[0-9]{10}$/', $tell)) {
                 $error = "Số điện thoại không hợp lệ!";
-            }
-            else {
+            } else {
                 $mUser = new accModel();
                 $addUser = $mUser->insertUser(null, $user, $pass, $email, $address, $tell, $role);
                 echo "<script>
@@ -68,14 +67,13 @@ class accController
 
             if ($user == "" || $pass == "" || $email == "" || $address == "" || $tell == "") {
                 $error = "Vui lòng nhập đầy đủ thông tin đăng ký!";
-            }elseif(strlen($pass) < 8) {
+            } elseif (strlen($pass) < 8) {
                 $error = "Mật khẩu phải có ít nhất 8 kí tự!";
-            }elseif(strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
+            } elseif (strlen($email) < 14 || strpos($email, '@gmail.com') === false) {
                 $error = "Email quá ngắn và ký tự và phải đúng định dạng!";
-            }elseif(!preg_match('/^[0-9]{10}$/', $tell)) {
+            } elseif (!preg_match('/^[0-9]{10}$/', $tell)) {
                 $error = "Số điện thoại không hợp lệ!";
-            }
-            else {
+            } else {
                 $mUser = new accModel();
                 $registerUser = $mUser->editUser($id, $user, $pass, $email, $address, $tell, $role);
                 echo "<script>
@@ -94,5 +92,12 @@ class accController
             $idUser = $this->accModel->deleteUser($id);
         }
         header('location:index.php?act=taikhoan');
+    }
+
+
+    function logout()
+    {
+        unset($_SESSION['user']);
+        header('Location:http://localhost/Duan1/index.php?act=dangnhap');
     }
 }

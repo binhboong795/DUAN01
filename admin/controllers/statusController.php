@@ -107,17 +107,49 @@ class statusController
     //     }
     //     header("location:?act=status");
     // }
+    // function deletebill()
+    // {
+    //     $idbill = isset($_GET['id_bill']) ? $_GET['id_bill'] : null;
+
+    //     if ($idbill) {
+    //         try {
+    //             // Gọi model để xóa đơn hàng
+    //             $this->statusModel->deleteBill($idbill);
+
+    //             // Thông báo thành công
+    //             $_SESSION['message'] = "Đơn hàng đã được xóa thành công!";
+    //         } catch (Exception $e) {
+    //             // Thông báo lỗi
+    //             $_SESSION['error'] = "Xóa đơn hàng thất bại: " . $e->getMessage();
+    //         }
+
+    //         // Chuyển hướng về trang danh sách đơn hàng
+    //         header("Location: index.php?act=status");
+    //         exit();
+    //     } else {
+    //         echo "ID Bill không hợp lệ!";
+    //     }
+    // }
     function deletebill()
     {
         $idbill = isset($_GET['id_bill']) ? $_GET['id_bill'] : null;
 
         if ($idbill) {
             try {
+                // Lấy danh sách sản phẩm trong đơn hàng
+                $orderItems = $this->statusModel->getOrderItemsByIdBill($idbill);
+
+                // Phục hồi số lượng sản phẩm trong kho
+                foreach ($orderItems as $item) {
+                    // Gọi hàm restoreProductQuantity để phục hồi số lượng sản phẩm
+                    $this->statusModel->restoreProductQuantity($item['id_pro'], $item['soluong']);
+                }
+
                 // Gọi model để xóa đơn hàng
                 $this->statusModel->deleteBill($idbill);
 
                 // Thông báo thành công
-                $_SESSION['message'] = "Đơn hàng đã được xóa thành công!";
+                $_SESSION['message'] = "Đơn hàng đã được xóa và số lượng sản phẩm đã được phục hồi!";
             } catch (Exception $e) {
                 // Thông báo lỗi
                 $_SESSION['error'] = "Xóa đơn hàng thất bại: " . $e->getMessage();

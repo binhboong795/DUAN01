@@ -23,9 +23,9 @@ if (isset($_SESSION['bill_name'])) {
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
-    .text-right {
-        text-align: right;
-    }
+.text-right {
+    text-align: right;
+}
 </style>
 
 <body>
@@ -118,7 +118,7 @@ if (isset($_SESSION['bill_name'])) {
                                                                                                 } ?>">
                         </div>
                         <?php if (!empty($error)) : ?>
-                            <p style="color: red;"><?= $error ?></p>
+                        <p style="color: red;"><?= $error ?></p>
                         <?php endif; ?>
                     </div>
                     <div class="col-md-12 col-lg-6 col-xl-5">
@@ -136,25 +136,25 @@ if (isset($_SESSION['bill_name'])) {
 
                                 <tbody>
                                     <?php if (!empty($cartItems)): ?>
-                                        <?php foreach ($cartItems as $item): ?>
-                                            <tr>
-                                                <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
-                                                        width="50"></td>
-                                                <td><?= $item['name'] ?></td>
-                                                <td><?= number_format($item['price']) ?> đ</td>
-                                                <td><?= $item['soluong'] ?></td>
-                                                <td><?= number_format($item['total_price']) ?> đ</td>
-                                            </tr>
+                                    <?php foreach ($cartItems as $item): ?>
+                                    <tr>
+                                        <td><img src="assets/img/<?= $item['img'] ?>" alt="<?= $item['name'] ?>"
+                                                width="50"></td>
+                                        <td><?= $item['name'] ?></td>
+                                        <td><?= number_format($item['price']) ?> đ</td>
+                                        <td><?= $item['soluong'] ?></td>
+                                        <td><?= number_format($item['total_price']) ?> đ</td>
+                                    </tr>
 
-                                        <?php endforeach; ?>
-                                        <tr>
-                                            <td colspan="5" class="text-right"><?= number_format($totalPriceAll) ?> đ</td>
-                                        </tr>
+                                    <?php endforeach; ?>
+                                    <tr>
+                                        <td colspan="5" class="text-right"><?= number_format($totalPriceAll) ?> đ</td>
+                                    </tr>
 
                                     <?php else: ?>
-                                        <tr>
-                                            <td colspan="6" class="text-center">Giỏ hàng trống</td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Giỏ hàng trống</td>
+                                    </tr>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
@@ -174,12 +174,12 @@ if (isset($_SESSION['bill_name'])) {
                     </div>
 
                     <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-
+                        <?php if (!empty($cartItems)): ?>
                         <form action="" method="post">
                             <button class="btn border-secondary py-3 px-4 text-uppercase w-25 text-primary ms-auto"
                                 type="submit" name="dathang">Order</button>
                         </form>
-
+                        <?php endif; ?>
                     </div>
                 </div>
         </div>

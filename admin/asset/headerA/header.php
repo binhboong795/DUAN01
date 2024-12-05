@@ -241,7 +241,7 @@
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="?act=logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
