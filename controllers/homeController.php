@@ -231,7 +231,7 @@ class homeController
         }
 
 
-
+        $this->homeModel->updateProductQuantity($item['idpro'], $item['soluong']);
         // Lấy tổng số lượng và giá trị giỏ hàng
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
         $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng

@@ -197,6 +197,23 @@ class homeModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_quantity'] ?? 0; // Trả về 0 nếu không có sản phẩm trong giỏ
     }
+    function updateProductQuantity($idpro, $quantity)
+    {
+        // Giảm số lượng sản phẩm trong bảng sanpham
+        $sql = "UPDATE sanpham SET soluong = soluong - :quantity WHERE id = :idpro";
+        $stmt = $this->conn->prepare($sql);
+
+        // Gắn giá trị vào câu lệnh
+        $stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->bindValue(':idpro', $idpro, PDO::PARAM_INT);
+
+        // Thực thi câu lệnh
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            die("Lỗi thực thi câu lệnh: " . implode(", ", $stmt->errorInfo()));
+        }
+    }
 
     function getPrice($minPrice, $maxPrice = null)
     {

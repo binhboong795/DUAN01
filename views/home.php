@@ -200,8 +200,8 @@
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <!-- Giá sản phẩm -->
                                                             <p class="text-dark fs-5 fw-bold mb-0">
-                                                                <?= number_format($list_products['price']) ?>
-                                                                <span class="text-muted">$/kg</span>
+                                                                <?= number_format($list_products['price']) ?>đ /kg
+
                                                             </p>
 
                                                             <!-- Nút thêm vào giỏ hàng -->
@@ -247,7 +247,7 @@
                                                         <?= mb_strimwidth($product['mota'], 0, 100, "..."); ?></p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">
-                                                            $<?= $product['price'] ?> / kg</p>
+                                                            <?= $product['price'] ?>đ / kg</p>
                                                         <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
@@ -284,7 +284,7 @@
                                                         <?= mb_strimwidth($product['mota'], 0, 100, "..."); ?></p>
                                                     <div class="d-flex justify-content-between flex-lg-wrap">
                                                         <p class="text-dark fs-5 fw-bold mb-0">
-                                                            $<?= $product['price'] ?> / kg</p>
+                                                            <?= $product['price'] ?>đ / kg</p>
                                                         <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                                             class="btn border border-secondary rounded-pill px-3 text-primary"><i
                                                                 class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
@@ -570,7 +570,12 @@
                                             <i class="fas fa-star text-primary"></i>
                                             <i class="fas fa-star"></i>
                                         </div>
-                                        <h4 class="mb-3"><?= number_format($product['price'], 2) ?> $/kg</h4>
+
+                                        <p class="text-dark fs-5 fw-bold mb-0">
+                                            <?= number_format($product['price']) ?>đ /kg
+
+                                        </p>
+
                                         <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
                                             class="btn border border-secondary rounded-pill px-3 text-primary">
                                             <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
