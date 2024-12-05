@@ -18,6 +18,8 @@ require_once 'controllers/huydonController.php';
 require_once 'models/huydonModel.php';
 require_once 'controllers/contactController.php';
 require_once 'models/contactModel.php';
+require_once 'controllers/thongkeController.php';
+require_once 'models/thongkeModel.php';
 
 
 
@@ -41,7 +43,7 @@ match ($act) {
     'insertbanner' => (new bannerController())->addBanner(),
     'status' => (new statusController())->status(),
     // 'addstatus'=> (new statusController())->addStatus(),
-    'updatestatus' => (new statusController())->updateStatus($_GET['id']),
+    'updatestatus' => (new statusController())->updateStatus($_GET['id_bill']),
     'deletestatus' => (new statusController())->deletebill(),
     'add' => (new sanphamController())->add(),
     'editsp' => (new sanphamController())->editsp(),
@@ -52,4 +54,6 @@ match ($act) {
     'lienhe' => (new contactController())->lienhe(),
     'deletecontact' => (new contactController())->deleteContact(),
     'editcontact' => (new contactController())->editContact($_GET['id']),
+    'thongke' => (new thongkeController())->thongke(),
+    'deletethongke' => (new thongkeController())->deletebill(),
 };

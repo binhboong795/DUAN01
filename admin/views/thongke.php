@@ -10,7 +10,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Quản Lý Tài Khoản</h1>
+                        <h1>Trang thống kế </h1>
                     </div>
                 </div>
             </div>
@@ -75,6 +75,11 @@ table tbody tr td:hover {
     <div class="card shadow">
 
         <div class="card-body">
+            <!-- <?php echo "<pre>";
+                    print_r($thongke);
+                    echo "</pre>";
+
+                    ?> -->
             <table class="table table-bordered  text-center align-middle">
                 <thead class="table-dark">
                     <tr>
@@ -82,66 +87,45 @@ table tbody tr td:hover {
                         <th>Mã Bill</th>
                         <th>Tên & ID KH</th>
                         <th>Địa Chỉ</th>
-                        <th>Số Điện Thoại</th>
-                        <th>Email</th>
-                        <th>Phương thức thanh toán</th>
+                        <th>Tổng tiền</th>
                         <th>Trạng thái</th>
-                        <th>Ngày đặt hàng</th>
+
+                        <!-- <th>Phương thức thanh toán</th> -->
+                        <!-- <th>Ngày đặt hàng</th> -->
                         <th>Hành Động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($status as $key => $value) { ?>
+                    <?php foreach ($thongke as $key => $value) { ?>
                     <tr>
                         <td><?= $key + 1 ?></td>
-                        <td><?= $value['id_bill']; ?></td>
-                        <td><?= $value['bill_name']; ?>
-                            (<?= $value['id_user']; ?>)</td>
-                        <td style="max-width: 200px;"><?= $value['bill_address']; ?></td>
-                        <td><?= $value['bill_tell']; ?></td>
-                        <td><?= $value['bill_email']; ?></td>
-                        <td><?= $value['bill_pttt']; ?></td>
-                        <td>
-                            <form method="POST" action="index.php?act=updatestatus&id_bill=<?= $value['id_bill']; ?>">
-                                <select class="form-select form-select-sm" name="bill_status"
-                                    onchange="this.form.submit()"
-                                    <?= $value['bill_status'] == 'Giao hàng thành công' ? 'disabled' : ''; ?>>
-                                    <option value="Chờ xác nhận"
-                                        <?= $value['bill_status'] == 'Chờ xác nhận' ? 'selected' : ''; ?>
-                                        <?= in_array($value['bill_status'], ['Đã xác nhận', 'Đang giao hàng', 'Giao hàng thành công']) ? 'disabled' : ''; ?>>
-                                        Chờ xác nhận
-                                    </option>
-                                    <option value="Đã xác nhận"
-                                        <?= $value['bill_status'] == 'Đã xác nhận' ? 'selected' : ''; ?>
-                                        <?= in_array($value['bill_status'], ['Đang giao hàng', 'Giao hàng thành công']) ? 'disabled' : ''; ?>>
-                                        Đã xác nhận
-                                    </option>
-                                    <option value="Đang giao hàng"
-                                        <?= $value['bill_status'] == 'Đang giao hàng' ? 'selected' : ''; ?>
-                                        <?= $value['bill_status'] == 'Giao hàng thành công' ? 'disabled' : ''; ?>>
-                                        Đang giao hàng
-                                    </option>
-                                    <option value="Giao hàng thành công"
-                                        <?= $value['bill_status'] == 'Giao hàng thành công' ? 'selected' : ''; ?>>
-                                        Giao hàng thành công
-                                    </option>
-                                </select>
-                            </form>
+                        <td><?= $value['tk_idbill']; ?></td>
+                        <td><?= $value['tk_nameuser']; ?>
+                            (<?= $value['tk_iduser']; ?>)</td>
+
+                        <td><?= $value['tk_namepro']; ?></td>
+                        <td><?= number_format($value['tk_thanhtien']) ?></td>
+                        <td><?= $value['tk_status']; ?></td>
 
 
 
-                        </td>
-
-                        <td><?= $value['ngaydathang']; ?></td>
 
                         <td>
-                            <?php if (is_null($value['bill_status']) || $value['bill_status'] == 'Đã xác nhận'): ?>
-                            <button class="btn btn-danger btn-sm"
-                                onclick="deleteUser('index.php?act=deletestatus&id_bill=<?= $value['id_bill']; ?>')">
-                                <i class="fa fa-trash"></i> Hủy
+                            <!-- Checkbox ẩn, chỉ dùng để thay đổi trạng thái -->
+                            <input type="checkbox" id="delete-toggle-<?= $value['tk_idbill']; ?>"
+                                class="delete-toggle" />
+                            <label for="delete-toggle-<?= $value['tk_idbill']; ?>"
+                                class="fa-regular fa-circle-xmark delete-label"></label>
+
+                            <!-- Nút xóa sẽ chỉ hiển thị khi checkbox được check -->
+                            <button class="btn btn-danger btn-sm delete-btn"
+                                onclick="deletebill('index.php?act=deletethongke&tk_idbill=<?= $value['tk_idbill']; ?>')">
+                                Xóa
                             </button>
-                            <?php endif; ?>
                         </td>
+
+
+
                         <!-- <td>
                             <a href="index.php?act=updatestatus&id=<?= $value['id']; ?>"
                                 class="btn btn-primary btn-sm me-2">
@@ -159,7 +143,33 @@ table tbody tr td:hover {
         </div>
     </div>
 </div>
+<style>
+.delete-toggle {
+    display: none;
+    /* Ẩn checkbox */
+}
 
+.delete-btn {
+    display: none;
+    /* Ẩn nút xóa mặc định */
+}
+
+.delete-label {
+    cursor: pointer;
+    /* Thêm con trỏ khi di chuột vào */
+}
+
+/* Khi checkbox được check, hiển thị nút xóa và ẩn label */
+.delete-toggle:checked+.delete-label {
+    display: none;
+    /* Ẩn label khi checkbox được check */
+}
+
+.delete-toggle:checked+.delete-label+.delete-btn {
+    display: inline-block;
+    /* Hiển thị nút xóa */
+}
+</style>
 
 
 <!-- /.content -->
@@ -176,7 +186,7 @@ table tbody tr td:hover {
 </html>
 
 <script>
-function deleteUser(Url) {
+function deletebill(Url) {
     if (confirm("Bạn có muốn xóa không?")) {
         document.location = Url;
     }
