@@ -145,8 +145,6 @@ class homeController
         }
 
         require_once 'views/contact.php';
-
-        require_once 'assets/header/headerContract.php'; // Truyền vào headerContract
     }
 
     function order()
@@ -768,11 +766,20 @@ class homeController
     }
     function addLienhe()
     {
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?act=dangnhap");
+            exit;
+        }
+        $iduser = $_SESSION['user']['id'];
+
+
+
         if (isset($_POST['addlienhe'])) {
             $name = $_POST['name'];
+            $sdt = $_POST['sdt'];
             $email = $_POST['email'];
             $content = $_POST['content'];
-            $this->homeModel->insertLienhe($name, $email, $content);
+            $this->homeModel->insertLienhe($iduser, $name, $sdt, $email, $content);
         }
         require_once 'views/contact.php';
     }

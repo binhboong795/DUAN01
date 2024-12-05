@@ -68,7 +68,7 @@
                         <form action="" method="GET" class="">
                             <input name="name"
                                 class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
-                                placeholder="Search">
+                                placeholder="Tìm kiếm...">
                             <button type="submit"
                                 class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
                                 style="top: 0; right: 25%;">Tìm kiếm

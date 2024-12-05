@@ -16,6 +16,8 @@ require_once 'controllers/statusController.php';
 require_once 'models/statusModel.php';
 require_once 'controllers/huydonController.php';
 require_once 'models/huydonModel.php';
+require_once 'controllers/contactController.php';
+require_once 'models/contactModel.php';
 
 
 
@@ -47,4 +49,7 @@ match ($act) {
     // 'listsp' => (new sanphamController())->sanpham(), // Thêm case 'danhsach'
     'huydon' => (new huydonController())->huydon(),
     'deletehuy' => (new huydonController())->deletehuy(),
+    'lienhe' => (new contactController())->lienhe(),
+    'deletecontact' => (new contactController())->deleteContact(),
+    'editcontact' => (new contactController())->editContact($_GET['id']),
 };

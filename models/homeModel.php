@@ -415,11 +415,11 @@ class homeModel
     //     $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
     //     return $stmt->execute([$name, $email, $content]);
     // }
-    function insertLienhe($name, $email, $content)
+    function insertLienhe($iduser, $name, $sdt, $email, $content)
     {
-        $sql = "INSERT INTO lienhe VALUES (null, ?, ?, ?)";
+        $sql = "INSERT INTO lienhe VALUES (null, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$name, $email, $content]);
+        return $stmt->execute([$iduser, $name, $sdt, $email, $content]);
     }
     function updateIdBillInTrangthai($id_bill)
     {
