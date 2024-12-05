@@ -721,25 +721,38 @@ class homeController
     function huydonhang()
     {
         if (isset($_POST['huydonhang'])) {
-            $lido = $_POST['lido'];
-            $other_lido = $_POST['other_lido'];
-            $ngayhuy = date('Y-m-d H:i:s');
-            $iduser = $_SESSION['user']['id'];
+            $lido = $_POST['lido']; // Lý do hủy đơn hàng
+            $other_lido = $_POST['other_lido']; // Lý do hủy nếu khác
+            $ngayhuy = date('Y-m-d H:i:s'); // Ngày giờ hủy đơn
+            $iduser = $_SESSION['user']['id']; // ID người dùng hiện tại
 
-            $iduser = $_SESSION['user']['id'];
+            // Lấy idbill của người dùng
             $idbill = $this->homeModel->getIdBillByUser($iduser);
+            // Lấy tên người đặt từ bảng trangthai
             $bill_name = $this->homeModel->getIdNameStatus($iduser);
 
+            // Thêm thông tin hủy đơn vào bảng huydon
             $huydon = $this->homeModel->insertHuydon(null, $bill_name, $iduser, $idbill, $ngayhuy, $lido, $other_lido);
 
+            // Lấy thông tin sản phẩm trong đơn hàng
+            $orderItems = $this->homeModel->getOrderItemsByIdBill($idbill);
+
+            // Cập nhật lại số lượng sản phẩm trong kho (trả lại số lượng sản phẩm đã bán)
+            foreach ($orderItems as $item) {
+                $this->homeModel->restoreProductQuantity($item['id_pro'], $item['soluong']);
+            }
+
+            // Xóa đơn hàng khỏi bảng orders
             $this->homeModel->deleteOrder($idbill);
+
+            // Xóa trạng thái trong bảng trangthai
             $this->homeModel->deleteStatus($idbill);
 
-            echo "<script>alert('Bạn đã hủy thành công!')
-                window.location.href='index.php?act=chitietdonhang'
-            </script>";
+            // Thông báo và chuyển hướng về trang chi tiết đơn hàng
+            echo "<script>alert('Bạn đã hủy thành công!'); window.location.href='index.php?act=chitietdonhang';</script>";
         }
-        require_once 'views/huydonhang.php';
+
+        require_once 'views/huydonhang.php'; // Hiển thị lại trang hủy đơn hàng
     }
     function deletebill()
     {
