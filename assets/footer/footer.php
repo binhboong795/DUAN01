@@ -10,13 +10,13 @@
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <div class="position-relative mx-auto">
+                    <!-- <div class="position-relative mx-auto">
                         <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number"
                             placeholder="Your Email">
                         <button type="submit"
                             class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
                             style="top: 0; right: 0;">Subscribe Now</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-3">
                     <div class="d-flex justify-content-end pt-3">
@@ -39,7 +39,7 @@
                     <h4 class="text-light mb-3">Why People Like us!</h4>
                     <p class="mb-4">typesetting, remaining essentially unchanged. It was
                         popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
-                    <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+                    <!-- <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a> -->
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">

@@ -87,6 +87,8 @@
                         <form action="?act=addlienhe" method="post">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="name"
                                 placeholder="Tên">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="number" name="sdt"
+                                placeholder="Số điện thoại">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="email"
                                 placeholder="email">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="content"

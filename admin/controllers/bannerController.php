@@ -13,11 +13,10 @@ class bannerController
     }
     function addBanner()
     {
-        require_once 'views/banner/insertBanner.php';
+
 
         if (isset($_POST['btn_add'])) {
             $name = $_POST['name'];
-
             // Kiểm tra file tải lên
             if (isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK) {
                 $img = $_FILES['img']['name'];
@@ -30,10 +29,12 @@ class bannerController
 
             if ($this->bannerModel->insertBanner($name, $img)) {
                 header("Location:?act=banner");
+                exit;
             } else {
                 echo "Lỗi";
             }
         }
+        require_once 'views/banner/insertBanner.php';
     }
     function editBanner()
     {

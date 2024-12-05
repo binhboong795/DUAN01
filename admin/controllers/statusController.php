@@ -13,34 +13,89 @@ class statusController
 
         require_once 'views/status/status.php';
     }
+    // function updateStatus()
+    // {
+    //     if (isset($_GET['id']) && isset($_POST['bill_status'])) {
+    //         $id = (int)$_GET['id']; // Chuyển đổi thành số nguyên để đảm bảo an toàn
+    //         $newStatus = $_POST['bill_status']; // Lấy giá trị trạng thái mới từ form
+
+    //         // Lấy trạng thái hiện tại từ database
+    //         $currentStatus = $this->statusModel->getCurrentStatusById($id);
+
+    //         // Kiểm tra logic: Không cho phép hủy nếu trạng thái hiện tại không hợp lệ
+    //         if (in_array($currentStatus, ['Đang giao hàng', 'Giao hàng thành công']) && $newStatus == 'Hủy') {
+    //             $_SESSION['error'] = 'Không thể hủy đơn hàng khi đang giao hàng hoặc đã giao hàng thành công.';
+    //             header("Location: ?act=status");
+    //             exit;
+    //         }
+
+    //         // Cập nhật trạng thái nếu hợp lệ
+    //         $this->statusModel->updatePaymentMethod($id, $newStatus);
+
+    //         // Lưu thông báo thành công
+    //         $_SESSION['success'] = 'Cập nhật trạng thái thành công.';
+    //     } else {
+    //         $_SESSION['error'] = 'Dữ liệu không hợp lệ.';
+    //     }
+
+    //     header("Location: ?act=status");
+    //     exit;
+    // }
     function updateStatus()
     {
-        if (isset($_GET['id']) && isset($_POST['bill_status'])) {
-            $id = (int)$_GET['id']; // Chuyển đổi thành số nguyên để đảm bảo an toàn
-            $newStatus = $_POST['bill_status']; // Lấy giá trị trạng thái mới từ form
+        if (isset($_GET['id_bill']) && isset($_POST['bill_status'])) {
+            $idbill = (int)$_GET['id_bill']; // Lấy idbill từ GET
+            $bill_status = $_POST['bill_status']; // Lấy trạng thái từ POST
+            // echo "<pre>"; // Kiểm tra dữ liệu từ URL
+            // print_r($bill_status);   // Kiểm tra giá trị ID
+            // echo "</pre>";
+            // exit();
+            try {
+                // Cập nhật trạng thái hóa đơn trong bảng trangthai
+                $this->statusModel->updatePaymentMethod($idbill, $bill_status);
 
-            // Lấy trạng thái hiện tại từ database
-            $currentStatus = $this->statusModel->getCurrentStatusById($id);
+                // Nếu trạng thái là "Giao hàng thành công"
+                if ($bill_status == 'Giao hàng thành công') {
+                    // // Lấy idbill từ id
+                    // $idbill = $this->statusModel->getIdBillById($idbill); // Lấy idbill từ id
 
-            // Kiểm tra logic: Không cho phép hủy nếu trạng thái hiện tại không hợp lệ
-            if (in_array($currentStatus, ['Đang giao hàng', 'Giao hàng thành công']) && $newStatus == 'Hủy') {
-                $_SESSION['error'] = 'Không thể hủy đơn hàng khi đang giao hàng hoặc đã giao hàng thành công.';
-                header("Location: ?act=status");
-                exit;
+                    // Lấy dữ liệu từ orders và trangthai
+                    $data = $this->statusModel->getDataForThongKe($idbill);
+                    // echo "<pre>"; // Kiểm tra dữ liệu từ URL
+                    // print_r($data);   // Kiểm tra giá trị ID
+                    // echo "</pre>";
+                    // exit();
+                    // Chuyển dữ liệu sang bảng thongke
+                    if (!empty($data)) {
+                        $this->statusModel->moveToThongKe($data);
+
+                        // // (Tùy chọn) Xóa dữ liệu sau khi chuyển
+                        // $this->statusModel->deleteBillFromTrangThai($idbill);
+                        // $this->statusModel->deleteBillFromOrders($idbill);
+
+                        // Thông báo thành công
+                        echo "<script>
+                        alert('Bạn đã cập nhật thành công!');
+                      
+                    </script>";
+                    } else {
+                        $_SESSION['error'] = "Không có dữ liệu để chuyển!";
+                    }
+                } else {
+                    // Nếu trạng thái không phải "Giao hàng thành công"
+                    $_SESSION['message'] = "Cập nhật trạng thái thành công!";
+                }
+            } catch (Exception $e) {
+                // Thông báo lỗi
+                $_SESSION['error'] = "Cập nhật trạng thái thất bại: " . $e->getMessage();
             }
 
-            // Cập nhật trạng thái nếu hợp lệ
-            $this->statusModel->updatePaymentMethod($id, $newStatus);
-
-            // Lưu thông báo thành công
-            $_SESSION['success'] = 'Cập nhật trạng thái thành công.';
-        } else {
-            $_SESSION['error'] = 'Dữ liệu không hợp lệ.';
+            // Chuyển hướng về trang danh sách trạng thái
+            header("Location: index.php?act=status");
+            exit();
         }
-
-        header("Location: ?act=status");
-        exit;
     }
+
 
 
 
