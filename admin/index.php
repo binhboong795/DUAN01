@@ -26,9 +26,8 @@ require_once 'models/thongkeModel.php';
 $act = $_GET['act'] ?? '/';
 match ($act) {
     '/' => (new accController())->home(),
-    'dangky' => (new accController())->registerUser(), // Đăng ký
-    'dangnhap' => (new accController())->login(), // Đăng nhập
-    'dangxuat' => (new accController())->logout(), // Đăng xuất
+
+    'logout' => (new accController())->logout(), // Đăng xuất
     'sanpham' => (new sanphamController())->sanpham(),
     'taikhoan' => (new accController())->taikhoan(),
     'addUser' => (new accController())->addUser(),

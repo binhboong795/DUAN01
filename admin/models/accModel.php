@@ -39,13 +39,4 @@ class accModel
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$id]);
     }
-    function checkAcc($user, $pass)
-    {
-        $sql = "SELECT * FROM taikhoan WHERE user = :user AND pass = :pass";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':user', $user);
-        $stmt->bindParam(':pass', $pass);
-        $stmt->execute();
-        return $stmt->fetch();  // Trả về dữ liệu người dùng nếu có
-    }
 }
