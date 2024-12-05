@@ -14,7 +14,6 @@ $act = $_GET['act'] ?? '/';
 $id = $_GET['id'] ?? null;
 $action = $_GET['action'] ?? null; // Thêm action để xử lý tăng/giảm số lượng
 
-// Sử dụng match để xử lý các hành động
 match ($act) {
     '/' => (new homeController())->home(), // Trang chủ
     'shop' => (new shopController())->shop(), // Trang shop với ID danh mục
@@ -34,10 +33,8 @@ match ($act) {
     'removeFromCart' => (new homeController())->removeFromCart($id), // Xóa khỏi giỏ hàng
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
-    // 'deletecart' => (new homeController())->deleteCart($iduser),
     'chuyenkhoan' => (new homeController())->chuyenkhoan(),
     'chitietorder' => (new homeController())->chitietorder(),
-
     'thanhtoan_momo' => (new homeController())->thanhtoan_momo(),
     'thanhtoan_atm' => (new homeController())->thanhtoan_atm(),
     'deletebill' => (new homeController())->deleteBill(),
