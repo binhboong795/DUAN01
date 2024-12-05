@@ -199,6 +199,12 @@ class homeModel
     }
     function updateProductQuantity($idpro, $quantity)
     {
+        // echo "<pre>";
+        // print_r($idpro);
+        // echo "</pre>";
+        // exit;
+
+
         // Giảm số lượng sản phẩm trong bảng sanpham
         $sql = "UPDATE sanpham SET soluong = soluong - :quantity WHERE id = :idpro";
         $stmt = $this->conn->prepare($sql);

@@ -19,17 +19,17 @@ if (isset($_SESSION['user'])) {
                 <?php
                 if (isset($_SESSION['user'])) {
                 ?>
-                <!-- Hiển thị khi đã đăng nhập -->
-                <a class="text-white mx-2">
-                    Xin chào, <?php echo $_SESSION['user']['username'] ?>
-                </a>
-                <a class="text-white mx-2">|</a>
-                <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
+                    <!-- Hiển thị khi đã đăng nhập -->
+                    <a class="text-white mx-2">
+                        Xin chào, <?php echo $_SESSION['user']['username'] ?>
+                    </a>
+                    <a class="text-white mx-2">|</a>
+                    <a href="index.php?act=dangxuat" class="text-white"><small class="text-white mx-2">Đăng Xuất</small></a>
                 <?php
                 } else {
                 ?>
-                <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
-                <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
+                    <a href="index.php?act=dangky" class="text-white"><small class="text-white mx-2">Đăng Ký</small></a> /
+                    <a href="index.php?act=dangnhap" class="text-white"><small class="text-white mx-2">Đăng Nhập</small></a>
                 <?php } ?>
             </div>
         </div>
@@ -48,7 +48,7 @@ if (isset($_SESSION['user'])) {
                     <a href="?act=/" class="nav-item nav-link ">TRANG CHỦ</a>
                     <a href="?act=shop" class="nav-item nav-link active">CỬA HÀNG</a>
                     <a href="?act=chitietdonhang" class="nav-item nav-link">CHI TIẾT ĐƠN HÀNG</a>
-                    <a href="?act=chackout" class="nav-item nav-link ">ĐẶT HÀNG</a>
+                    <!-- <a href="?act=chackout" class="nav-item nav-link ">ĐẶT HÀNG</a> -->
                     <a href="?act=contact" class="nav-item nav-link">LIÊN HỆ</a>
                 </div>
                 <div class="d-flex m-3 me-0">
@@ -57,17 +57,17 @@ if (isset($_SESSION['user'])) {
 
 
                         <?php if (isset($totalQuantity)): ?>
-                        <span
-                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                            <? echo $totalQuantity; ?>
-                        </span>
+                            <span
+                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                                <? echo $totalQuantity; ?>
+                            </span>
 
                         <? else: ?> <span
-                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
-                            0
-                        </span>
+                                class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                style="top: -5px; left: 15px; height: 20px; min-width: 20px;" name="cart-count">
+                                0
+                            </span>
                         <?php endif; ?>
 
                     </a>

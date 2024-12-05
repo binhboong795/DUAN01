@@ -230,7 +230,10 @@ class homeController
             );
         }
 
-
+        // echo "<pre>";
+        // print_r($item['soluong']);
+        // echo "</pre>";
+        // exit;
         $this->homeModel->updateProductQuantity($item['idpro'], $item['soluong']);
         // Lấy tổng số lượng và giá trị giỏ hàng
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm

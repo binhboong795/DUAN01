@@ -35,56 +35,56 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
     <style>
-        #weatherWidget .currentDesc {
-            color: #ffffff !important;
-        }
+    #weatherWidget .currentDesc {
+        color: #ffffff !important;
+    }
 
-        .traffic-chart {
-            min-height: 335px;
-        }
+    .traffic-chart {
+        min-height: 335px;
+    }
 
-        #flotPie1 {
-            height: 150px;
-        }
+    #flotPie1 {
+        height: 150px;
+    }
 
-        #flotPie1 td {
-            padding: 3px;
-        }
+    #flotPie1 td {
+        padding: 3px;
+    }
 
-        #flotPie1 table {
-            top: 20px !important;
-            right: -10px !important;
-        }
+    #flotPie1 table {
+        top: 20px !important;
+        right: -10px !important;
+    }
 
-        .chart-container {
-            display: table;
-            min-width: 270px;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
+    .chart-container {
+        display: table;
+        min-width: 270px;
+        text-align: left;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 
-        #flotLine5 {
-            height: 105px;
-        }
+    #flotLine5 {
+        height: 105px;
+    }
 
-        #flotBarChart {
-            height: 150px;
-        }
+    #flotBarChart {
+        height: 150px;
+    }
 
-        #cellPaiChart {
-            height: 160px;
-        }
+    #cellPaiChart {
+        height: 160px;
+    }
 
-        table {
-            width: 100%;
-            text-align: center;
-        }
+    table {
+        width: 100%;
+        text-align: center;
+    }
 
-        td,
-        th {
-            padding: 10px;
-        }
+    td,
+    th {
+        padding: 10px;
+    }
     </style>
 </head>
 
@@ -241,7 +241,7 @@
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="?act=dangnhap"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 

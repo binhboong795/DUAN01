@@ -9,17 +9,17 @@ class accModel
 
     function getAllUser()
     {
-        $sql = "SELECT * FROM taikhoan"; 
+        $sql = "SELECT * FROM taikhoan";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     function getIdUser($id)
     {
-        $sql = "SELECT * FROM taikhoan where id = ?"; 
+        $sql = "SELECT * FROM taikhoan where id = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id]);
-        return $stmt->fetch(); 
+        return $stmt->fetch();
     }
     function insertUser($id, $user, $pass, $email, $address, $tell, $role)
     {
@@ -31,12 +31,21 @@ class accModel
     {
         $sql = "UPDATE taikhoan SET user = ?, pass = ?, email = ?, address = ?, tell = ?, $role = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$user, $pass, $email, $address, $tell, $role, $id]);  
+        return $stmt->execute([$user, $pass, $email, $address, $tell, $role, $id]);
     }
     function deleteUser($id)
     {
         $sql = "DELETE FROM `taikhoan` where id = ?";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$id]);
+    }
+    function checkAcc($user, $pass)
+    {
+        $sql = "SELECT * FROM taikhoan WHERE user = :user AND pass = :pass";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':user', $user);
+        $stmt->bindParam(':pass', $pass);
+        $stmt->execute();
+        return $stmt->fetch();  // Trả về dữ liệu người dùng nếu có
     }
 }
