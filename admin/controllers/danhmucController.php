@@ -16,6 +16,13 @@ class danhmucController
     {
         if ($_GET['id']) {
             $id = $_GET['id'];
+            if ($this->danhmucModel->checkDanhmucHasProducts($id)) {
+                // Nếu có sản phẩm, hiển thị thông báo lỗi
+                $errorMessage = "Không thể xóa danh mục vì danh mục này đang chứa sản phẩm!";
+                $listDanhmuc = $this->danhmucModel->getAllDanhmuc();
+                require_once 'views/danhmuc/danhmuc.php';
+                return;
+            }
             $id = $this->danhmucModel->deleteDanhmuc($id);
         }
         header('location:index.php?act=danhmuc');
