@@ -19,7 +19,19 @@ class homeModel
         $sql = "select * from danhmuc order by id desc";
         return $this->conn->query($sql);
     }
-
+    function getProductbyDanhmuc($categoryId, $minPrice, $maxPrice = null)
+    {
+        if ($maxPrice === null) {
+            $sql = "SELECT * FROM sanpham WHERE iddm = ? AND price >= ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$categoryId, $minPrice]);
+        } else {
+            $sql = "SELECT * FROM sanpham WHERE iddm = ? AND price >= ? AND price <= ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$categoryId, $minPrice, $maxPrice]);
+        }
+        return $stmt->fetchAll();
+    }
     function findProductById($id)
     {
         $sql = "select * from sanpham where id=$id";

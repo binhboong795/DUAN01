@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/x-icon">
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
@@ -74,7 +72,8 @@
             <!-- Action Buttons -->
             <div class="d-flex justify-content-center mt-4">
                 <a href="index.php" class="btn btn-primary py-3 px-4 text-uppercase mx-3">Quay lại trang chủ</a>
-                <a href="index.php?act=chitietdonhang" class="btn btn-secondary py-3 px-4 text-uppercase mx-3">Xem chi tiết đơn hàng</a>
+                <a href="index.php?act=chitietdonhang" class="btn btn-secondary py-3 px-4 text-uppercase mx-3">Xem chi
+                    tiết đơn hàng</a>
             </div>
         </div>
     </div>
