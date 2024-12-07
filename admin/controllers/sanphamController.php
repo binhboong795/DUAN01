@@ -16,7 +16,7 @@ class sanphamController
 
     function add()
     {
-        require_once 'views/sanpham/addsp.php';
+        $danhmuc = $this->sanphamModel->getAllCategories();
         if (isset($_POST['btn_add'])) {
             $name = $_POST['name'];
             $price = $_POST['price'];
@@ -35,6 +35,7 @@ class sanphamController
                 echo "Lỗi khi thêm sản phẩm.";
             }
         }
+        require_once 'views/sanpham/addsp.php';
     }
     function editsp()
     {
@@ -48,7 +49,7 @@ class sanphamController
 
         // Lấy thông tin sản phẩm từ model
         $sanpham = $this->sanphamModel->getProductById($id);
-
+        $danhmuc = $this->sanphamModel->getAllCategories();
         if (!$sanpham) {
             echo "Không tìm thấy sản phẩm!";
             return;

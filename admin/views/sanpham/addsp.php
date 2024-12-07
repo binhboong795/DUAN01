@@ -38,10 +38,10 @@
 
             <div class="form-group">
                 <label for="iddm">Danh mục:</label>
-                <select name="category" id="category">
-                    <option value="">
-                        value
-                    </option>
+                <select name="iddm" id="iddm" class="form-control" required>
+                    <?php foreach ($danhmuc as $dm): ?>
+                        <option value="<?= $dm['id'] ?>"> <?= $dm['name'] ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
 

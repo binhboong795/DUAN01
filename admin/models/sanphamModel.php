@@ -42,7 +42,7 @@ class sanphamModel
 
         // Nếu iddm hợp lệ, thực hiện thêm dữ liệu vào bảng sanpham
         $sql = "INSERT INTO `sanpham` (name, price, img, mota, iddm, motachitiet, soluong) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$name, $price, $img, $mota,  $iddm, $motachitiet, $soluong]);
     }
@@ -76,5 +76,12 @@ class sanphamModel
         $sql = "DELETE FROM sanpham WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$id]);
+    }
+    public function getAllCategories()
+    {
+        $sql = "SELECT id, name FROM danhmuc"; // Lấy tất cả danh mục từ bảng 'danhmuc'
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }

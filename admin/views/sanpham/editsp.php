@@ -55,10 +55,14 @@
             <div class="form-group">
                 <label for="category_name">Danh mục:</label>
                 <select name="iddm" id="iddm" class="form-control" required>
-                    <option value="115" <?= ($sanpham['pr_dm'] == 115) ? 'selected' : '' ?>>115 - Nội địa</option>
-                    <option value="116" <?= ($sanpham['pr_dm'] == 116) ? 'selected' : '' ?>>116 - Nhập khẩu</option>
+                    <?php foreach ($danhmuc as $dm): ?>
+                    <option value="<?= $dm['id'] ?>" <?= ($sanpham['pr_dm'] == $dm['id']) ? 'selected' : '' ?>>
+                        <?= $dm['name'] ?>
+                    </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
+
 
             <!-- Mô tả chi tiết -->
             <div class="form-group">
