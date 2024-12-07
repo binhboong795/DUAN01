@@ -99,7 +99,7 @@ class homeController
 
         // Import giao diện
         require_once 'views/chitietdonhang.php';
-        require_once 'assets/header/headerDetail.php';
+        // require_once 'assets/header/headerDetail.php';
     }
 
     function thanhtoan_momo()
@@ -123,7 +123,7 @@ class homeController
 
         $nhapkhau = $this->homeModel->findProductByIddm('116');
         $noidia = $this->homeModel->findProductByIddm('115');
-        $product = $this->homeModel->allProduct();
+
 
         // Giả sử đây là trang bạn muốn hiển thị tổng số lượng sản phẩm trong giỏ hàng
         if (isset($_SESSION['user'])) {
@@ -132,10 +132,20 @@ class homeController
             $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
             // Các biến khác mà bạn cần
         }
+        $products = [];
+        $categoryId = isset($_GET['category']) ? $_GET['category'] : null; // Lấy ID danh mục từ URL
+        if ($categoryId) {
+            $products = $this->homeModel->getProductbyDanhmuc($categoryId, 0); // Lấy tất cả sản phẩm theo danh mục
+        } else {
+            $products = $this->homeModel->allProduct();
+        };
 
+
+        $danhmuc = $this->homeModel->allDanhmuc();
         // Chuyển tới View
         require_once 'views/home.php';
     }
+
     function contact()
     {
         if (isset($_SESSION['user'])) {
@@ -315,7 +325,7 @@ class homeController
     function logout()
     {
         unset($_SESSION['user']);
-        header('Location:index.php');
+        header('Location:?act=/');
     }
 
 
@@ -721,6 +731,42 @@ class homeController
     // }
 
 
+    // function huydonhang()
+    // {
+    //     if (isset($_POST['huydonhang'])) {
+    //         $lido = $_POST['lido']; // Lý do hủy đơn hàng
+    //         $other_lido = $_POST['other_lido']; // Lý do hủy nếu khác
+    //         $ngayhuy = date('Y-m-d H:i:s'); // Ngày giờ hủy đơn
+    //         $iduser = $_SESSION['user']['id']; // ID người dùng hiện tại
+
+    //         // Lấy idbill của người dùng
+    //         $idbill = $this->homeModel->getIdBillByUser($iduser);
+    //         // Lấy tên người đặt từ bảng trangthai
+    //         $bill_name = $this->homeModel->getIdNameStatus($iduser);
+
+    //         // Thêm thông tin hủy đơn vào bảng huydon
+    //         $huydon = $this->homeModel->insertHuydon(null, $bill_name, $iduser, $idbill, $ngayhuy, $lido, $other_lido);
+
+    //         // Lấy thông tin sản phẩm trong đơn hàng
+    //         $orderItems = $this->homeModel->getOrderItemsByIdBill($idbill);
+
+    //         // Cập nhật lại số lượng sản phẩm trong kho (trả lại số lượng sản phẩm đã bán)
+    //         foreach ($orderItems as $item) {
+    //             $this->homeModel->restoreProductQuantity($item['id_pro'], $item['soluong']);
+    //         }
+
+    //         // Xóa đơn hàng khỏi bảng orders
+    //         $this->homeModel->deleteOrder($idbill);
+
+    //         // Xóa trạng thái trong bảng trangthai
+    //         $this->homeModel->deleteStatus($idbill);
+
+    //         // Thông báo và chuyển hướng về trang chi tiết đơn hàng
+    //         echo "<script>alert('Bạn đã hủy thành công!'); window.location.href='index.php?act=chitietdonhang';</script>";
+    //     }
+
+    //     require_once 'views/huydonhang.php'; // Hiển thị lại trang hủy đơn hàng
+    // }
     function huydonhang()
     {
         if (isset($_POST['huydonhang'])) {
@@ -731,6 +777,19 @@ class homeController
 
             // Lấy idbill của người dùng
             $idbill = $this->homeModel->getIdBillByUser($iduser);
+
+            // Kiểm tra trạng thái đơn hàng
+            $currentStatus = $this->homeModel->getBillStatusById($idbill);
+
+            // Danh sách trạng thái có thể hủy
+            $cancellableStatuses = ['Chờ xác nhận', 'Đã xác nhận'];
+
+            if (!in_array($currentStatus, $cancellableStatuses)) {
+                // Nếu trạng thái không cho phép hủy, hiển thị thông báo và dừng xử lý
+                echo "<script>alert('Đơn hàng của bạn không thể hủy ở trạng thái hiện tại!'); window.location.href='index.php?act=chitietdonhang';</script>";
+                return;
+            }
+
             // Lấy tên người đặt từ bảng trangthai
             $bill_name = $this->homeModel->getIdNameStatus($iduser);
 
@@ -757,6 +816,8 @@ class homeController
 
         require_once 'views/huydonhang.php'; // Hiển thị lại trang hủy đơn hàng
     }
+
+
     function deletebill()
     {
         $idbill = isset($_GET['id_bill']) ? $_GET['id_bill'] : null;

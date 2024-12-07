@@ -202,7 +202,10 @@
                                                         style="width: 100px; height: 100px;" alt="">
                                                     <div>
                                                         <p class="mb-2" style="font-size: 14px;">
-                                                            <?php echo $comment['ngaybinhluan']; ?>
+                                                            <?php
+                                                            echo date('d/m/Y', strtotime($comment['ngaybinhluan']));
+                                                            ?>
+
                                                         </p>
                                                         <div class="d-flex justify-content-between">
                                                             <h5><?php echo $comment['user']; ?></h5>
@@ -231,8 +234,8 @@
                                     <?php if (count($comments) > 3) { ?>
                                         <div class="mt-3">
                                             <button id="seeMoreBtn"
-                                                class="btn btn-link text-decoration-underline text-primary">See
-                                                more</button>
+                                                class="btn btn-link text-decoration-underline text-primary">Đọc thêm
+                                            </button>
                                             <button id="collapseBtn"
                                                 class="btn btn-link text-decoration-underline text-secondary d-none">Thu
                                                 gọn</button>

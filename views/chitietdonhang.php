@@ -159,7 +159,7 @@ foreach ($getOrder as $item) {
 
 
                                 </td>
-
+                                <?php var_dump($billStatusText) ?>
 
                             </tr>
                         <?php endforeach; ?>

@@ -38,7 +38,11 @@
 
             <div class="form-group">
                 <label for="iddm">Danh mục:</label>
-                <input type="number" class="form-control" name="iddm" id="iddm" required>
+                <select name="category" id="category">
+                    <option value="">
+                        value
+                    </option>
+                </select>
             </div>
 
             <div class="form-group">

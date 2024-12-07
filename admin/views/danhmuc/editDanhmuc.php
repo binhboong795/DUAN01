@@ -27,9 +27,9 @@
                         <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="name"
                             value="<?= $iddm['name'] ?>">
 
-                        <p style="color: red;"><?= $error ?></p>
-                        <button class="btn form-control btn-primary text-light "
-                            type="submit" name="update_danhmuc">Cập Nhật</button>
+
+                        <button class="btn form-control btn-primary text-light " type="submit" name="update_danhmuc">Cập
+                            Nhật</button>
 
                         <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                     </form>

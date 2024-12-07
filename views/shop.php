@@ -109,7 +109,7 @@
                             <div class="col-lg-3">
                                 <div class="row g-4">
                                     <div class="col-lg-12">
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <h4>Categories</h4>
                                             <ul class="list-unstyled fruite-categorie">
                                                 <?php foreach ($cam as $cate) { ?>
@@ -162,7 +162,7 @@
                                                     </li>
                                                 <?php } ?>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
@@ -171,7 +171,7 @@
                                             <div class="col-lg-3">
 
                                                 <input type="hidden" name="act" value="shop">
-                                                <select name="priceRange" class="form-select"
+                                                <select style="width: auto;" name="priceRange" class="form-select"
                                                     onchange="this.form.submit()">
                                                     <option value="">All</option>
                                                     <option value="<100000"

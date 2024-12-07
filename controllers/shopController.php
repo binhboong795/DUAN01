@@ -16,7 +16,6 @@ class shopController
         $nhoxanh = $this->shopModel->findCate('5');
         $taomeo = $this->shopModel->findCate('6');
         $products = [];
-        $products = [];
         $categoryId = isset($_GET['category']) ? $_GET['category'] : null; // Lấy ID danh mục từ URL
         $priceRange = isset($_GET['priceRange']) ? $_GET['priceRange'] : null; // Lấy khoảng giá từ URL
 
@@ -56,7 +55,7 @@ class shopController
         } else {
             $products = $this->shopModel->allProductShop(); // Lấy tất cả sản phẩm nếu không có bộ lọc
         }
-       
+
 
 
         $danhmuc = $this->shopModel->allDanhmuc();
