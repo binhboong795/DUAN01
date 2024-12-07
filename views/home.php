@@ -13,7 +13,9 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- <link rel="icon" href="https://insacmau.com/wp-content/uploads/2024/10/logo-trai-cay-hinh-va-chu-8.jpg"
+        type="image/x-icon"> -->
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/x-icon">
     <?php require_once 'views/components/style.php' ?>
 </head>
 <style>
@@ -132,14 +134,32 @@
                         <h1>SẢN PHẨM TƯƠI SẠCH</h1>
                     </div>
                     <div class="col-lg-6 text-end">
-                        <ul class="nav nav-pills d-inline-flex text-center mb-5">
+                        <!-- <ul class="nav nav-pills d-inline-flex text-center mb-5">
                             <li class="nav-item">
                                 <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill"
                                     href="#tab-1">
                                     <span class="text-dark" style="width: 130px;">All Products</span>
                                 </a>
+                            </li> -->
+                        <ul class="nav nav-pills d-inline-flex text-center mb-5">
+                            <li class="nav-item">
+                                <a href="?category="
+                                    class=" d-flex py-2 m-2 bg-light rounded-pill <?= (!isset($_GET['category']) || $_GET['category'] == '') ? 'active' : '' ?>">
+                                    <span class="text-dark" style="width: 130px;">Tất cả</span>
+                                </a>
                             </li>
-                            <li name="nhapkhau" class="nav-item">
+                            <?php foreach ($danhmuc as $dm) { ?>
+                                <li class="nav-item">
+                                    <a href="?category=<?= $dm['id'] ?>"
+                                        class=" d-flex py-2 m-2 bg-light rounded-pill <?= (isset($_GET['category']) && $_GET['category'] == $dm['id']) ? 'active' : '' ?>">
+
+                                        <span class="text-dark" style="width: 130px;"><?= $dm['name'] ?></span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+
+                        <!-- <li name="nhapkhau" class="nav-item">
                                 <a name="nhapkhau" class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill"
                                     href="#tab-2">
                                     <span name="nhapkhau" class="text-dark" style="width: 130px;">Nhập khẩu</span>
@@ -150,9 +170,9 @@
                                     href="#tab-3">
                                     <span name="noidia" class="text-dark" style="width: 130px;">Nội địa</span>
                                 </a>
-                            </li>
-
-                        </ul>
+                            </li> -->
+                        <!-- 
+                        </ul> -->
                     </div>
                 </div>
                 <div class="tab-content">
@@ -168,60 +188,98 @@
                                         $search = "";
                                     };
                                     ?>
-
                                     <?php
-                                    foreach ($product as $list_products) {
+                                    // Số sản phẩm mỗi trang
+                                    $itemsPerPage = 8;
+
+                                    // Xác định trang hiện tại
+                                    $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+                                    // Tính tổng số trang
+                                    $totalItems = count($products);
+                                    $totalPages = ceil($totalItems / $itemsPerPage);
+
+                                    // Xác định chỉ số bắt đầu và kết thúc cho mảng sản phẩm
+                                    $startIndex = ($currentPage - 1) * $itemsPerPage;
+                                    $productsToShow = array_slice($products, $startIndex, $itemsPerPage);
                                     ?>
-                                        <?php if (
-                                            (empty($search)) || (is_string($list_products['name']) && strpos(strtolower($list_products["name"]), strtolower($search)) !== false)
-                                        ) : ?>
-                                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                                <div class="rounded position-relative fruite-item">
-                                                    <div class="fruite-img">
+
+                                    <?php if (empty($productsToShow)) : ?>
+                                        <p class="text-center">Không có sản phẩm phù hợp.</p>
+                                    <?php else : ?>
+                                        <?php
+                                        foreach ($productsToShow as $list_products) :
+                                        ?>
+                                            <?php if (
+                                                (empty($search)) || (is_string($list_products['name']) && strpos(strtolower($list_products["name"]), strtolower($search)) !== false)
+                                            ) : ?>
+                                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                                    <div class="rounded position-relative fruite-item">
                                                         <!-- ảnh -->
-                                                        <img src="assets/img/<?= $list_products['img'] ?>"
-                                                            class="img-fluid w-100 rounded-top" alt="">
-                                                    </div>
-                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                        style="top: 10px; left: 10px;">Fruits</div>
-                                                    <div style="height:240px;"
-                                                        class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                        <!-- tên -->
-                                                        <h4>
-                                                            <a class="linkpro"
-                                                                href="?act=shopdetail&id=<?= $list_products['id'] ?>">
-                                                                <?= $list_products['name'] ?></a>
-                                                        </h4>
 
-                                                        <!-- Mô tả -->
-                                                        <p style="height: 96px;">
-                                                            <?= mb_strimwidth($list_products['mota'], 0, 100, "..."); ?>
-                                                        </p>
+                                                        <div class="fruite-img">
+                                                            <img src="assets/img/<?= $list_products['img'] ?>"
+                                                                class="img-fluid w-100 rounded-top" alt="">
 
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <!-- Giá sản phẩm -->
-                                                            <p class="text-dark fs-5 fw-bold mb-0">
-                                                                <?= number_format($list_products['price']) ?>đ /kg
+                                                        </div>
+                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                            style="top: 10px; left: 10px;">Fruits</div>
+                                                        <div style="height:240px;"
+                                                            class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                            <!-- Tên -->
+                                                            <h4>
+                                                                <a class="linkpro"
+                                                                    href="?act=shopdetail&id=<?= $list_products['id'] ?>">
+                                                                    <?= $list_products['name'] ?></a>
+                                                            </h4>
+                                                            <!-- Mô tả -->
 
+                                                            <p style="height:90px;">
+                                                                <?= mb_strimwidth($list_products['mota'], 0, 100, "..."); ?>
                                                             </p>
-
-                                                            <!-- Nút thêm vào giỏ hàng -->
-                                                            <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
-                                                                class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
+                                                            <!-- <p>Lượt xem: <?= $list_products['luotxem'] ?></p> -->
+                                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                                <p class="text-dark fs-5 fw-bold mb-0">
+                                                                    <!-- Giá -->
+                                                                    <?= number_format($list_products['price']) ?><span> đ /
+                                                                        kg</span>
+                                                                </p>
+                                                                <a href="index.php?act=addToCart&id=<?= $list_products['id'] ?>"
+                                                                    class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm
+                                                                </a>
+                                                            </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php endif; ?>
-                                    <?php } ?>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+
+                                    <?php endif ?>
+
+                                    <div class="col-12">
+                                        <div class="pagination d-flex justify-content-center mt-5">
+                                            <?php if ($currentPage > 1) : ?>
+                                                <a href="?act=/&page=<?= $currentPage - 1 ?>" class="rounded">&laquo;</a>
+                                            <?php endif; ?>
+
+                                            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                                                <a href="?act=/&page=<?= $i ?>"
+                                                    class="rounded <?= $i === $currentPage ? 'active' : '' ?>"><?= $i ?></a>
+                                            <?php endfor; ?>
+
+                                            <?php if ($currentPage < $totalPages) : ?>
+                                                <a href="?act=/&page=<?= $currentPage + 1 ?>" class="rounded">&raquo;</a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="tab-2" class="tab-pane fade show p-0">
+                    <!-- <div id="tab-2" class="tab-pane fade show p-0">
                         <div class="row g-4">
                             <div class="col-lg-12">
                                 <div class="row g-4">
@@ -232,30 +290,30 @@
 
                                     <?php foreach ($nhapkhau as $product) { ?>
 
-                                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                            <div class="rounded position-relative fruite-item">
-                                                <div class="fruite-img">
-                                                    <img src="assets/img/<?= $product['img'] ?>"
-                                                        class="img-fluid w-100 rounded-top" alt="">
-                                                </div>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                    style="top: 10px; left: 10px;">Fruits</div>
-                                                <div style="height:240px;"
-                                                    class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <h4><a class="linkpro" href="?act=shopdetail&id=<?= $product['id'] ?>">
-                                                            <?= $product['name'] ?></a></h4>
-                                                    <p style="height: 90px;">
-                                                        <?= mb_strimwidth($product['mota'], 0, 100, "..."); ?></p>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">
-                                                            <?= $product['price'] ?>đ / kg</p>
-                                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
-                                                            class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
-                                                    </div>
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="assets/img/<?= $product['img'] ?>"
+                                                    class="img-fluid w-100 rounded-top" alt="">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">Fruits</div>
+                                            <div style="height:240px;"
+                                                class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4><a class="linkpro" href="?act=shopdetail&id=<?= $product['id'] ?>">
+                                                        <?= $product['name'] ?></a></h4>
+                                                <p style="height: 90px;">
+                                                    <?= mb_strimwidth($product['mota'], 0, 100, "..."); ?></p>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        <?= $product['price'] ?>đ / kg</p>
+                                                    <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
+                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Thêm</a>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
                                     <?php } ?>
                                 </div>
@@ -269,36 +327,36 @@
 
                                     <?php foreach ($noidia as $product) { ?>
 
-                                        <div class="col-md-6 col-lg-4 col-xl-3">
-                                            <div class="rounded position-relative fruite-item">
-                                                <div class="fruite-img">
-                                                    <img src="assets/img/<?= $product['img'] ?>"
-                                                        class="img-fluid w-100 rounded-top" alt="">
-                                                </div>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                    style="top: 10px; left: 10px;">Fruits</div>
-                                                <div style="height:240px;"
-                                                    class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <h4><a class="linkpro" href="?act=shopdetail&id=<?= $product['id'] ?>">
-                                                            <?= $product['name'] ?></a></h4>
-                                                    <p style="height: 90px;">
-                                                        <?= mb_strimwidth($product['mota'], 0, 100, "..."); ?></p>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">
-                                                            <?= $product['price'] ?>đ / kg</p>
-                                                        <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
-                                                            class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
-                                                    </div>
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="assets/img/<?= $product['img'] ?>"
+                                                    class="img-fluid w-100 rounded-top" alt="">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                style="top: 10px; left: 10px;">Fruits</div>
+                                            <div style="height:240px;"
+                                                class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4><a class="linkpro" href="?act=shopdetail&id=<?= $product['id'] ?>">
+                                                        <?= $product['name'] ?></a></h4>
+                                                <p style="height: 90px;">
+                                                    <?= mb_strimwidth($product['mota'], 0, 100, "..."); ?></p>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">
+                                                        <?= $product['price'] ?>đ / kg</p>
+                                                    <a href="index.php?act=addToCart&id=<?= $product['id'] ?>"
+                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Thêm </a>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
                                     <?php } ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>

@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="name">Tên sản phẩm:</label>
                 <input type="text" class="form-control" name="name" id="name"
-                    value="<?= htmlspecialchars($sanpham['name']) ?>">
+                    value="<?= htmlspecialchars($sanpham['pr_name']) ?>">
             </div>
 
             <!-- Giá -->
@@ -53,10 +53,16 @@
 
             <!-- Danh mục -->
             <div class="form-group">
-                <label for="iddm">Danh mục:</label>
-                <input type="number" class="form-control" name="iddm" id="iddm"
-                    value="<?= htmlspecialchars($sanpham['iddm']) ?>" min="0">
+                <label for="category_name">Danh mục:</label>
+                <select name="iddm" id="iddm" class="form-control" required>
+                    <?php foreach ($danhmuc as $dm): ?>
+                    <option value="<?= $dm['id'] ?>" <?= ($sanpham['pr_dm'] == $dm['id']) ? 'selected' : '' ?>>
+                        <?= $dm['name'] ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
+
 
             <!-- Mô tả chi tiết -->
             <div class="form-group">

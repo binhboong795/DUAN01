@@ -9,7 +9,7 @@ class accModel
 
     function getAllUser()
     {
-        $sql = "SELECT * FROM taikhoan";
+        $sql = "SELECT * FROM taikhoan ORDER BY id DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +29,7 @@ class accModel
     }
     function editUser($id, $user, $pass, $email, $address, $tell, $role)
     {
-        $sql = "UPDATE taikhoan SET user = ?, pass = ?, email = ?, address = ?, tell = ?, $role = ? WHERE id = ?";
+        $sql = "UPDATE taikhoan SET user = ?, pass = ?, email = ?, address = ?, tell = ?, role = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$user, $pass, $email, $address, $tell, $role, $id]);
     }

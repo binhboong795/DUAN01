@@ -1,5 +1,5 @@
 <?php
-require_once 'asset/headerA/header.php'; 
+require_once 'asset/headerA/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -81,8 +81,12 @@ require_once 'asset/headerA/header.php';
                             <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="role"
-                                placeholder="Vai Trò" value="<?php echo $idUser['role'] ?>">
+                            <select class="w-100 form-control border-0 mb-4" name="role">
+                                <option value="">Chọn vai trò</option>
+                                <option value="1" <?php echo ($idUser['role'] == '1') ? 'selected' : ''; ?>>1 - Admin</option>
+                                <option value="0" <?php echo ($idUser['role'] == '0') ? 'selected' : ''; ?>>0 - User</option>
+                            </select>
+
                             <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>
