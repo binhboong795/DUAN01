@@ -20,7 +20,7 @@ foreach ($getOrder as $item) {
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/x-icon">
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
@@ -159,7 +159,7 @@ foreach ($getOrder as $item) {
 
 
                                 </td>
-                                <?php var_dump($billStatusText) ?>
+                                <!-- <?php var_dump($billStatusText) ?> -->
 
                             </tr>
                         <?php endforeach; ?>
