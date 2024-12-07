@@ -291,6 +291,21 @@ class homeController
 
     function login()
     {
+        // Ngăn người dùng truy cập lại trang đăng nhập nếu đã đăng nhập
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']['role'] == 1) {
+                header('Location: admin/index.php'); // Nếu là admin
+            } else {
+                header('Location: index.php'); // Nếu là user thường
+            }
+            exit;
+        }
+
+        // Ngăn trình duyệt cache trang đăng nhập
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        
         if (isset($_POST['dangnhap'])) {
             $user = $_POST['user'];
             $pass = $_POST['pass'];
