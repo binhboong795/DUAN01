@@ -49,10 +49,15 @@ class danhmucController
         if ($id) {
             $iddm = $this->danhmucModel->getIdDanhmuc($id);
             if (isset($_POST['update_danhmuc'])) {
-                $name = $_POST['name'];
-                $this->danhmucModel->updateDanhmuc($id, $name);
-                header('location:index.php?act=danhmuc');
-                exit;
+                $name = trim($_POST['name']);
+                if($name==""){
+                    $error="Không được để trống tên danh mục";
+                }else{
+                    $this->danhmucModel->updateDanhmuc($id, $name);
+                    header('location:index.php?act=danhmuc');
+                    exit;
+                }
+               
             }
         }
         require_once 'views/danhmuc/editDanhmuc.php';
