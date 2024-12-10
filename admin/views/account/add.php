@@ -1,5 +1,5 @@
 <?php
-    require_once 'asset/headerA/header.php'; 
+require_once 'asset/headerA/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -61,37 +61,39 @@
                         </div> -->
                     <div class="col-lg-7">
                         <form action="" method="post">
-
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user"
-                                placeholder="Tên tài khoản">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="password" name="pass"
-                                placeholder="Mật khẩu">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="user" placeholder="Tên tài khoản">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="pass" placeholder="Mật khẩu">
                             <?php if ($error && strpos($error, 'Mật khẩu') !== false): ?>
-                                <p style="color: red;"><?= $error ?></p>
+                                <p style="color: red;"><?= htmlspecialchars($error) ?></p>
                             <?php endif; ?>
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email"
-                                placeholder="Email">
-                            <?php if ($error && strpos($error, 'Email phải lớn hơn') !== false): ?>
-                                <p style="color: red;"><?= $error ?></p>
-                            <?php endif; ?>
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address"
-                                placeholder="Address">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell"
-                                placeholder="Tell">
-                            <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
-                                <p style="color: red;"><?= $error ?></p>
-                            <?php endif; ?>
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="role"
-                                placeholder="Vai Trò">
-                            <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
-                                <p style="color: red;"><?= $error ?></p>
-                            <?php endif; ?>
-                            <button class="w-100 btn form-control border-secondary bg-white text-primary"
-                                type="submit" name="themmoi">Thêm mới</button>
 
-                            <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="email" name="email" placeholder="Email">
+                            <?php if ($error && strpos($error, 'Email phải lớn hơn') !== false): ?>
+                                <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+                            <?php endif; ?>
+
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="address" placeholder="Address">
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="tell" placeholder="Tell">
+                            <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
+                                <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+                            <?php endif; ?>
+
+                            <select class="w-100 form-control border-0 mb-4" name="role">
+                                <option value="">Chọn vai trò</option>
+                                <option value="1">1 - Admin</option>
+                                <option value="0">0 - User</option>
+                            </select>
+
+                            <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
+                                <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+                            <?php endif; ?>
+
+                            <button class="w-100 btn form-control border-secondary bg-white text-primary" type="submit" name="themmoi">
+                                Thêm mới
+                            </button>
                         </form>
                     </div>
+
                     <div class="col-lg-5">
                         <div class="d-flex p-4 rounded mb-4 bg-white">
                             <i class="fas fa-map-marker-alt fa-2x fs-7 text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>

@@ -332,11 +332,11 @@ class homeModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    function getPopularProducts($threshold = 100)
+    function getPopularProducts($luotxem = 200)
     {
-        $sql = "SELECT * FROM sanpham WHERE luotxem > :threshold ORDER BY luotxem DESC";
+        $sql = "SELECT * FROM sanpham WHERE luotxem > :luotxem ORDER BY luotxem DESC";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute(['threshold' => $threshold]);
+        $stmt->execute(['luotxem' => $luotxem]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -421,16 +421,37 @@ class homeModel
     // Cập nhật lại số lượng sản phẩm trong bảng sanpham khi hủy đơn hàng
     function restoreProductQuantity($id_pro, $quantity)
     {
-        $sql = "UPDATE sanpham SET soluong = soluong + :quantity WHERE id = :id_pro";
-        $stmt = $this->conn->prepare($sql);
+        try {
+            // Kiểm tra số lượng sản phẩm cần phục hồi có hợp lệ không
+            if ($quantity <= 0) {
+                throw new Exception("Số lượng phục hồi phải lớn hơn 0.");
+            }
 
-        // Gắn giá trị vào câu lệnh
-        $stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
-        $stmt->bindValue(':id_pro', $id_pro, PDO::PARAM_INT);
+            // Câu lệnh SQL để cập nhật lại số lượng sản phẩm trong bảng sanpham
+            $sql = "UPDATE sanpham SET soluong = soluong + :quantity WHERE id = :id_pro";
+            $stmt = $this->conn->prepare($sql);
 
-        // Thực thi câu lệnh
-        return $stmt->execute();
+            // Gắn giá trị vào câu lệnh SQL
+            $stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+            $stmt->bindValue(':id_pro', $id_pro, PDO::PARAM_INT);
+
+            // Thực thi câu lệnh SQL
+            $stmt->execute();
+
+            // Kiểm tra nếu không có dòng nào bị ảnh hưởng, có thể là id sản phẩm không tồn tại
+            if ($stmt->rowCount() === 0) {
+                throw new Exception("Không tìm thấy sản phẩm với ID $id_pro.");
+            }
+
+            // Trả về true nếu thành công
+            return true;
+        } catch (Exception $e) {
+            // Xử lý lỗi và trả về thông báo lỗi
+            error_log("Lỗi khi phục hồi số lượng sản phẩm: " . $e->getMessage()); // Ghi log lỗi
+            return false; // Trả về false nếu có lỗi
+        }
     }
+
 
     public function checkIdBillExists($idbill)
     {
@@ -442,15 +463,17 @@ class homeModel
     }
     function deleteOrder($idbill)
     {
-        $sql = "DELETE FROM orders WHERE idbill = ?";
+        $sql = "DELETE FROM orders WHERE idbill = :idbill";
         $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$idbill]);
+        return $stmt->execute(['idbill' => $idbill]);
     }
+
+    // Xóa trạng thái khỏi bảng trangthai
     function deleteStatus($id_bill)
     {
-        $sql = "DELETE FROM trangthai WHERE id_bill = ?";
+        $sql = "DELETE FROM trangthai WHERE id_bill = :id_bill";
         $stmt = $this->conn->prepare($sql);
-        return $stmt->execute([$id_bill]);
+        return $stmt->execute(['id_bill' => $id_bill]);
     }
     function getIdBillByUser($iduser)
     {
@@ -466,17 +489,12 @@ class homeModel
         $stmt->execute([$id_user]);
         return $stmt->fetchColumn();
     }
-    // function insertLienhe($name, $email, $content)
-    // {
-    //     $sql = "INSERT INTO lienhe (id, name, email, content) VALUES (?, ?, ?, ?)";
-    //     $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-    //     return $stmt->execute([$name, $email, $content]);
-    // }
-    function insertLienhe($iduser, $name, $sdt, $email, $content)
+
+    function insertLienhe($iduser, $name, $sdt, $mail, $noidung)
     {
         $sql = "INSERT INTO lienhe VALUES (null, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($sql); // Chuẩn bị truy vấn với PDO
-        return $stmt->execute([$iduser, $name, $sdt, $email, $content]);
+        return $stmt->execute([$iduser, $name, $sdt, $mail, $noidung]);
     }
     function updateIdBillInTrangthai($id_bill)
     {

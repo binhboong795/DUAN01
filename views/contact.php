@@ -89,9 +89,9 @@
                                 placeholder="Tên">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="number" name="sdt"
                                 placeholder="Số điện thoại">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="email"
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="mail"
                                 placeholder="email">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="content"
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="noidung"
                                 placeholder="Content">
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                                 type="submit" name="addlienhe">them</button>

@@ -147,18 +147,29 @@ foreach ($getOrder as $item) {
                                 </td>
                                 <td><a href="index.php?act=chitietorder&idbill=<?= $idbill ?>">Xem chi tiết</a></td>
                                 <td>
-
                                     <?php if (in_array($billStatusText, ['Chờ xác nhận', 'Đã xác nhận'])) { ?>
-                                        <a href="index.php?act=huydonhang">
+                                        <a href="index.php?act=huydonhang&idbill=<?= $idbill; ?>">
+
                                             <button class="btn btn-primary btn-sm">
                                                 Hủy
                                             </button>
                                         </a>
 
                                     <?php } ?>
-
-
                                 </td>
+                                <!-- <td>
+
+                            <?php if (in_array($billStatusText, ['Chờ xác nhận', 'Đã xác nhận'])) { ?>
+                            <a href="index.php?act=huydonhang&idbill=<?= $idbill ?>">
+                                <button class="btn btn-primary btn-sm">
+                                    Hủy
+                                </button>
+                            </a>
+
+                            <?php } ?>
+
+
+                        </td> -->
                                 <!-- <?php var_dump($billStatusText) ?> -->
 
                             </tr>

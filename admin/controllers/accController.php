@@ -97,7 +97,8 @@ class accController
 
     function logout()
     {
-        unset($_SESSION['user']);
-        header('Location:http://localhost/Duan1/index.php?act=dangnhap');
+        unset($_SESSION['admin']); // Xóa thông tin session admin
+        header('Location:http://localhost/Duan1/index.php?act=dangnhap'); // Chuyển hướng về trang đăng nhập của admin
+        exit();
     }
 }
