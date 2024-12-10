@@ -131,7 +131,7 @@
                                         echo "<span class='star full'>★</span>";
                                     } else {
                                         // Sao xám
-                                        echo "<span class='star half'>☆</span>";
+                                        echo "<span class='star half'>★</span>";
                                     }
                                 }
                                 ?>
