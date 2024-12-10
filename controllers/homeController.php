@@ -77,33 +77,33 @@ class homeController
     {
         $product = [];
         $listBanner = $this->homeModel->getAllBanner();
-        // Lấy sản phẩm nổi bật với lượt xem > 200
         $popularProducts = $this->homeModel->getPopularProducts(200);
 
         $nhapkhau = $this->homeModel->findProductByIddm('116');
         $noidia = $this->homeModel->findProductByIddm('115');
 
-
-        // hiển thị tổng số lượng sản phẩm trong giỏ hàng
+        // Hiển thị tổng số lượng sản phẩm trong giỏ hàng
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
-            // Lấy tổng số lượng sản phẩm trong giỏ hàng
             $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-            // Các biến khác mà bạn cần
         }
+
+        // Lấy sản phẩm theo danh mục hoặc tất cả sản phẩm
         $products = [];
-        $categoryId = isset($_GET['category']) ? $_GET['category'] : null; // Lấy ID danh mục từ URL
+        $categoryId = isset($_GET['category']) && is_numeric($_GET['category']) ? $_GET['category'] : null; // Lấy ID danh mục từ URL
         if ($categoryId) {
             $products = $this->homeModel->getProductbyDanhmuc($categoryId, 0); // Lấy tất cả sản phẩm theo danh mục
         } else {
             $products = $this->homeModel->allProduct();
-        };
+        }
 
-
+        // Lấy tất cả danh mục
         $danhmuc = $this->homeModel->allDanhmuc();
+
         // Chuyển tới View
         require_once 'views/home.php';
     }
+
 
     function contact()
     {

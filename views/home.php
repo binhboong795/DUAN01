@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -260,20 +259,28 @@
 
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5">
+                                            <?php
+                                            // Lấy giá trị danh mục hiện tại (nếu có) từ URL
+                                            $currentCategory = isset($_GET['category']) ? $_GET['category'] : null;
+                                            ?>
+
                                             <?php if ($currentPage > 1) : ?>
-                                                <a href="?act=/&page=<?= $currentPage - 1 ?>" class="rounded">&laquo;</a>
+                                                <a href="?act=/&page=<?= $currentPage - 1 ?><?= $currentCategory ? '&category=' . $currentCategory : '' ?>"
+                                                    class="rounded">&laquo;</a>
                                             <?php endif; ?>
 
                                             <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                                                <a href="?act=/&page=<?= $i ?>"
+                                                <a href="?act=/&page=<?= $i ?><?= $currentCategory ? '&category=' . $currentCategory : '' ?>"
                                                     class="rounded <?= $i === $currentPage ? 'active' : '' ?>"><?= $i ?></a>
                                             <?php endfor; ?>
 
                                             <?php if ($currentPage < $totalPages) : ?>
-                                                <a href="?act=/&page=<?= $currentPage + 1 ?>" class="rounded">&raquo;</a>
+                                                <a href="?act=/&page=<?= $currentPage + 1 ?><?= $currentCategory ? '&category=' . $currentCategory : '' ?>"
+                                                    class="rounded">&raquo;</a>
                                             <?php endif; ?>
                                         </div>
                                     </div>
+
 
                                 </div>
                             </div>
