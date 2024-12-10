@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/x-icon">
     <?php require_once 'views/components/style.php' ?>
 
 </head>
@@ -89,9 +89,9 @@
                                 placeholder="Tên">
                             <input class="w-100 form-control border-0 py-3 mb-4" type="number" name="sdt"
                                 placeholder="Số điện thoại">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="email"
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="mail"
                                 placeholder="email">
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="content"
+                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="noidung"
                                 placeholder="Content">
                             <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary "
                                 type="submit" name="addlienhe">them</button>

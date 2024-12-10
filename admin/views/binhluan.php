@@ -42,7 +42,9 @@
                                         <td><?= $stt++; ?></td>
                                         <td><?= $comment['noidung']; ?></td>
                                         <td><?= $comment['user']; ?></td>
-                                        <td><?= $comment['ngaybinhluan']; ?></td>
+                                        <td><?php
+                                            echo date('d/m/Y', strtotime($comment['ngaybinhluan']));
+                                            ?></td>
                                         <td><?= $comment['rating']; ?></td>
                                         <td>
                                             <button class="btn btn-warning btn-sm text-white"

@@ -1,5 +1,5 @@
 <?php
-require_once 'asset/headerA/header.php'; 
+require_once 'asset/headerA/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -81,34 +81,42 @@ require_once 'asset/headerA/header.php';
                             <?php if ($error && strpos($error, 'Số điện thoại không hợp lệ') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>
-                            <input class="w-100 form-control border-0 py-3 mb-4" type="text" name="role"
-                                placeholder="Vai Trò" value="<?php echo $idUser['role'] ?>">
+                            <select class="w-100 form-control border-0 mb-4" name="role">
+                                <option value="1" <?php echo ($idUser['role'] == '1') ? 'selected' : ''; ?>>1 - Admin
+                                </option>
+                                <option value="0" <?php echo ($idUser['role'] == '0') ? 'selected' : ''; ?>>0 - User
+                                </option>
+                            </select>
+
                             <?php if ($error && strpos($error, 'Vui lòng nhập') !== false): ?>
                                 <p style="color: red;"><?= $error ?></p>
                             <?php endif; ?>
-                            <button class="w-100 btn form-control border-secondary bg-white text-primary "
-                                type="submit" name="capnhat">Cập Nhật</button>
+                            <button class="w-100 btn form-control border-secondary bg-white text-primary " type="submit"
+                                name="capnhat">Cập Nhật</button>
                             <p style="color: red;"><?php echo $error ?></p>
                             <!-- <a href="?act=dangnhap">Đăng nhập</a> -->
                         </form>
                     </div>
                     <div class="col-lg-5">
                         <div class="d-flex p-4 rounded mb-4 bg-white">
-                            <i class="fas fa-map-marker-alt fa-2x fs-7 text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>
+                            <i class="fas fa-map-marker-alt fa-2x fs-7 text-primary me-4 mr-2"
+                                style="font-size: 30px; padding-top:5px;"></i>
                             <div>
                                 <h4>Address</h4>
                                 <p class="mb-2">Trường Cao Đẳng FPT Polytechnic</p>
                             </div>
                         </div>
                         <div class="d-flex p-4 rounded mb-4 bg-white">
-                            <i class="fas fa-envelope fa-2x text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>
+                            <i class="fas fa-envelope fa-2x text-primary me-4 mr-2"
+                                style="font-size: 30px; padding-top:5px;"></i>
                             <div>
                                 <h4>Mail Us</h4>
                                 <p class="mb-2">caodangfpt@fpt.edu.vn</p>
                             </div>
                         </div>
                         <div class="d-flex p-4 rounded bg-white">
-                            <i class="fa fa-phone-alt fa-2x text-primary me-4 mr-2" style="font-size: 30px; padding-top:5px;"></i>
+                            <i class="fa fa-phone-alt fa-2x text-primary me-4 mr-2"
+                                style="font-size: 30px; padding-top:5px;"></i>
                             <div>
                                 <h4>Telephone</h4>
                                 <p class="mb-2">0954835784</p>

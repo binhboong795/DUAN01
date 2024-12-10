@@ -42,8 +42,8 @@
                     <tbody>
                         <?php foreach ($product as $key => $row) { ?>
                             <tr>
-                                <td><?= $row['id'] ?></td>
-                                <td><?= $row['name'] ?></td>
+                                <td><?= $row['pr_id'] ?></td>
+                                <td><?= $row['pr_name'] ?></td>
                                 <td><?= number_format($row['price']) ?> ₫</td>
                                 <td>
                                     <img src="../assets/img/<?= $row['img'] ?>" alt="Ảnh sản phẩm" class="img-thumbnail"
@@ -51,15 +51,15 @@
                                 </td>
                                 <td><?= $row['mota'] ?></td>
                                 <td><?= $row['luotxem'] ?></td>
-                                <td><?= $row['iddm'] ?></td>
+                                <td><?= $row['category_name'] ?></td>
                                 <td><?= $row['motachitiet'] ?></td>
                                 <td><?= $row['soluong'] ?></td>
                                 <td>
                                     <div class="d-grid gap-2 d-md-block">
-                                        <a href="index.php?act=editsp&id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">
+                                        <a href="?act=editsp&id=<?= $row['pr_id'] ?>" class="btn btn-warning btn-sm">
                                             <i class="fa fa-edit"></i> Sửa
                                         </a>
-                                        <a href="index.php?act=deleteproduct&id=<?= $row['id'] ?>"
+                                        <a href="index.php?act=deleteproduct&id=<?= $row['pr_id'] ?>"
                                             class="btn btn-danger btn-sm"
                                             onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">
                                             <i class="fa fa-trash"></i> Xóa

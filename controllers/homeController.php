@@ -14,7 +14,6 @@ class homeController
     }
     function chitietorder()
     {
-
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
         $infoStatus = $this->homeModel->getInfoStatus($idbill);
         $getOrder = $this->homeModel->getOrderByBill($idbill);
@@ -22,46 +21,6 @@ class homeController
         require_once 'views/chitietorder.php';
     }
 
-    // function chitietdonhang()
-    // {
-    //     $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
-    //     $getOrder = $this->homeModel->getOrderByBill($idbill);
-
-    //     foreach ($getOrder as &$order) {
-    //         $status = $this->homeModel->getBillStatusById($order['idbill']);
-    //         // $order['bill_status'] = $status['bill_status'] ?? 'Chờ giao hàng'; // Mặc định nếu không tìm thấy trạng thái
-    //         if (empty($status['bill_status'])) {
-    //             $order['bill_status'] = 'Chờ xác nhận';
-    //             $this->homeModel->updateBillStatus($order['idbill'], 'Chờ xác nhận');
-    //         } else {
-    //             $order['bill_status'] = $status['bill_status'];
-    //         }
-    //     }
-    //     $getStatus = $this->homeModel->getBillStatusById($idbill);
-    //     $iduser = $_SESSION['user']['id'];
-
-    //     $getOrderAll = $this->homeModel->getOrder($iduser); // Lấy danh sách các đơn hàng của user
-
-    //     // Thêm trạng thái vào từng đơn hàng
-
-
-
-    //     // Gắn trạng thái tương ứng vào từng đơn hàng
-    //     // foreach ($getOrder as &$order) {
-    //     //     foreach ($orderStatuses as $status) {
-    //     //         if ($order['idbill'] == $status['id_bill']) {
-    //     //             $order['bill_status'] = $status['bill_status'];
-    //     //             break;
-    //     //         }
-    //     //     }
-    //     // }
-    //     $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-    //     // $totalPrice = $this->homeModel->calculateTotalPrice($iduser);
-    //     // $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser);
-    //     require_once 'views/chitietdonhang.php';
-
-    //     require_once 'assets/header/headerDetail.php';
-    // }
     function chitietdonhang()
     {
         $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
@@ -73,9 +32,9 @@ class homeController
         foreach ($getOrder as &$order) {
             $status = $this->homeModel->getBillStatusById($order['idbill']);
 
-            // Debug giá trị $order['idbill'] và $status
-            error_log("ID Bill: " . $order['idbill']);
-            error_log("Current Status: " . json_encode($status));
+            // // Debug giá trị $order['idbill'] và $status
+            // error_log("ID Bill: " . $order['idbill']);
+            // error_log("Current Status: " . json_encode($status));
 
             if (empty($status['bill_status'])) {
                 $order['bill_status'] = 'Chờ xác nhận';
@@ -99,43 +58,53 @@ class homeController
 
         // Import giao diện
         require_once 'views/chitietdonhang.php';
-        require_once 'assets/header/headerDetail.php';
+        // require_once 'assets/header/headerDetail.php';
     }
 
-    function thanhtoan_momo()
-    {
-        require_once 'views/thanhtoan_momo.php';
-    }
-    function thanhtoan_atm()
-    {
-        require_once 'views/thanhtoan_atm.php';
-    }
-    function chuyenkhoan()
-    {
-        require_once 'views/chuyenkhoan.php';
-    }
+    // function thanhtoan_momo()
+    // {
+    //     require_once 'views/thanhtoan_momo.php';
+    // }
+    // function thanhtoan_atm()
+    // {
+    //     require_once 'views/thanhtoan_atm.php';
+    // }
+    // function chuyenkhoan()
+    // {
+    //     require_once 'views/chuyenkhoan.php';
+    // }
     function home()
     {
         $product = [];
         $listBanner = $this->homeModel->getAllBanner();
-        // Lấy sản phẩm nổi bật với lượt xem > 200
         $popularProducts = $this->homeModel->getPopularProducts(200);
 
         $nhapkhau = $this->homeModel->findProductByIddm('116');
         $noidia = $this->homeModel->findProductByIddm('115');
-        $product = $this->homeModel->allProduct();
 
-        // Giả sử đây là trang bạn muốn hiển thị tổng số lượng sản phẩm trong giỏ hàng
+        // Hiển thị tổng số lượng sản phẩm trong giỏ hàng
         if (isset($_SESSION['user'])) {
             $iduser = $_SESSION['user']['id'];
-            // Lấy tổng số lượng sản phẩm trong giỏ hàng
             $totalQuantity = $this->homeModel->getTotalQuantity($iduser);
-            // Các biến khác mà bạn cần
         }
+
+        // Lấy sản phẩm theo danh mục hoặc tất cả sản phẩm
+        $products = [];
+        $categoryId = isset($_GET['category']) && is_numeric($_GET['category']) ? $_GET['category'] : null; // Lấy ID danh mục từ URL
+        if ($categoryId) {
+            $products = $this->homeModel->getProductbyDanhmuc($categoryId, 0); // Lấy tất cả sản phẩm theo danh mục
+        } else {
+            $products = $this->homeModel->allProduct();
+        }
+
+        // Lấy tất cả danh mục
+        $danhmuc = $this->homeModel->allDanhmuc();
 
         // Chuyển tới View
         require_once 'views/home.php';
     }
+
+
     function contact()
     {
         if (isset($_SESSION['user'])) {
@@ -239,7 +208,7 @@ class homeController
         $totalQuantity = $this->homeModel->getTotalQuantity($iduser); // Tổng số lượng sản phẩm
         $totalPriceAll = $this->homeModel->calculateTotalPrice($iduser); // Tổng giá trị giỏ hàng
 
-        // Cộng thêm phí giao hàng (30.000)
+        // Cộng thêm phí giao hàng 30k
         $totalPriceAll += 30000;
 
         // Truyền dữ liệu qua view
@@ -281,6 +250,21 @@ class homeController
 
     function login()
     {
+        // Ngăn người dùng truy cập lại trang đăng nhập nếu đã đăng nhập
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']['role'] == 1) {
+                header('Location: admin/index.php'); // Nếu là admin
+            } else {
+                header('Location: index.php'); // Nếu là user thường
+            }
+            exit;
+        }
+
+        // Ngăn trình duyệt cache trang đăng nhập
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+
         if (isset($_POST['dangnhap'])) {
             $user = $_POST['user'];
             $pass = $_POST['pass'];
@@ -315,7 +299,7 @@ class homeController
     function logout()
     {
         unset($_SESSION['user']);
-        header('Location:index.php');
+        header('Location:?act=/');
     }
 
 
@@ -409,7 +393,6 @@ class homeController
 
 
     // Ví dụ cho trang shop (headerShop.php)
-    function shopCart() {}
 
     // Hiển thị giỏ hàng
     function cart()
@@ -720,17 +703,16 @@ class homeController
     //     header('location: index.php?act=cart');
     // }
 
-
     function huydonhang()
     {
-        if (isset($_POST['huydonhang'])) {
+        if (isset($_POST['huydonhang']) && isset($_GET['idbill'])) {
             $lido = $_POST['lido']; // Lý do hủy đơn hàng
             $other_lido = $_POST['other_lido']; // Lý do hủy nếu khác
             $ngayhuy = date('Y-m-d H:i:s'); // Ngày giờ hủy đơn
             $iduser = $_SESSION['user']['id']; // ID người dùng hiện tại
-
+            $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
             // Lấy idbill của người dùng
-            $idbill = $this->homeModel->getIdBillByUser($iduser);
+            // $idbill = $this->homeModel->getIdBillByUser($iduser);
             // Lấy tên người đặt từ bảng trangthai
             $bill_name = $this->homeModel->getIdNameStatus($iduser);
 
@@ -745,21 +727,30 @@ class homeController
                 $this->homeModel->restoreProductQuantity($item['id_pro'], $item['soluong']);
             }
 
-            // Xóa đơn hàng khỏi bảng orders
-            $this->homeModel->deleteOrder($idbill);
+            $currentStatus = trim($this->homeModel->getBillStatusById($idbill)['bill_status'] ?? '');
 
-            // Xóa trạng thái trong bảng trangthai
-            $this->homeModel->deleteStatus($idbill);
 
-            // Thông báo và chuyển hướng về trang chi tiết đơn hàng
-            echo "<script>alert('Bạn đã hủy thành công!'); window.location.href='index.php?act=chitietdonhang';</script>";
+
+            // Danh sách trạng thái có thể hủy
+            $cancellableStatuses = [null, 'Đã xác nhận'];
+
+
+            if ($currentStatus === '' || $currentStatus === 'Đã xác nhận') {
+                // Thực hiện hủy đơn hàng
+                $this->homeModel->deletebill($idbill);
+                echo "<script>alert('Bạn đã hủy thành công!'); window.location.href='index.php?act=chitietdonhang';</script>";
+            } else {
+                echo "<script>alert('Đơn hàng của bạn không thể hủy ở trạng thái hiện tại!'); window.location.href='index.php?act=chitietdonhang';</script>";
+            }
         }
 
         require_once 'views/huydonhang.php'; // Hiển thị lại trang hủy đơn hàng
     }
+
+
     function deletebill()
     {
-        $idbill = isset($_GET['id_bill']) ? $_GET['id_bill'] : null;
+        $idbill = isset($_GET['idbill']) ? $_GET['idbill'] : null;
 
         if ($idbill) {
             try {
@@ -793,9 +784,9 @@ class homeController
         if (isset($_POST['addlienhe'])) {
             $name = $_POST['name'];
             $sdt = $_POST['sdt'];
-            $email = $_POST['email'];
-            $content = $_POST['content'];
-            $this->homeModel->insertLienhe($iduser, $name, $sdt, $email, $content);
+            $mail = $_POST['mail'];
+            $noidung = $_POST['noidung'];
+            $this->homeModel->insertLienhe($iduser, $name, $sdt, $mail, $noidung);
         }
         require_once 'views/contact.php';
     }

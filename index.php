@@ -33,10 +33,10 @@ match ($act) {
     'removeFromCart' => (new homeController())->removeFromCart($id), // Xóa khỏi giỏ hàng
     'updateQuantity' => (new homeController())->updateQuantity($id, $action), // Cập nhật số lượng sản phẩm
     'chackthongtin' => (new homeController())->chackthongtin(), // Cập nhật số lượng sản phẩm
-    'chuyenkhoan' => (new homeController())->chuyenkhoan(),
+    // 'chuyenkhoan' => (new homeController())->chuyenkhoan(),
     'chitietorder' => (new homeController())->chitietorder(),
-    'thanhtoan_momo' => (new homeController())->thanhtoan_momo(),
-    'thanhtoan_atm' => (new homeController())->thanhtoan_atm(),
+    // 'thanhtoan_momo' => (new homeController())->thanhtoan_momo(),
+    // 'thanhtoan_atm' => (new homeController())->thanhtoan_atm(),
     'deletebill' => (new homeController())->deleteBill(),
     'chitietdonhang' => (new homeController())->chitietdonhang(),
     'huydonhang' => (new homeController())->huydonhang(),

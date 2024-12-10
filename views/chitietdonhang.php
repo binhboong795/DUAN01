@@ -20,7 +20,7 @@ foreach ($getOrder as $item) {
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/x-icon">
     <?php include 'views/components/style.php' ?>
 </head>
 <style>
@@ -147,19 +147,30 @@ foreach ($getOrder as $item) {
                                 </td>
                                 <td><a href="index.php?act=chitietorder&idbill=<?= $idbill ?>">Xem chi tiết</a></td>
                                 <td>
-
                                     <?php if (in_array($billStatusText, ['Chờ xác nhận', 'Đã xác nhận'])) { ?>
-                                        <a href="index.php?act=huydonhang">
+                                        <a href="index.php?act=huydonhang&idbill=<?= $idbill; ?>">
+
                                             <button class="btn btn-primary btn-sm">
                                                 Hủy
                                             </button>
                                         </a>
 
                                     <?php } ?>
-
-
                                 </td>
+                                <!-- <td>
 
+                            <?php if (in_array($billStatusText, ['Chờ xác nhận', 'Đã xác nhận'])) { ?>
+                            <a href="index.php?act=huydonhang&idbill=<?= $idbill ?>">
+                                <button class="btn btn-primary btn-sm">
+                                    Hủy
+                                </button>
+                            </a>
+
+                            <?php } ?>
+
+
+                        </td> -->
+                                <!-- <?php var_dump($billStatusText) ?> -->
 
                             </tr>
                         <?php endforeach; ?>

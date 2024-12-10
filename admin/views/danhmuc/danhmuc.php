@@ -22,6 +22,11 @@
                 <i class="fa fa-plus"></i> Thêm danh mục mới
             </a>
         </div>
+        <?php if (isset($errorMessage)) : ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($errorMessage); ?>
+                </div>
+            <?php endif; ?>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle text-center">

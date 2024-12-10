@@ -7,56 +7,56 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+    <link rel="icon" href="./assets/img/logo.jpg" type="image/x-icon">
     <?php require_once 'views/components/style.php' ?>
 
 </head>
 <style>
-    .stars {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
 
-    }
+}
 
-    .stars input {
-        display: none;
-    }
+.stars input {
+    display: none;
+}
 
-    .stars label {
-        font-size: 40px;
-        color: grey;
-        cursor: pointer;
-    }
+.stars label {
+    font-size: 40px;
+    color: grey;
+    cursor: pointer;
+}
 
-    .stars input:checked~label,
-    .stars label:hover,
-    .stars label:hover~label {
-        color: gold;
-    }
+.stars input:checked~label,
+.stars label:hover,
+.stars label:hover~label {
+    color: gold;
+}
 
-    .bold {
-        font-size: 24px;
-        color: gold;
-    }
+.bold {
+    font-size: 24px;
+    color: gold;
+}
 
-    .grey {
-        color: grey;
-    }
+.grey {
+    color: grey;
+}
 
-    .full {
-        font-size: 24px;
-        color: gold;
-    }
+.full {
+    font-size: 24px;
+    color: gold;
+}
 
-    .half {
-        font-size: 24px;
-        color: grey;
-    }
+.half {
+    font-size: 24px;
+    color: grey;
+}
 
-    .stars input[checked="checked"]:nth-of-type(5)~label {
-        color: gold;
-    }
+.stars input[checked="checked"]:nth-of-type(5)~label {
+    color: gold;
+}
 </style>
 
 <body>
@@ -131,7 +131,7 @@
                                         echo "<span class='star full'>★</span>";
                                     } else {
                                         // Sao xám
-                                        echo "<span class='star half'>☆</span>";
+                                        echo "<span class='star half'>★</span>";
                                     }
                                 }
                                 ?>
@@ -197,17 +197,20 @@
                                                 // Thêm class "hidden-comment" nếu bình luận vượt quá 3.
                                                 $hiddenClass = ($count > 3) ? 'hidden-comment d-none' : '';
                                         ?>
-                                                <div class="d-flex comment-item <?php echo $hiddenClass; ?>">
-                                                    <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                                        style="width: 100px; height: 100px;" alt="">
-                                                    <div>
-                                                        <p class="mb-2" style="font-size: 14px;">
-                                                            <?php echo $comment['ngaybinhluan']; ?>
-                                                        </p>
-                                                        <div class="d-flex justify-content-between">
-                                                            <h5><?php echo $comment['user']; ?></h5>
-                                                            <div class="d-flex mb-3">
-                                                                <?php
+                                        <div class="d-flex comment-item <?php echo $hiddenClass; ?>">
+                                            <img src="assets/img/avatar.jpg" class="img-fluid rounded-circle p-3"
+                                                style="width: 100px; height: 100px;" alt="">
+                                            <div>
+                                                <p class="mb-2" style="font-size: 14px;">
+                                                    <?php
+                                                            echo date('d/m/Y', strtotime($comment['ngaybinhluan']));
+                                                            ?>
+
+                                                </p>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5><?php echo $comment['user']; ?></h5>
+                                                    <div class="d-flex mb-3">
+                                                        <?php
                                                                 for ($i = 1; $i <= 5; $i++) {
                                                                     if ($i <= $comment['rating']) {
                                                                         echo "<span class='star bold'>★</span>";
@@ -216,27 +219,27 @@
                                                                     }
                                                                 }
                                                                 ?>
-                                                            </div>
-                                                        </div>
-                                                        <p><?php echo $comment['noidung']; ?></p>
                                                     </div>
                                                 </div>
-                                            <?php }
+                                                <p><?php echo $comment['noidung']; ?></p>
+                                            </div>
+                                        </div>
+                                        <?php }
                                         } else { ?>
-                                            <p>Chưa có bình luận</p>
+                                        <p>Chưa có bình luận</p>
                                         <?php  }
                                         ?>
                                     </div>
                                     <!-- Nút "See more" và "Thu gọn" -->
                                     <?php if (count($comments) > 3) { ?>
-                                        <div class="mt-3">
-                                            <button id="seeMoreBtn"
-                                                class="btn btn-link text-decoration-underline text-primary">See
-                                                more</button>
-                                            <button id="collapseBtn"
-                                                class="btn btn-link text-decoration-underline text-secondary d-none">Thu
-                                                gọn</button>
-                                        </div>
+                                    <div class="mt-3">
+                                        <button id="seeMoreBtn"
+                                            class="btn btn-link text-decoration-underline text-primary">Đọc thêm
+                                        </button>
+                                        <button id="collapseBtn"
+                                            class="btn btn-link text-decoration-underline text-secondary d-none">Thu
+                                            gọn</button>
+                                    </div>
                                     <?php } ?>
                                 </div>
 
@@ -264,47 +267,47 @@
 
                             <div class="row g-4">
                                 <?php if (isset($_SESSION['user'])) {   ?>
-                                    <div class="col-lg-6">
-                                        <div class="border-bottom rounded">
-                                            <span type="text" class="form-control border-0 me-4"
-                                                placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
-                                        </div>
+                                <div class="col-lg-6">
+                                    <div class="border-bottom rounded">
+                                        <span type="text" class="form-control border-0 me-4"
+                                            placeholder="Yur Name *"><?php echo $_SESSION['user']['username'] ?></span>
                                     </div>
-                                    <input type="hidden" name="idpro" value="<?php $_GET['id'] ?>">
-                                    <div class="col-lg-6">
-                                        <div class="border-bottom rounded">
-                                            <span type="email" class="form-control border-0"
-                                                placeholder="Your Email *"><?php echo $_SESSION['user']['email'] ?></span>
-                                        </div>
+                                </div>
+                                <input type="hidden" name="idpro" value="<?php $_GET['id'] ?>">
+                                <div class="col-lg-6">
+                                    <div class="border-bottom rounded">
+                                        <span type="email" class="form-control border-0"
+                                            placeholder="Your Email *"><?php echo $_SESSION['user']['email'] ?></span>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="border-bottom rounded my-4">
-                                            <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
-                                                placeholder="Your Review *" spellcheck="false"></textarea>
-                                        </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="border-bottom rounded my-4">
+                                        <textarea name="comment" id="" class="form-control border-0" cols="30" rows="8"
+                                            placeholder="Your Review *" spellcheck="false"></textarea>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="d-flex justify-content-between py-3 mb-5">
-                                            <div class="d-flex align-items-center">
-                                                <p class="mb-0 me-3">Please rate:</p>
-                                                <div class="stars">
-                                                    <input type="radio" id="star5" name="rating" value="5" checked><label
-                                                        for="star5">★</label>
-                                                    <input type="radio" id="star4" name="rating" value="4"><label
-                                                        for="star4">★</label>
-                                                    <input type="radio" id="star3" name="rating" value="3"><label
-                                                        for="star3">★</label>
-                                                    <input type="radio" id="star2" name="rating" value="2"><label
-                                                        for="star2">★</label>
-                                                    <input type="radio" id="star1" name="rating" value="1"><label
-                                                        for="star1">★</label>
-                                                </div><br>
-                                            </div>
-                                            <button type="submit"
-                                                class="btn border border-secondary text-primary rounded-pill px-4 py-3">
-                                                Post Comment</button>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between py-3 mb-5">
+                                        <div class="d-flex align-items-center">
+                                            <p class="mb-0 me-3">Please rate:</p>
+                                            <div class="stars">
+                                                <input type="radio" id="star5" name="rating" value="5" checked><label
+                                                    for="star5">★</label>
+                                                <input type="radio" id="star4" name="rating" value="4"><label
+                                                    for="star4">★</label>
+                                                <input type="radio" id="star3" name="rating" value="3"><label
+                                                    for="star3">★</label>
+                                                <input type="radio" id="star2" name="rating" value="2"><label
+                                                    for="star2">★</label>
+                                                <input type="radio" id="star1" name="rating" value="1"><label
+                                                    for="star1">★</label>
+                                            </div><br>
                                         </div>
+                                        <button type="submit"
+                                            class="btn border border-secondary text-primary rounded-pill px-4 py-3">
+                                            Post Comment</button>
                                     </div>
+                                </div>
                                 <?php } ?>
                             </div>
                         </form>
@@ -649,27 +652,27 @@
 
 </html>
 <script>
-    const seeMoreBtn = document.getElementById('seeMoreBtn');
-    const collapseBtn = document.getElementById('collapseBtn');
-    const hiddenComments = document.querySelectorAll('.hidden-comment');
+const seeMoreBtn = document.getElementById('seeMoreBtn');
+const collapseBtn = document.getElementById('collapseBtn');
+const hiddenComments = document.querySelectorAll('.hidden-comment');
 
-    // Khi nhấn "See more"
-    seeMoreBtn.addEventListener('click', function() {
-        hiddenComments.forEach(comment => {
-            comment.classList.remove('d-none');
-        });
-        seeMoreBtn.classList.add('d-none'); // Ẩn nút "See more"
-        collapseBtn.classList.remove('d-none'); // Hiển thị nút "Thu gọn"
+// Khi nhấn "See more"
+seeMoreBtn.addEventListener('click', function() {
+    hiddenComments.forEach(comment => {
+        comment.classList.remove('d-none');
     });
+    seeMoreBtn.classList.add('d-none'); // Ẩn nút "See more"
+    collapseBtn.classList.remove('d-none'); // Hiển thị nút "Thu gọn"
+});
 
-    // Khi nhấn "Thu gọn"
-    collapseBtn.addEventListener('click', function() {
-        hiddenComments.forEach(comment => {
-            comment.classList.add('d-none');
-        });
-        collapseBtn.classList.add('d-none'); // Ẩn nút "Thu gọn"
-        seeMoreBtn.classList.remove('d-none'); // Hiển thị lại nút "See more"
+// Khi nhấn "Thu gọn"
+collapseBtn.addEventListener('click', function() {
+    hiddenComments.forEach(comment => {
+        comment.classList.add('d-none');
     });
+    collapseBtn.classList.add('d-none'); // Ẩn nút "Thu gọn"
+    seeMoreBtn.classList.remove('d-none'); // Hiển thị lại nút "See more"
+});
 </script>
 
 </script>
